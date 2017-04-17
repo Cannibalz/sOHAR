@@ -13,6 +13,7 @@ class ViewController: NSViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         print("helloWorld")
+        var rs : realSense
         // Do any additional setup after loading the view.
     }
 
