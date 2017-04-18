@@ -1,25 +1,14 @@
 //
-//  realSense.m
+//  cRealsense.cpp
 //  swiftOHAR
 //
-//  Created by Tom Cruise on 2017/4/17.
+//  Created by Tom Cruise on 2017/4/18.
 //  Copyright © 2017年 Tom Cruise. All rights reserved.
 //
 
-#import <vector>
-#import <opencv2/opencv.hpp>
-#import <opencv2/imgproc.hpp>
-#import <librealsense/rs.hpp>
-#include <stdio.h>
-#include <cstdio>
-
-#import <Foundation/Foundation.h>
-#import "Bridging.h"
-
-@implementation realSense
-rs::context ctx;
-rs::device *dev;
-- (id)init
+#include "cRealsense.hpp"
+#include <iostream>
+cRealsense::cRealsense() try
 {
     printf("There are %d connected RealSense devices.\n", ctx.get_device_count());
     if(ctx.get_device_count() == 0)
@@ -41,8 +30,30 @@ rs::device *dev;
     try { dev->enable_stream(rs::stream::infrared2, 640, 480, rs::format::y8, 30); }
     catch(...) { printf("Device does not provide infrared2 stream.\n"); }
     dev->start(); //start streaming
-    return nil;
 }
-
-
-@end
+catch(const rs::error & e) //Realsense例外：裝置被佔用 無法讀取 ..etc
+{
+    // Method calls against librealsense objects may throw exceptions of type rs::error
+    printf("rs::error was thrown when calling %s(%s):\n", e.get_failed_function().c_str(), e.get_failed_args().c_str());
+    printf("    %s\n", e.what());
+    //return EXIT_FAILURE;
+}
+cv::Mat cRealsense:: colorImage()
+{
+    cv::Mat color(cv::Size(640, 480), CV_8UC3, (void*)dev->get_frame_data(rs::stream::color), cv::Mat::AUTO_STEP);
+    cv::Mat returnColor;
+    color.copyTo(returnColor);
+    return returnColor;
+}
+void cRealsense::waitForNextFrame()
+{
+    dev->wait_for_frames(); //取得下一幀
+}
+void cRealsense::stop()
+{
+    dev->stop();
+}
+void cRealsense::helloWorld()
+{
+    std::cout<<"HELLO WORLD";
+}

@@ -7,13 +7,13 @@
 //
 
 import Cocoa
-
+import Metal
+import MetalKit
 class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         print("helloWorld")
-        var rs : realSense
         // Do any additional setup after loading the view.
     }
 
@@ -21,6 +21,10 @@ class ViewController: NSViewController {
         didSet {
         // Update the view, if already loaded.
         }
+    }
+    @IBAction func btnPress(_ sender: Any) {
+        var rs = objCRealsense.init()
+        rs.initRealsense()
     }
 
 
