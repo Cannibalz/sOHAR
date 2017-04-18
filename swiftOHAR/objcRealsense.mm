@@ -9,15 +9,18 @@
 #import <Foundation/Foundation.h>
 #import "objRealsense.h"
 #import "cRealsense.hpp"
-@implementation objCRealsense
-
+@implementation objCRealsense : NSObject 
+struct crs
+{
+    cRealsense rs;
+};
 - (void)printHelloWorld
 {
     
 }
-+ (void)initRealsense
+- (void)initRealsense
 {
-    cRealsense rs;
+    
 }
 //+ (NSImage *)nsColorImage
 //{

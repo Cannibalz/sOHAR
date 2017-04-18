@@ -8,12 +8,16 @@
 
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
+#ifdef __cplus
+#import "cRealsense.hpp"
 
 @interface objCRealsense : NSObject
-+(void)initRealsense;
-+(NSImage *)nsColorImage;
+{
+    cRealsense rs;
+}
+-(void)initRealsense;
+-(NSImage *)nsColorImage;
 -(void)printHelloWorld;
-
 @end
-
+#endif
 
