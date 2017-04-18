@@ -15,8 +15,12 @@
 {
     
 }
-- (void)initRealsense
++ (void)initRealsense
 {
     cRealsense rs;
 }
+//+ (NSImage *)nsColorImage
+//{
+//    
+//}
 @end

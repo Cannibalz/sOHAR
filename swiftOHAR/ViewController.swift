@@ -13,6 +13,7 @@ class ViewController: NSViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        var rs = objCRealsense.init()
         print("helloWorld")
         // Do any additional setup after loading the view.
     }
@@ -23,8 +24,7 @@ class ViewController: NSViewController {
         }
     }
     @IBAction func btnPress(_ sender: Any) {
-        var rs = objCRealsense.init()
-        rs.initRealsense()
+        
     }
 
 

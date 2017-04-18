@@ -10,7 +10,8 @@
 #import <AppKit/AppKit.h>
 
 @interface objCRealsense : NSObject
--(void)initRealsense;
++(void)initRealsense;
++(NSImage *)nsColorImage;
 -(void)printHelloWorld;
 
 @end
