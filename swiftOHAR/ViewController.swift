@@ -10,21 +10,34 @@ import Cocoa
 import Metal
 import MetalKit
 class ViewController: NSViewController {
-
+    @IBOutlet weak var colorView: NSImageView!
+    @IBOutlet weak var arView: MTKView!
+    var rs : objCRealsense = objCRealsense()
+    var nsImg : NSImage? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
-        var rs = objCRealsense.init()
-        print("helloWorld")
-        // Do any additional setup after loading the view.
+        let queue = DispatchQueue(label: "rs")
+        queue.sync {
+            rs.initRealsense()
+        }
     }
-
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
     }
-    @IBAction func btnPress(_ sender: Any) {
-        
+    override func viewDidDisappear() {
+        super.viewDidDisappear()
+        rs.stop()
+        print("viewDidDisappear")
+    }
+    @IBAction func getImg(_ sender: Any) {
+            renderImg()
+    }
+    func renderImg()
+    {
+        rs.waitForNextFrame()
+        nsImg = rs.nsColorImage()
     }
 
 

@@ -17,6 +17,7 @@ public:
     cv::Mat depthImage();
     cv::Mat D2CImage();
     cv::Mat C2DImage();
+    void init();
     void waitForNextFrame();
     void stop();
     void helloWorld();
