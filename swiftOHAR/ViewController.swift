@@ -48,7 +48,15 @@ class ViewController: NSViewController {
         nsImg = rs.nsColorImage()
         var imageRect:CGRect = CGRect(x: 0, y: 0, width: (nsImg?.size.width)!, height: (nsImg?.size.height)!)
         var imageRef = nsImg?.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-        imageTexture = MTKTextureLoader(dev
+        do{
+            imageTexture = try MTKTextureLoader(device: metalDevice!).newTexture(with: imageRef!)
+            
+        }
+        catch
+        {
+            
+        }
+        
 
     }
 
