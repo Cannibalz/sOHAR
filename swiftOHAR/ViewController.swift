@@ -12,14 +12,22 @@ import MetalKit
 class ViewController: NSViewController {
     @IBOutlet weak var colorView: NSImageView!
     @IBOutlet weak var arView: MTKView!
+    var commandQueue: MTLCommandQueue?
+    var imageTexture: MTLTexture?
     var rs : objCRealsense = objCRealsense()
     var nsImg : NSImage? = nil
+    var metalDevice = MTLCreateSystemDefaultDevice()
+    //var metalCommandQueue
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let queue = DispatchQueue(label: "rs")
         queue.sync {
             rs.initRealsense()
         }
+        
+        
+        
     }
     override var representedObject: Any? {
         didSet {
@@ -38,6 +46,10 @@ class ViewController: NSViewController {
     {
         rs.waitForNextFrame()
         nsImg = rs.nsColorImage()
+        var imageRect:CGRect = CGRect(x: 0, y: 0, width: (nsImg?.size.width)!, height: (nsImg?.size.height)!)
+        var imageRef = nsImg?.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+        imageTexture = MTKTextureLoader(dev
+
     }
 
 
