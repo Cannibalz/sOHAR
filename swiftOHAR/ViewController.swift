@@ -38,6 +38,7 @@ class ViewController: NSViewController {
     {
         rs.waitForNextFrame()
         nsImg = rs.nsColorImage()
+        colorView.image = nsImg;
     }
 
 

@@ -697,12 +697,16 @@
                                     <action selector="getImg:" target="XfG-lQ-9wD" id="loa-rt-COL"/>
                                 </connections>
                             </button>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iOe-Z1-njr" customClass="MTKView">
-                                <rect key="frame" x="20" y="20" width="440" height="210"/>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ywX-a6-j04">
+                                <rect key="frame" x="20" y="8" width="440" height="216"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </customView>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="c5H-Gq-rxB"/>
+                            </imageView>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="colorView" destination="ywX-a6-j04" id="Msu-D2-dRo"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
