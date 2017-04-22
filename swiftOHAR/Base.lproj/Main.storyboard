@@ -703,6 +703,9 @@
                             </customView>
                         </subviews>
                     </view>
+                    <connections>
+                        <outlet property="MTLIV" destination="iOe-Z1-njr" id="Y6a-Lg-MBJ"/>
+                    </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
