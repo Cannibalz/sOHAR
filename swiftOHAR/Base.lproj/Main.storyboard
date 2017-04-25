@@ -704,7 +704,7 @@
                         </subviews>
                     </view>
                     <connections>
-                        <outlet property="MTLIV" destination="iOe-Z1-njr" id="Y6a-Lg-MBJ"/>
+                        <outlet property="arView" destination="iOe-Z1-njr" id="qXS-Uy-iPL"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

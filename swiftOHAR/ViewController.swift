@@ -49,7 +49,7 @@ class ViewController: NSViewController {
         var imageRef = nsImg?.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
         do{
             imageTexture = try MTKTextureLoader(device: metalDevice!).newTexture(with: imageRef!)
-            
+            let inputImage = CIImage(mtlTexture: imageTexture!, options: nil)
         }
         catch
         {
