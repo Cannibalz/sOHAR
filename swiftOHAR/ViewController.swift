@@ -32,15 +32,25 @@ class ViewController: NSViewController {
         print("viewDidDisappear")
     }
     @IBAction func getImg(_ sender: Any) {
-            renderImg()
+        while true==true
+        {
+            delay(1)
+            {
+                self.renderImg()
+            }
+        }
     }
     func renderImg()
     {
         rs.waitForNextFrame()
-        nsImg = rs.nsColorImage()
-        colorView.image = nsImg;
+        colorView.image = rs.nsColorImage()
+        print(nsImg)
     }
+    
 
-
+    func delay(_ delay:Double, closure:@escaping ()->()) {
+        DispatchQueue.main.asyncAfter(
+            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
+    }
 }
 

@@ -25,6 +25,7 @@
 		4CC29FDC1EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD71EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib */; };
 		4CC29FDD1EA494E600298246 /* libopencv_imgproc.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD81EA494E600298246 /* libopencv_imgproc.3.2.0.dylib */; };
 		4CC29FE51EA4A85800298246 /* librealsense.1.12.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */; };
+		AA86C3811EB464390009DD98 /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86C3801EB464390009DD98 /* MetalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		4CC29FD71EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_imgcodecs.3.2.0.dylib; sourceTree = "<group>"; };
 		4CC29FD81EA494E600298246 /* libopencv_imgproc.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_imgproc.3.2.0.dylib; sourceTree = "<group>"; };
 		4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librealsense.1.12.1.dylib; path = ../../../../usr/local/lib/librealsense.1.12.1.dylib; sourceTree = "<group>"; };
+		AA86C3801EB464390009DD98 /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +148,7 @@
 				4C09148E1EA5F5B90007A351 /* ObjC */,
 				4CC29FA31EA4867200298246 /* AppDelegate.swift */,
 				4CC29FA51EA4867200298246 /* ViewController.swift */,
+				AA86C3801EB464390009DD98 /* MetalViewController.swift */,
 				4CC29FA71EA4867200298246 /* Assets.xcassets */,
 				4CC29FA91EA4867200298246 /* Main.storyboard */,
 				4CC29FAC1EA4867200298246 /* Info.plist */,
@@ -336,6 +339,7 @@
 			files = (
 				4C0914941EA601D40007A351 /* cRealsense.cpp in Sources */,
 				4CC29FA61EA4867200298246 /* ViewController.swift in Sources */,
+				AA86C3811EB464390009DD98 /* MetalViewController.swift in Sources */,
 				4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */,
 				4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */,
 			);
