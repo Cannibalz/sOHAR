@@ -16,18 +16,18 @@
 #endif /* cImageProcess_hpp */
 using namespace cv;
 using namespace std;
-class ImageProcess
+class cImageProcess
 {
 public:
-    ImageProcess();
-    ImageProcess(Mat);
+    cImageProcess();
+    cImageProcess(Mat);
     void DetectAndDrawMarkers();
     void RefreshFrame(Mat);
     vector<int> getIDs();
     Mat getImage();
     Vec3d getRvec(int);
     Vec3d getTvec(int);
-    Mat SobelEdgeDetect(Mat);
+    Mat SobelEdgeDetect(Mat); 
 private:
     Mat ARImage;
     Mat inputImage;
