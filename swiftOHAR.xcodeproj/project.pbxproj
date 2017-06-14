@@ -1,635 +1,635 @@
 // !$*UTF8*$!
 {
-	archiveVersion = 1;
-	classes = {
-	};
-	objectVersion = 46;
-	objects = {
+    archiveVersion = 1;
+    classes = {
+    };
+    objectVersion = 46;
+    objects = {
 
 /* Begin PBXBuildFile section */
-		4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C09148F1EA5F6800007A351 /* objcRealsense.mm */; };
-		4C0914941EA601D40007A351 /* cRealsense.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C0914921EA601D40007A351 /* cRealsense.cpp */; };
-		4C0914981EA60E5B0007A351 /* libopencv_core.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */; };
-		4C0914991EA60E5B0007A351 /* libopencv_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0914971EA60E5B0007A351 /* libopencv_core.dylib */; };
-		4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09149A1EAF43540007A351 /* MTKViewController.swift */; };
-		4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FA31EA4867200298246 /* AppDelegate.swift */; };
-		4CC29FA61EA4867200298246 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FA51EA4867200298246 /* ViewController.swift */; };
-		4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC29FA71EA4867200298246 /* Assets.xcassets */; };
-		4CC29FAB1EA4867200298246 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CC29FA91EA4867200298246 /* Main.storyboard */; };
-		4CC29FB61EA4867200298246 /* swiftOHARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FB51EA4867200298246 /* swiftOHARTests.swift */; };
-		4CC29FC11EA4867200298246 /* swiftOHARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FC01EA4867200298246 /* swiftOHARUITests.swift */; };
-		4CC29FD21EA4949600298246 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD01EA4949600298246 /* Metal.framework */; };
-		4CC29FD31EA4949600298246 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD11EA4949600298246 /* MetalKit.framework */; };
-		4CC29FD91EA494E600298246 /* libopencv_aruco.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD41EA494E600298246 /* libopencv_aruco.3.2.0.dylib */; };
-		4CC29FDA1EA494E600298246 /* libopencv_core.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD51EA494E600298246 /* libopencv_core.3.2.0.dylib */; };
-		4CC29FDB1EA494E600298246 /* libopencv_highgui.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD61EA494E600298246 /* libopencv_highgui.3.2.0.dylib */; };
-		4CC29FDC1EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD71EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib */; };
-		4CC29FDD1EA494E600298246 /* libopencv_imgproc.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD81EA494E600298246 /* libopencv_imgproc.3.2.0.dylib */; };
-		4CC29FE51EA4A85800298246 /* librealsense.1.12.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */; };
-		AA86C3811EB464390009DD98 /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86C3801EB464390009DD98 /* MetalViewController.swift */; };
+        4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C09148F1EA5F6800007A351 /* objcRealsense.mm */; };
+        4C0914941EA601D40007A351 /* cRealsense.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C0914921EA601D40007A351 /* cRealsense.cpp */; };
+        4C0914981EA60E5B0007A351 /* libopencv_core.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */; };
+        4C0914991EA60E5B0007A351 /* libopencv_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0914971EA60E5B0007A351 /* libopencv_core.dylib */; };
+        4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09149A1EAF43540007A351 /* MTKViewController.swift */; };
+        4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FA31EA4867200298246 /* AppDelegate.swift */; };
+        4CC29FA61EA4867200298246 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FA51EA4867200298246 /* ViewController.swift */; };
+        4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC29FA71EA4867200298246 /* Assets.xcassets */; };
+        4CC29FAB1EA4867200298246 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4CC29FA91EA4867200298246 /* Main.storyboard */; };
+        4CC29FB61EA4867200298246 /* swiftOHARTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FB51EA4867200298246 /* swiftOHARTests.swift */; };
+        4CC29FC11EA4867200298246 /* swiftOHARUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FC01EA4867200298246 /* swiftOHARUITests.swift */; };
+        4CC29FD21EA4949600298246 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD01EA4949600298246 /* Metal.framework */; };
+        4CC29FD31EA4949600298246 /* MetalKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD11EA4949600298246 /* MetalKit.framework */; };
+        4CC29FD91EA494E600298246 /* libopencv_aruco.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD41EA494E600298246 /* libopencv_aruco.3.2.0.dylib */; };
+        4CC29FDA1EA494E600298246 /* libopencv_core.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD51EA494E600298246 /* libopencv_core.3.2.0.dylib */; };
+        4CC29FDB1EA494E600298246 /* libopencv_highgui.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD61EA494E600298246 /* libopencv_highgui.3.2.0.dylib */; };
+        4CC29FDC1EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD71EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib */; };
+        4CC29FDD1EA494E600298246 /* libopencv_imgproc.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FD81EA494E600298246 /* libopencv_imgproc.3.2.0.dylib */; };
+        4CC29FE51EA4A85800298246 /* librealsense.1.12.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */; };
+        AA86C3811EB464390009DD98 /* MetalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA86C3801EB464390009DD98 /* MetalViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		4CC29FB21EA4867200298246 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CC29F981EA4867100298246 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4CC29F9F1EA4867200298246;
-			remoteInfo = swiftOHAR;
-		};
-		4CC29FBD1EA4867200298246 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4CC29F981EA4867100298246 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4CC29F9F1EA4867200298246;
-			remoteInfo = swiftOHAR;
-		};
+        4CC29FB21EA4867200298246 /* PBXContainerItemProxy */ = {
+            isa = PBXContainerItemProxy;
+            containerPortal = 4CC29F981EA4867100298246 /* Project object */;
+            proxyType = 1;
+            remoteGlobalIDString = 4CC29F9F1EA4867200298246;
+            remoteInfo = swiftOHAR;
+        };
+        4CC29FBD1EA4867200298246 /* PBXContainerItemProxy */ = {
+            isa = PBXContainerItemProxy;
+            containerPortal = 4CC29F981EA4867100298246 /* Project object */;
+            proxyType = 1;
+            remoteGlobalIDString = 4CC29F9F1EA4867200298246;
+            remoteInfo = swiftOHAR;
+        };
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		4C09148F1EA5F6800007A351 /* objcRealsense.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = objcRealsense.mm; sourceTree = "<group>"; };
-		4C0914911EA5FADA0007A351 /* objRealsense.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = objRealsense.h; sourceTree = "<group>"; };
-		4C0914921EA601D40007A351 /* cRealsense.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cRealsense.cpp; sourceTree = "<group>"; };
-		4C0914931EA601D40007A351 /* cRealsense.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cRealsense.hpp; sourceTree = "<group>"; };
-		4C0914951EA6034A0007A351 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
-		4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.3.2.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.3.2.dylib; sourceTree = "<group>"; };
-		4C0914971EA60E5B0007A351 /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.dylib; sourceTree = "<group>"; };
-		4C09149A1EAF43540007A351 /* MTKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTKViewController.swift; sourceTree = "<group>"; };
-		4CC29FA01EA4867200298246 /* swiftOHAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swiftOHAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CC29FA31EA4867200298246 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		4CC29FA51EA4867200298246 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		4CC29FA71EA4867200298246 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		4CC29FAA1EA4867200298246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		4CC29FAC1EA4867200298246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4CC29FB11EA4867200298246 /* swiftOHARTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swiftOHARTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CC29FB51EA4867200298246 /* swiftOHARTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftOHARTests.swift; sourceTree = "<group>"; };
-		4CC29FB71EA4867200298246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4CC29FBC1EA4867200298246 /* swiftOHARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swiftOHARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		4CC29FC01EA4867200298246 /* swiftOHARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftOHARUITests.swift; sourceTree = "<group>"; };
-		4CC29FC21EA4867200298246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		4CC29FD01EA4949600298246 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
-		4CC29FD11EA4949600298246 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
-		4CC29FD41EA494E600298246 /* libopencv_aruco.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_aruco.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_aruco.3.2.0.dylib; sourceTree = "<group>"; };
-		4CC29FD51EA494E600298246 /* libopencv_core.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.3.2.0.dylib; sourceTree = "<group>"; };
-		4CC29FD61EA494E600298246 /* libopencv_highgui.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_highgui.3.2.0.dylib; sourceTree = "<group>"; };
-		4CC29FD71EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_imgcodecs.3.2.0.dylib; sourceTree = "<group>"; };
-		4CC29FD81EA494E600298246 /* libopencv_imgproc.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_imgproc.3.2.0.dylib; sourceTree = "<group>"; };
-		4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librealsense.1.12.1.dylib; path = ../../../../usr/local/lib/librealsense.1.12.1.dylib; sourceTree = "<group>"; };
-		AA86C3801EB464390009DD98 /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
+        4C09148F1EA5F6800007A351 /* objcRealsense.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = objcRealsense.mm; sourceTree = "<group>"; };
+        4C0914911EA5FADA0007A351 /* objRealsense.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = objRealsense.h; sourceTree = "<group>"; };
+        4C0914921EA601D40007A351 /* cRealsense.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = cRealsense.cpp; sourceTree = "<group>"; };
+        4C0914931EA601D40007A351 /* cRealsense.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = cRealsense.hpp; sourceTree = "<group>"; };
+        4C0914951EA6034A0007A351 /* Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bridging-Header.h"; sourceTree = "<group>"; };
+        4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.3.2.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.3.2.dylib; sourceTree = "<group>"; };
+        4C0914971EA60E5B0007A351 /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.dylib; sourceTree = "<group>"; };
+        4C09149A1EAF43540007A351 /* MTKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTKViewController.swift; sourceTree = "<group>"; };
+        4CC29FA01EA4867200298246 /* swiftOHAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swiftOHAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
+        4CC29FA31EA4867200298246 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+        4CC29FA51EA4867200298246 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+        4CC29FA71EA4867200298246 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+        4CC29FAA1EA4867200298246 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+        4CC29FAC1EA4867200298246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        4CC29FB11EA4867200298246 /* swiftOHARTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swiftOHARTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+        4CC29FB51EA4867200298246 /* swiftOHARTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftOHARTests.swift; sourceTree = "<group>"; };
+        4CC29FB71EA4867200298246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        4CC29FBC1EA4867200298246 /* swiftOHARUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = swiftOHARUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+        4CC29FC01EA4867200298246 /* swiftOHARUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = swiftOHARUITests.swift; sourceTree = "<group>"; };
+        4CC29FC21EA4867200298246 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+        4CC29FD01EA4949600298246 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
+        4CC29FD11EA4949600298246 /* MetalKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalKit.framework; path = System/Library/Frameworks/MetalKit.framework; sourceTree = SDKROOT; };
+        4CC29FD41EA494E600298246 /* libopencv_aruco.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_aruco.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_aruco.3.2.0.dylib; sourceTree = "<group>"; };
+        4CC29FD51EA494E600298246 /* libopencv_core.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.3.2.0.dylib; sourceTree = "<group>"; };
+        4CC29FD61EA494E600298246 /* libopencv_highgui.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_highgui.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_highgui.3.2.0.dylib; sourceTree = "<group>"; };
+        4CC29FD71EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgcodecs.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_imgcodecs.3.2.0.dylib; sourceTree = "<group>"; };
+        4CC29FD81EA494E600298246 /* libopencv_imgproc.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_imgproc.3.2.0.dylib; sourceTree = "<group>"; };
+        4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librealsense.1.12.1.dylib; path = ../../../../usr/local/lib/librealsense.1.12.1.dylib; sourceTree = "<group>"; };
+        AA86C3801EB464390009DD98 /* MetalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetalViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		4CC29F9D1EA4867200298246 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4CC29FD21EA4949600298246 /* Metal.framework in Frameworks */,
-				4CC29FD31EA4949600298246 /* MetalKit.framework in Frameworks */,
-				4CC29FE51EA4A85800298246 /* librealsense.1.12.1.dylib in Frameworks */,
-				4CC29FD91EA494E600298246 /* libopencv_aruco.3.2.0.dylib in Frameworks */,
-				4C0914981EA60E5B0007A351 /* libopencv_core.3.2.dylib in Frameworks */,
-				4C0914991EA60E5B0007A351 /* libopencv_core.dylib in Frameworks */,
-				4CC29FDA1EA494E600298246 /* libopencv_core.3.2.0.dylib in Frameworks */,
-				4CC29FDB1EA494E600298246 /* libopencv_highgui.3.2.0.dylib in Frameworks */,
-				4CC29FDC1EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib in Frameworks */,
-				4CC29FDD1EA494E600298246 /* libopencv_imgproc.3.2.0.dylib in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CC29FAE1EA4867200298246 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CC29FB91EA4867200298246 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        4CC29F9D1EA4867200298246 /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                4CC29FD21EA4949600298246 /* Metal.framework in Frameworks */,
+                4CC29FD31EA4949600298246 /* MetalKit.framework in Frameworks */,
+                4CC29FE51EA4A85800298246 /* librealsense.1.12.1.dylib in Frameworks */,
+                4CC29FD91EA494E600298246 /* libopencv_aruco.3.2.0.dylib in Frameworks */,
+                4C0914981EA60E5B0007A351 /* libopencv_core.3.2.dylib in Frameworks */,
+                4C0914991EA60E5B0007A351 /* libopencv_core.dylib in Frameworks */,
+                4CC29FDA1EA494E600298246 /* libopencv_core.3.2.0.dylib in Frameworks */,
+                4CC29FDB1EA494E600298246 /* libopencv_highgui.3.2.0.dylib in Frameworks */,
+                4CC29FDC1EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib in Frameworks */,
+                4CC29FDD1EA494E600298246 /* libopencv_imgproc.3.2.0.dylib in Frameworks */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        4CC29FAE1EA4867200298246 /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        4CC29FB91EA4867200298246 /* Frameworks */ = {
+            isa = PBXFrameworksBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4C09148E1EA5F5B90007A351 /* ObjC */ = {
-			isa = PBXGroup;
-			children = (
-				4C0914911EA5FADA0007A351 /* objRealsense.h */,
-				4C09148F1EA5F6800007A351 /* objcRealsense.mm */,
-			);
-			name = ObjC;
-			sourceTree = "<group>";
-		};
-		4CC29F971EA4867100298246 = {
-			isa = PBXGroup;
-			children = (
-				4CC29FA21EA4867200298246 /* swiftOHAR */,
-				4CC29FB41EA4867200298246 /* swiftOHARTests */,
-				4CC29FBF1EA4867200298246 /* swiftOHARUITests */,
-				4CC29FA11EA4867200298246 /* Products */,
-				4CC29FCF1EA4949500298246 /* Frameworks */,
-			);
-			sourceTree = "<group>";
-		};
-		4CC29FA11EA4867200298246 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				4CC29FA01EA4867200298246 /* swiftOHAR.app */,
-				4CC29FB11EA4867200298246 /* swiftOHARTests.xctest */,
-				4CC29FBC1EA4867200298246 /* swiftOHARUITests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		4CC29FA21EA4867200298246 /* swiftOHAR */ = {
-			isa = PBXGroup;
-			children = (
-				4CC29FCE1EA493E400298246 /* C  */,
-				4C09148E1EA5F5B90007A351 /* ObjC */,
-				4CC29FA31EA4867200298246 /* AppDelegate.swift */,
-				4CC29FA51EA4867200298246 /* ViewController.swift */,
-				4C09149A1EAF43540007A351 /* MTKViewController.swift */,
-				4CC29FA71EA4867200298246 /* Assets.xcassets */,
-				4CC29FA91EA4867200298246 /* Main.storyboard */,
-				4CC29FAC1EA4867200298246 /* Info.plist */,
-				4C0914951EA6034A0007A351 /* Bridging-Header.h */,
-			);
-			path = swiftOHAR;
-			sourceTree = "<group>";
-		};
-		4CC29FB41EA4867200298246 /* swiftOHARTests */ = {
-			isa = PBXGroup;
-			children = (
-				4CC29FB51EA4867200298246 /* swiftOHARTests.swift */,
-				4CC29FB71EA4867200298246 /* Info.plist */,
-			);
-			path = swiftOHARTests;
-			sourceTree = "<group>";
-		};
-		4CC29FBF1EA4867200298246 /* swiftOHARUITests */ = {
-			isa = PBXGroup;
-			children = (
-				4CC29FC01EA4867200298246 /* swiftOHARUITests.swift */,
-				4CC29FC21EA4867200298246 /* Info.plist */,
-			);
-			path = swiftOHARUITests;
-			sourceTree = "<group>";
-		};
-		4CC29FCE1EA493E400298246 /* C  */ = {
-			isa = PBXGroup;
-			children = (
-				4C0914921EA601D40007A351 /* cRealsense.cpp */,
-				4C0914931EA601D40007A351 /* cRealsense.hpp */,
-			);
-			name = "C ";
-			sourceTree = "<group>";
-		};
-		4CC29FCF1EA4949500298246 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */,
-				4C0914971EA60E5B0007A351 /* libopencv_core.dylib */,
-				4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */,
-				4CC29FD41EA494E600298246 /* libopencv_aruco.3.2.0.dylib */,
-				4CC29FD51EA494E600298246 /* libopencv_core.3.2.0.dylib */,
-				4CC29FD61EA494E600298246 /* libopencv_highgui.3.2.0.dylib */,
-				4CC29FD71EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib */,
-				4CC29FD81EA494E600298246 /* libopencv_imgproc.3.2.0.dylib */,
-				4CC29FD01EA4949600298246 /* Metal.framework */,
-				4CC29FD11EA4949600298246 /* MetalKit.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
+        4C09148E1EA5F5B90007A351 /* ObjC */ = {
+            isa = PBXGroup;
+            children = (
+                4C0914911EA5FADA0007A351 /* objRealsense.h */,
+                4C09148F1EA5F6800007A351 /* objcRealsense.mm */,
+            );
+            name = ObjC;
+            sourceTree = "<group>";
+        };
+        4CC29F971EA4867100298246 = {
+            isa = PBXGroup;
+            children = (
+                4CC29FA21EA4867200298246 /* swiftOHAR */,
+                4CC29FB41EA4867200298246 /* swiftOHARTests */,
+                4CC29FBF1EA4867200298246 /* swiftOHARUITests */,
+                4CC29FA11EA4867200298246 /* Products */,
+                4CC29FCF1EA4949500298246 /* Frameworks */,
+            );
+            sourceTree = "<group>";
+        };
+        4CC29FA11EA4867200298246 /* Products */ = {
+            isa = PBXGroup;
+            children = (
+                4CC29FA01EA4867200298246 /* swiftOHAR.app */,
+                4CC29FB11EA4867200298246 /* swiftOHARTests.xctest */,
+                4CC29FBC1EA4867200298246 /* swiftOHARUITests.xctest */,
+            );
+            name = Products;
+            sourceTree = "<group>";
+        };
+        4CC29FA21EA4867200298246 /* swiftOHAR */ = {
+            isa = PBXGroup;
+            children = (
+                4CC29FCE1EA493E400298246 /* C  */,
+                4C09148E1EA5F5B90007A351 /* ObjC */,
+                4CC29FA31EA4867200298246 /* AppDelegate.swift */,
+                4CC29FA51EA4867200298246 /* ViewController.swift */,
+                4C09149A1EAF43540007A351 /* MTKViewController.swift */,
+                4CC29FA71EA4867200298246 /* Assets.xcassets */,
+                4CC29FA91EA4867200298246 /* Main.storyboard */,
+                4CC29FAC1EA4867200298246 /* Info.plist */,
+                4C0914951EA6034A0007A351 /* Bridging-Header.h */,
+            );
+            path = swiftOHAR;
+            sourceTree = "<group>";
+        };
+        4CC29FB41EA4867200298246 /* swiftOHARTests */ = {
+            isa = PBXGroup;
+            children = (
+                4CC29FB51EA4867200298246 /* swiftOHARTests.swift */,
+                4CC29FB71EA4867200298246 /* Info.plist */,
+            );
+            path = swiftOHARTests;
+            sourceTree = "<group>";
+        };
+        4CC29FBF1EA4867200298246 /* swiftOHARUITests */ = {
+            isa = PBXGroup;
+            children = (
+                4CC29FC01EA4867200298246 /* swiftOHARUITests.swift */,
+                4CC29FC21EA4867200298246 /* Info.plist */,
+            );
+            path = swiftOHARUITests;
+            sourceTree = "<group>";
+        };
+        4CC29FCE1EA493E400298246 /* C  */ = {
+            isa = PBXGroup;
+            children = (
+                4C0914921EA601D40007A351 /* cRealsense.cpp */,
+                4C0914931EA601D40007A351 /* cRealsense.hpp */,
+            );
+            name = "C ";
+            sourceTree = "<group>";
+        };
+        4CC29FCF1EA4949500298246 /* Frameworks */ = {
+            isa = PBXGroup;
+            children = (
+                4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */,
+                4C0914971EA60E5B0007A351 /* libopencv_core.dylib */,
+                4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */,
+                4CC29FD41EA494E600298246 /* libopencv_aruco.3.2.0.dylib */,
+                4CC29FD51EA494E600298246 /* libopencv_core.3.2.0.dylib */,
+                4CC29FD61EA494E600298246 /* libopencv_highgui.3.2.0.dylib */,
+                4CC29FD71EA494E600298246 /* libopencv_imgcodecs.3.2.0.dylib */,
+                4CC29FD81EA494E600298246 /* libopencv_imgproc.3.2.0.dylib */,
+                4CC29FD01EA4949600298246 /* Metal.framework */,
+                4CC29FD11EA4949600298246 /* MetalKit.framework */,
+            );
+            name = Frameworks;
+            sourceTree = "<group>";
+        };
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		4CC29F9F1EA4867200298246 /* swiftOHAR */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4CC29FC51EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHAR" */;
-			buildPhases = (
-				4CC29F9C1EA4867200298246 /* Sources */,
-				4CC29F9D1EA4867200298246 /* Frameworks */,
-				4CC29F9E1EA4867200298246 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = swiftOHAR;
-			productName = swiftOHAR;
-			productReference = 4CC29FA01EA4867200298246 /* swiftOHAR.app */;
-			productType = "com.apple.product-type.application";
-		};
-		4CC29FB01EA4867200298246 /* swiftOHARTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4CC29FC81EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHARTests" */;
-			buildPhases = (
-				4CC29FAD1EA4867200298246 /* Sources */,
-				4CC29FAE1EA4867200298246 /* Frameworks */,
-				4CC29FAF1EA4867200298246 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4CC29FB31EA4867200298246 /* PBXTargetDependency */,
-			);
-			name = swiftOHARTests;
-			productName = swiftOHARTests;
-			productReference = 4CC29FB11EA4867200298246 /* swiftOHARTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		4CC29FBB1EA4867200298246 /* swiftOHARUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4CC29FCB1EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHARUITests" */;
-			buildPhases = (
-				4CC29FB81EA4867200298246 /* Sources */,
-				4CC29FB91EA4867200298246 /* Frameworks */,
-				4CC29FBA1EA4867200298246 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4CC29FBE1EA4867200298246 /* PBXTargetDependency */,
-			);
-			name = swiftOHARUITests;
-			productName = swiftOHARUITests;
-			productReference = 4CC29FBC1EA4867200298246 /* swiftOHARUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
+        4CC29F9F1EA4867200298246 /* swiftOHAR */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = 4CC29FC51EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHAR" */;
+            buildPhases = (
+                4CC29F9C1EA4867200298246 /* Sources */,
+                4CC29F9D1EA4867200298246 /* Frameworks */,
+                4CC29F9E1EA4867200298246 /* Resources */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+            );
+            name = swiftOHAR;
+            productName = swiftOHAR;
+            productReference = 4CC29FA01EA4867200298246 /* swiftOHAR.app */;
+            productType = "com.apple.product-type.application";
+        };
+        4CC29FB01EA4867200298246 /* swiftOHARTests */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = 4CC29FC81EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHARTests" */;
+            buildPhases = (
+                4CC29FAD1EA4867200298246 /* Sources */,
+                4CC29FAE1EA4867200298246 /* Frameworks */,
+                4CC29FAF1EA4867200298246 /* Resources */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+                4CC29FB31EA4867200298246 /* PBXTargetDependency */,
+            );
+            name = swiftOHARTests;
+            productName = swiftOHARTests;
+            productReference = 4CC29FB11EA4867200298246 /* swiftOHARTests.xctest */;
+            productType = "com.apple.product-type.bundle.unit-test";
+        };
+        4CC29FBB1EA4867200298246 /* swiftOHARUITests */ = {
+            isa = PBXNativeTarget;
+            buildConfigurationList = 4CC29FCB1EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHARUITests" */;
+            buildPhases = (
+                4CC29FB81EA4867200298246 /* Sources */,
+                4CC29FB91EA4867200298246 /* Frameworks */,
+                4CC29FBA1EA4867200298246 /* Resources */,
+            );
+            buildRules = (
+            );
+            dependencies = (
+                4CC29FBE1EA4867200298246 /* PBXTargetDependency */,
+            );
+            name = swiftOHARUITests;
+            productName = swiftOHARUITests;
+            productReference = 4CC29FBC1EA4867200298246 /* swiftOHARUITests.xctest */;
+            productType = "com.apple.product-type.bundle.ui-testing";
+        };
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		4CC29F981EA4867100298246 /* Project object */ = {
-			isa = PBXProject;
-			attributes = {
-				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0820;
-				ORGANIZATIONNAME = "Tom Cruise";
-				TargetAttributes = {
-					4CC29F9F1EA4867200298246 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 7B6Z47KQMU;
-						ProvisioningStyle = Automatic;
-					};
-					4CC29FB01EA4867200298246 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 7B6Z47KQMU;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 4CC29F9F1EA4867200298246;
-					};
-					4CC29FBB1EA4867200298246 = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 7B6Z47KQMU;
-						ProvisioningStyle = Automatic;
-						TestTargetID = 4CC29F9F1EA4867200298246;
-					};
-				};
-			};
-			buildConfigurationList = 4CC29F9B1EA4867100298246 /* Build configuration list for PBXProject "swiftOHAR" */;
-			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
-			hasScannedForEncodings = 0;
-			knownRegions = (
-				en,
-				Base,
-			);
-			mainGroup = 4CC29F971EA4867100298246;
-			productRefGroup = 4CC29FA11EA4867200298246 /* Products */;
-			projectDirPath = "";
-			projectRoot = "";
-			targets = (
-				4CC29F9F1EA4867200298246 /* swiftOHAR */,
-				4CC29FB01EA4867200298246 /* swiftOHARTests */,
-				4CC29FBB1EA4867200298246 /* swiftOHARUITests */,
-			);
-		};
+        4CC29F981EA4867100298246 /* Project object */ = {
+            isa = PBXProject;
+            attributes = {
+                LastSwiftUpdateCheck = 0820;
+                LastUpgradeCheck = 0820;
+                ORGANIZATIONNAME = "Tom Cruise";
+                TargetAttributes = {
+                    4CC29F9F1EA4867200298246 = {
+                        CreatedOnToolsVersion = 8.2.1;
+                        DevelopmentTeam = 7B6Z47KQMU;
+                        ProvisioningStyle = Automatic;
+                    };
+                    4CC29FB01EA4867200298246 = {
+                        CreatedOnToolsVersion = 8.2.1;
+                        DevelopmentTeam = 7B6Z47KQMU;
+                        ProvisioningStyle = Automatic;
+                        TestTargetID = 4CC29F9F1EA4867200298246;
+                    };
+                    4CC29FBB1EA4867200298246 = {
+                        CreatedOnToolsVersion = 8.2.1;
+                        DevelopmentTeam = 7B6Z47KQMU;
+                        ProvisioningStyle = Automatic;
+                        TestTargetID = 4CC29F9F1EA4867200298246;
+                    };
+                };
+            };
+            buildConfigurationList = 4CC29F9B1EA4867100298246 /* Build configuration list for PBXProject "swiftOHAR" */;
+            compatibilityVersion = "Xcode 3.2";
+            developmentRegion = English;
+            hasScannedForEncodings = 0;
+            knownRegions = (
+                en,
+                Base,
+            );
+            mainGroup = 4CC29F971EA4867100298246;
+            productRefGroup = 4CC29FA11EA4867200298246 /* Products */;
+            projectDirPath = "";
+            projectRoot = "";
+            targets = (
+                4CC29F9F1EA4867200298246 /* swiftOHAR */,
+                4CC29FB01EA4867200298246 /* swiftOHARTests */,
+                4CC29FBB1EA4867200298246 /* swiftOHARUITests */,
+            );
+        };
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		4CC29F9E1EA4867200298246 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */,
-				4CC29FAB1EA4867200298246 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CC29FAF1EA4867200298246 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CC29FBA1EA4867200298246 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        4CC29F9E1EA4867200298246 /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */,
+                4CC29FAB1EA4867200298246 /* Main.storyboard in Resources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        4CC29FAF1EA4867200298246 /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        4CC29FBA1EA4867200298246 /* Resources */ = {
+            isa = PBXResourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		4CC29F9C1EA4867200298246 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4C0914941EA601D40007A351 /* cRealsense.cpp in Sources */,
-				4CC29FA61EA4867200298246 /* ViewController.swift in Sources */,
-				4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */,
-				4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */,
-				4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CC29FAD1EA4867200298246 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4CC29FB61EA4867200298246 /* swiftOHARTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4CC29FB81EA4867200298246 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4CC29FC11EA4867200298246 /* swiftOHARUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
+        4CC29F9C1EA4867200298246 /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                4C0914941EA601D40007A351 /* cRealsense.cpp in Sources */,
+                4CC29FA61EA4867200298246 /* ViewController.swift in Sources */,
+                4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */,
+                4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */,
+                4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        4CC29FAD1EA4867200298246 /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                4CC29FB61EA4867200298246 /* swiftOHARTests.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
+        4CC29FB81EA4867200298246 /* Sources */ = {
+            isa = PBXSourcesBuildPhase;
+            buildActionMask = 2147483647;
+            files = (
+                4CC29FC11EA4867200298246 /* swiftOHARUITests.swift in Sources */,
+            );
+            runOnlyForDeploymentPostprocessing = 0;
+        };
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		4CC29FB31EA4867200298246 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4CC29F9F1EA4867200298246 /* swiftOHAR */;
-			targetProxy = 4CC29FB21EA4867200298246 /* PBXContainerItemProxy */;
-		};
-		4CC29FBE1EA4867200298246 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4CC29F9F1EA4867200298246 /* swiftOHAR */;
-			targetProxy = 4CC29FBD1EA4867200298246 /* PBXContainerItemProxy */;
-		};
+        4CC29FB31EA4867200298246 /* PBXTargetDependency */ = {
+            isa = PBXTargetDependency;
+            target = 4CC29F9F1EA4867200298246 /* swiftOHAR */;
+            targetProxy = 4CC29FB21EA4867200298246 /* PBXContainerItemProxy */;
+        };
+        4CC29FBE1EA4867200298246 /* PBXTargetDependency */ = {
+            isa = PBXTargetDependency;
+            target = 4CC29F9F1EA4867200298246 /* swiftOHAR */;
+            targetProxy = 4CC29FBD1EA4867200298246 /* PBXContainerItemProxy */;
+        };
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		4CC29FA91EA4867200298246 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				4CC29FAA1EA4867200298246 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
+        4CC29FA91EA4867200298246 /* Main.storyboard */ = {
+            isa = PBXVariantGroup;
+            children = (
+                4CC29FAA1EA4867200298246 /* Base */,
+            );
+            name = Main.storyboard;
+            sourceTree = "<group>";
+        };
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		4CC29FC31EA4867200298246 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = dwarf;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_TESTABILITY = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
-				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-			};
-			name = Debug;
-		};
-		4CC29FC41EA4867200298246 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
-				CLANG_CXX_LIBRARY = "libc++";
-				CLANG_ENABLE_MODULES = YES;
-				CLANG_ENABLE_OBJC_ARC = YES;
-				CLANG_WARN_BOOL_CONVERSION = YES;
-				CLANG_WARN_CONSTANT_CONVERSION = YES;
-				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CLANG_WARN_EMPTY_BODY = YES;
-				CLANG_WARN_ENUM_CONVERSION = YES;
-				CLANG_WARN_INFINITE_RECURSION = YES;
-				CLANG_WARN_INT_CONVERSION = YES;
-				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
-				CLANG_WARN_SUSPICIOUS_MOVE = YES;
-				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "-";
-				COPY_PHASE_STRIP = NO;
-				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				ENABLE_NS_ASSERTIONS = NO;
-				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_NO_COMMON_BLOCKS = YES;
-				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
-				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
-				GCC_WARN_UNDECLARED_SELECTOR = YES;
-				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				GCC_WARN_UNUSED_FUNCTION = YES;
-				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.12;
-				MTL_ENABLE_DEBUG_INFO = NO;
-				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-			};
-			name = Release;
-		};
-		4CC29FC61EA4867200298246 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 7B6Z47KQMU;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					/usr/local/Cellar/opencv3/3.2.0/include,
-				);
-				INFOPLIST_FILE = swiftOHAR/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib,
-					/usr/local/Cellar/opencv3/3.2.0/lib,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHAR;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "swiftOHAR/Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		4CC29FC71EA4867200298246 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CLANG_ENABLE_MODULES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 7B6Z47KQMU;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					/usr/local/Cellar/opencv3/3.2.0/include,
-				);
-				INFOPLIST_FILE = swiftOHAR/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
-				LIBRARY_SEARCH_PATHS = (
-					/usr/local/lib,
-					/usr/local/Cellar/opencv3/3.2.0/lib,
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHAR;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "swiftOHAR/Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		4CC29FC91EA4867200298246 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 7B6Z47KQMU;
-				INFOPLIST_FILE = swiftOHARTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHARTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/swiftOHAR.app/Contents/MacOS/swiftOHAR";
-			};
-			name = Debug;
-		};
-		4CC29FCA1EA4867200298246 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 7B6Z47KQMU;
-				INFOPLIST_FILE = swiftOHARTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHARTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/swiftOHAR.app/Contents/MacOS/swiftOHAR";
-			};
-			name = Release;
-		};
-		4CC29FCC1EA4867200298246 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 7B6Z47KQMU;
-				INFOPLIST_FILE = swiftOHARUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHARUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = swiftOHAR;
-			};
-			name = Debug;
-		};
-		4CC29FCD1EA4867200298246 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				COMBINE_HIDPI_IMAGES = YES;
-				DEVELOPMENT_TEAM = 7B6Z47KQMU;
-				INFOPLIST_FILE = swiftOHARUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHARUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = swiftOHAR;
-			};
-			name = Release;
-		};
+        4CC29FC31EA4867200298246 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+                CLANG_CXX_LIBRARY = "libc++";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNREACHABLE_CODE = YES;
+                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+                CODE_SIGN_IDENTITY = "-";
+                COPY_PHASE_STRIP = NO;
+                DEBUG_INFORMATION_FORMAT = dwarf;
+                ENABLE_STRICT_OBJC_MSGSEND = YES;
+                ENABLE_TESTABILITY = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu99;
+                GCC_DYNAMIC_NO_PIC = NO;
+                GCC_NO_COMMON_BLOCKS = YES;
+                GCC_OPTIMIZATION_LEVEL = 0;
+                GCC_PREPROCESSOR_DEFINITIONS = (
+                    "DEBUG=1",
+                    "$(inherited)",
+                );
+                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+                GCC_WARN_UNDECLARED_SELECTOR = YES;
+                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+                GCC_WARN_UNUSED_FUNCTION = YES;
+                GCC_WARN_UNUSED_VARIABLE = YES;
+                MACOSX_DEPLOYMENT_TARGET = 10.12;
+                MTL_ENABLE_DEBUG_INFO = YES;
+                ONLY_ACTIVE_ARCH = YES;
+                SDKROOT = macosx;
+                SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+                SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+            };
+            name = Debug;
+        };
+        4CC29FC41EA4867200298246 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_SEARCH_USER_PATHS = NO;
+                CLANG_ANALYZER_NONNULL = YES;
+                CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+                CLANG_CXX_LIBRARY = "libc++";
+                CLANG_ENABLE_MODULES = YES;
+                CLANG_ENABLE_OBJC_ARC = YES;
+                CLANG_WARN_BOOL_CONVERSION = YES;
+                CLANG_WARN_CONSTANT_CONVERSION = YES;
+                CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+                CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+                CLANG_WARN_EMPTY_BODY = YES;
+                CLANG_WARN_ENUM_CONVERSION = YES;
+                CLANG_WARN_INFINITE_RECURSION = YES;
+                CLANG_WARN_INT_CONVERSION = YES;
+                CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+                CLANG_WARN_SUSPICIOUS_MOVE = YES;
+                CLANG_WARN_UNREACHABLE_CODE = YES;
+                CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+                CODE_SIGN_IDENTITY = "-";
+                COPY_PHASE_STRIP = NO;
+                DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+                ENABLE_NS_ASSERTIONS = NO;
+                ENABLE_STRICT_OBJC_MSGSEND = YES;
+                GCC_C_LANGUAGE_STANDARD = gnu99;
+                GCC_NO_COMMON_BLOCKS = YES;
+                GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+                GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+                GCC_WARN_UNDECLARED_SELECTOR = YES;
+                GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+                GCC_WARN_UNUSED_FUNCTION = YES;
+                GCC_WARN_UNUSED_VARIABLE = YES;
+                MACOSX_DEPLOYMENT_TARGET = 10.12;
+                MTL_ENABLE_DEBUG_INFO = NO;
+                SDKROOT = macosx;
+                SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+            };
+            name = Release;
+        };
+        4CC29FC61EA4867200298246 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CLANG_ENABLE_MODULES = YES;
+                COMBINE_HIDPI_IMAGES = YES;
+                DEVELOPMENT_TEAM = 7B6Z47KQMU;
+                HEADER_SEARCH_PATHS = (
+                    /usr/local/include,
+                    /usr/local/Cellar/opencv3/3.2.0/include,
+                );
+                INFOPLIST_FILE = swiftOHAR/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+                LIBRARY_SEARCH_PATHS = (
+                    /usr/local/lib,
+                    /usr/local/Cellar/opencv3/3.2.0/lib,
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHAR;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_OBJC_BRIDGING_HEADER = "swiftOHAR/Bridging-Header.h";
+                SWIFT_VERSION = 3.0;
+            };
+            name = Debug;
+        };
+        4CC29FC71EA4867200298246 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+                CLANG_ENABLE_MODULES = YES;
+                COMBINE_HIDPI_IMAGES = YES;
+                DEVELOPMENT_TEAM = 7B6Z47KQMU;
+                HEADER_SEARCH_PATHS = (
+                    /usr/local/include,
+                    /usr/local/Cellar/opencv3/3.2.0/include,
+                );
+                INFOPLIST_FILE = swiftOHAR/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+                LIBRARY_SEARCH_PATHS = (
+                    /usr/local/lib,
+                    /usr/local/Cellar/opencv3/3.2.0/lib,
+                );
+                PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHAR;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_OBJC_BRIDGING_HEADER = "swiftOHAR/Bridging-Header.h";
+                SWIFT_VERSION = 3.0;
+            };
+            name = Release;
+        };
+        4CC29FC91EA4867200298246 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                BUNDLE_LOADER = "$(TEST_HOST)";
+                COMBINE_HIDPI_IMAGES = YES;
+                DEVELOPMENT_TEAM = 7B6Z47KQMU;
+                INFOPLIST_FILE = swiftOHARTests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHARTests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 3.0;
+                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/swiftOHAR.app/Contents/MacOS/swiftOHAR";
+            };
+            name = Debug;
+        };
+        4CC29FCA1EA4867200298246 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                BUNDLE_LOADER = "$(TEST_HOST)";
+                COMBINE_HIDPI_IMAGES = YES;
+                DEVELOPMENT_TEAM = 7B6Z47KQMU;
+                INFOPLIST_FILE = swiftOHARTests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHARTests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 3.0;
+                TEST_HOST = "$(BUILT_PRODUCTS_DIR)/swiftOHAR.app/Contents/MacOS/swiftOHAR";
+            };
+            name = Release;
+        };
+        4CC29FCC1EA4867200298246 /* Debug */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                COMBINE_HIDPI_IMAGES = YES;
+                DEVELOPMENT_TEAM = 7B6Z47KQMU;
+                INFOPLIST_FILE = swiftOHARUITests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHARUITests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 3.0;
+                TEST_TARGET_NAME = swiftOHAR;
+            };
+            name = Debug;
+        };
+        4CC29FCD1EA4867200298246 /* Release */ = {
+            isa = XCBuildConfiguration;
+            buildSettings = {
+                ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+                COMBINE_HIDPI_IMAGES = YES;
+                DEVELOPMENT_TEAM = 7B6Z47KQMU;
+                INFOPLIST_FILE = swiftOHARUITests/Info.plist;
+                LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
+                PRODUCT_BUNDLE_IDENTIFIER = KF.swiftOHARUITests;
+                PRODUCT_NAME = "$(TARGET_NAME)";
+                SWIFT_VERSION = 3.0;
+                TEST_TARGET_NAME = swiftOHAR;
+            };
+            name = Release;
+        };
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		4CC29F9B1EA4867100298246 /* Build configuration list for PBXProject "swiftOHAR" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4CC29FC31EA4867200298246 /* Debug */,
-				4CC29FC41EA4867200298246 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4CC29FC51EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHAR" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4CC29FC61EA4867200298246 /* Debug */,
-				4CC29FC71EA4867200298246 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4CC29FC81EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHARTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4CC29FC91EA4867200298246 /* Debug */,
-				4CC29FCA1EA4867200298246 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4CC29FCB1EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHARUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4CC29FCC1EA4867200298246 /* Debug */,
-				4CC29FCD1EA4867200298246 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
+        4CC29F9B1EA4867100298246 /* Build configuration list for PBXProject "swiftOHAR" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                4CC29FC31EA4867200298246 /* Debug */,
+                4CC29FC41EA4867200298246 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        4CC29FC51EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHAR" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                4CC29FC61EA4867200298246 /* Debug */,
+                4CC29FC71EA4867200298246 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        4CC29FC81EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHARTests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                4CC29FC91EA4867200298246 /* Debug */,
+                4CC29FCA1EA4867200298246 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
+        4CC29FCB1EA4867200298246 /* Build configuration list for PBXNativeTarget "swiftOHARUITests" */ = {
+            isa = XCConfigurationList;
+            buildConfigurations = (
+                4CC29FCC1EA4867200298246 /* Debug */,
+                4CC29FCD1EA4867200298246 /* Release */,
+            );
+            defaultConfigurationIsVisible = 0;
+            defaultConfigurationName = Release;
+        };
 /* End XCConfigurationList section */
-	};
-	rootObject = 4CC29F981EA4867100298246 /* Project object */;
+    };
+    rootObject = 4CC29F981EA4867100298246 /* Project object */;
 }
