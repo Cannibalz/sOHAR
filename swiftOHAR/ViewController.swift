@@ -12,53 +12,33 @@ import MetalKit
 class ViewController: NSViewController {
     @IBOutlet weak var colorView: NSImageView!
     @IBOutlet weak var arView: MTKView!
-    var commandQueue: MTLCommandQueue?
-    var imageTexture: MTLTexture?
+    var timer : Timer = Timer()
     var rs : objCRealsense = objCRealsense()
     var nsImg : NSImage? = nil
-    var metalDevice = MTLCreateSystemDefaultDevice()
-    //var metalCommandQueue
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         let queue = DispatchQueue(label: "rs")
         queue.sync {
             rs.initRealsense()
         }
-        
-        
+        timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
     }
     override var representedObject: Any? {
         didSet {
-        // Update the view, if already loaded.
+            // Update the view, if already loaded.
         }
     }
     override func viewDidDisappear() {
         super.viewDidDisappear()
+        timer.invalidate()
         rs.stop()
         print("viewDidDisappear")
-    }
-    @IBAction func getImg(_ sender: Any) {
-            renderImg()
     }
     func renderImg()
     {
         rs.waitForNextFrame()
-        nsImg = rs.nsColorImage()
-        var imageRect:CGRect = CGRect(x: 0, y: 0, width: (nsImg?.size.width)!, height: (nsImg?.size.height)!)
-        var imageRef = nsImg?.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-        do{
-            imageTexture = try MTKTextureLoader(device: metalDevice!).newTexture(with: imageRef!)
-            let inputImage = CIImage(mtlTexture: imageTexture!, options: nil)
-        }
-        catch
-        {
-            
-        }
-        
-
+        colorView.image = rs.nsColorImage()
     }
-
-
 }
+
 
