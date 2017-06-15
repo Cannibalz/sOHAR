@@ -15,10 +15,12 @@ class ViewController: NSViewController {
     var timer : Timer = Timer()
     var rs : objCRealsense = objCRealsense()
     var nsImg : NSImage? = nil
+    var renderer: Renderer!
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
         timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
+        renderer = Renderer(mtkView: arView)
     }
     override var representedObject: Any? {
         didSet {
@@ -30,6 +32,7 @@ class ViewController: NSViewController {
         timer.invalidate()
         rs.stop()
         print("viewDidDisappear")
+        exit(0)
     }
     func renderImg()
     {
