@@ -17,10 +17,7 @@ class ViewController: NSViewController {
     var nsImg : NSImage? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
-        let queue = DispatchQueue(label: "rs")
-        queue.sync {
-            rs.initRealsense()
-        }
+        rs.initRealsense()
         timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
     }
     override var representedObject: Any? {
@@ -38,12 +35,6 @@ class ViewController: NSViewController {
     {
         rs.waitForNextFrame()
         colorView.image = rs.nsColorImage()
-    }
-    
-
-    func delay(_ delay:Double, closure:@escaping ()->()) {
-        DispatchQueue.main.asyncAfter(
-            deadline: DispatchTime.now() + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
     }
 }
 
