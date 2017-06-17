@@ -157,6 +157,7 @@
 		4CC29FA21EA4867200298246 /* swiftOHAR */ = {
 			isa = PBXGroup;
 			children = (
+				AA606AAE1EF2CA940001DDEA /* Model */,
 				4CC29FCE1EA493E400298246 /* C  */,
 				4C09148E1EA5F5B90007A351 /* ObjC */,
 				AA606AA71EF2C39F0001DDEA /* AAPLMathUtilities.h */,
@@ -219,6 +220,13 @@
 				4CC29FD11EA4949600298246 /* MetalKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AA606AAE1EF2CA940001DDEA /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
