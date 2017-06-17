@@ -21,6 +21,10 @@ cv::Mat cRealsense:: colorImage()
     cv::cvtColor(returnColor, returnColor, CV_BGR2RGB);
     return returnColor;
 }
+//cv:: Mat cRealsense:: depthImage()
+//{
+//    //
+//}
 void cRealsense::init() try
 {
     printf("There are %d connected RealSense devices.\n", ctx.get_device_count());
