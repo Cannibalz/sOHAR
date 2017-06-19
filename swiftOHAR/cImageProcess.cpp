@@ -21,6 +21,7 @@ cImageProcess::cImageProcess()
 }
 cImageProcess::cImageProcess(cv::Mat Image)
 {
+    cRealsense rs;
     cImageProcess();
     inputImage = Image;
     ARImage = Image;

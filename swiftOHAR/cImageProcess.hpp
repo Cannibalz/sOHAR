@@ -13,6 +13,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
+#include "cRealsense.hpp"
 #endif /* cImageProcess_hpp */
 using namespace cv;
 using namespace std;

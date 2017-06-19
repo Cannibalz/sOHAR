@@ -38,7 +38,7 @@ class Renderer : NSObject, MTKViewDelegate
         // Use 4x MSAA multisampling
         view.sampleCount = 4
         // Clear to solid white
-        view.clearColor = MTLClearColorMake(1, 1, 1, 1) //背景顏色
+        view.clearColor = MTLClearColorMake(1, 1, 1, 0) //背景顏色
         // Use a BGRA 8-bit normalized texture for the drawable
         view.colorPixelFormat = .bgra8Unorm
         // Use a 32-bit depth buffer
