@@ -57,6 +57,7 @@
 		4C0914971EA60E5B0007A351 /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.dylib; sourceTree = "<group>"; };
 		4C09149A1EAF43540007A351 /* MTKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTKViewController.swift; sourceTree = "<group>"; };
 		4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_calib3d.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_calib3d.3.2.0.dylib; sourceTree = "<group>"; };
+		4C4BF8EA1EF12E55004EFB93 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cImageProcess.cpp; sourceTree = "<group>"; };
 		4CB2B2A21EF1286C00FF14E0 /* cImageProcess.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cImageProcess.hpp; sourceTree = "<group>"; };
 		4CC29FA01EA4867200298246 /* swiftOHAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swiftOHAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -195,6 +196,7 @@
 		4CC29FCF1EA4949500298246 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4C4BF8EA1EF12E55004EFB93 /* MetalPerformanceShaders.framework */,
 				4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */,
 				4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */,
 				4C0914971EA60E5B0007A351 /* libopencv_core.dylib */,
