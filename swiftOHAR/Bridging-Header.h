@@ -10,4 +10,5 @@
 #define Bridging_Header_h
 
 #import "objRealsense.h"
+#import "AAPLMathUtilities.h"
 #endif /* Bridging_Header_h */
