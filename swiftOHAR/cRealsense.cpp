@@ -9,6 +9,7 @@
 #include "cRealsense.hpp"
 #include <iostream>
 #include <opencv2/imgproc/imgproc.hpp>
+#include "cImageProcess.hpp"
 cRealsense::cRealsense()
 {
     
@@ -21,10 +22,31 @@ cv::Mat cRealsense:: colorImage()
     cv::cvtColor(returnColor, returnColor, CV_BGR2RGB);
     return returnColor;
 }
-//cv:: Mat cRealsense:: depthImage()
-//{
-//    //
-//}
+cv::Mat cRealsense:: depthImage()
+{
+    rs::intrinsics depth_intr = dev->get_stream_intrinsics(rs::stream::depth);
+    cv::Mat depth16( depth_intr.height,depth_intr.width,CV_16U,(void*)dev->get_frame_data(rs::stream::depth) );
+    cv::Mat depth8u = depth16;
+    depth8u.convertTo( depth8u, CV_8UC1, 255.0/10000 );
+    //uint16_t *depthImage = (uint16_t *) dev->get_frame_data(rs::stream::depth);
+    cv::Mat returnDepth;//(depth_intr.height,depth_intr.width,CV_16UC1,depthImage);
+    depth8u.copyTo(returnDepth);
+    return returnDepth;
+}
+cv::Mat cRealsense:: C2DImage()
+{
+    cv::Mat alignedC2D(cv::Size(640,480),CV_8UC3,(void*)dev->get_frame_data(rs::stream::color_aligned_to_depth), cv::Mat::AUTO_STEP);
+    uchar* pCad = (uchar*)dev->get_frame_data(rs::stream::color_aligned_to_depth);
+    cv::Mat returnC2D(480,640,CV_8UC3,pCad);
+    alignedC2D.copyTo(returnC2D);
+    cv::cvtColor(returnC2D, returnC2D, CV_BGR2RGB);
+    return returnC2D;
+}
+cv::Mat cRealsense:: detectedImage()
+{
+    cv::Mat color(cv::Size(640, 480), CV_8UC3, (void*)dev->get_frame_data(rs::stream::color), cv::Mat::AUTO_STEP);
+    return color;
+}
 void cRealsense::init() try
 {
     printf("There are %d connected RealSense devices.\n", ctx.get_device_count());

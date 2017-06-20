@@ -14,7 +14,6 @@
 		4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09149A1EAF43540007A351 /* MTKViewController.swift */; };
 		4C4BF8E91EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */; };
 		4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C77B3D11EF7C4F6002A1B20 /* objImageProcess.mm */; };
-		4C77B3D61EF7E97E002A1B20 /* cOHAR.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C77B3D41EF7E97E002A1B20 /* cOHAR.cpp */; };
 		4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */; };
 		4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FA31EA4867200298246 /* AppDelegate.swift */; };
 		4CC29FA61EA4867200298246 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FA51EA4867200298246 /* ViewController.swift */; };
@@ -65,8 +64,6 @@
 		4C4BF8EA1EF12E55004EFB93 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		4C77B3D11EF7C4F6002A1B20 /* objImageProcess.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = objImageProcess.mm; sourceTree = "<group>"; };
 		4C77B3D31EF7C526002A1B20 /* objImageProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = objImageProcess.h; sourceTree = "<group>"; };
-		4C77B3D41EF7E97E002A1B20 /* cOHAR.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cOHAR.cpp; sourceTree = "<group>"; };
-		4C77B3D51EF7E97E002A1B20 /* cOHAR.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cOHAR.hpp; sourceTree = "<group>"; };
 		4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cImageProcess.cpp; sourceTree = "<group>"; };
 		4CB2B2A21EF1286C00FF14E0 /* cImageProcess.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cImageProcess.hpp; sourceTree = "<group>"; };
 		4CC29FA01EA4867200298246 /* swiftOHAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swiftOHAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,8 +206,6 @@
 				4C0914921EA601D40007A351 /* cRealsense.cpp */,
 				4CB2B2A21EF1286C00FF14E0 /* cImageProcess.hpp */,
 				4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */,
-				4C77B3D41EF7E97E002A1B20 /* cOHAR.cpp */,
-				4C77B3D51EF7E97E002A1B20 /* cOHAR.hpp */,
 			);
 			name = "C ";
 			sourceTree = "<group>";
@@ -383,7 +378,6 @@
 				AA606AAA1EF2C39F0001DDEA /* Mesh.swift in Sources */,
 				4CC29FA61EA4867200298246 /* ViewController.swift in Sources */,
 				4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */,
-				4C77B3D61EF7E97E002A1B20 /* cOHAR.cpp in Sources */,
 				4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */,
 				4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */,
 				4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */,

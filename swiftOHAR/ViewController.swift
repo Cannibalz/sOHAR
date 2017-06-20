@@ -11,6 +11,8 @@ import Metal
 import MetalKit
 class ViewController: NSViewController {
     @IBOutlet weak var colorView: NSImageView!
+    @IBOutlet weak var depthView: NSImageView!
+    @IBOutlet weak var C2DView: NSImageView!
     @IBOutlet weak var arView: MTKView!
     var timer : Timer = Timer()
     var rs : objCRealsense = objCRealsense()
@@ -38,6 +40,8 @@ class ViewController: NSViewController {
     {
         rs.waitForNextFrame()
         colorView.image = rs.nsColorImage()
+        depthView.image = rs.nsDepthImage()
+        C2DView.image = rs.nsC2DImage()
     }
 }
 

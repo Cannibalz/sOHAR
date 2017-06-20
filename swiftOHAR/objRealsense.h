@@ -12,6 +12,9 @@
 -(void)initRealsense;
 -(void)stop;
 -(NSImage *)nsColorImage;
+-(NSImage *)nsDepthImage;
+-(NSImage *)nsDetectedColorImage;
+-(NSImage *)nsC2DImage;
 -(void)printHelloWorld;
 -(void)waitForNextFrame;
 @end

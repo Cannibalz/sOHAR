@@ -21,7 +21,7 @@ cImageProcess::cImageProcess()
 }
 cImageProcess::cImageProcess(cv::Mat Image)
 {
-    cRealsense rs;
+    //cRealsense rs;
     cImageProcess();
     inputImage = Image;
     ARImage = Image;
@@ -55,6 +55,34 @@ void cImageProcess::DetectAndDrawMarkers()
             cv::aruco::drawAxis(ARImage, cameraMatrix, distCoeffs, rvecs[j], tvecs[j], 0.1);
         }
     }
+}
+Mat cImageProcess::getDetectAndDrawMarkers(Mat Image)
+{
+    cv::aruco::detectMarkers(Image, dictionary, corners, ids);
+    Mat arImage;
+    Image.copyTo(arImage);
+    if(ids.size()>0)
+    {
+        cv::Mat oneRvecs(3,1,CV_64FC1);
+        cv::Mat rotMat(4, 4, CV_64F);
+        cv::Mat oneTvecs(3,1,CV_64FC1);
+        cv::aruco::drawDetectedMarkers(arImage, corners, ids);
+        float markerLength = 0.05;
+        cv::aruco::estimatePoseSingleMarkers(corners, markerLength, cameraMatrix, distCoeffs, rvecs, tvecs);
+        for (int a = 0;a<3;a++)
+        {
+            oneRvecs.row(a).col(0) = rvecs[0][a];
+            oneTvecs = tvecs[0];
+            //cout << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(0,1) << "," << oneTvecs.at<double>(0,2);
+        }
+        Rodrigues(oneRvecs, rotMat);
+        
+        for(int j = 0;j<ids.size();j++)
+        {
+            cv::aruco::drawAxis(arImage, cameraMatrix, distCoeffs, rvecs[j], tvecs[j], 0.1);
+        }
+    }
+    return arImage;
 }
 Mat cImageProcess::SobelEdgeDetect(Mat inputImage)
 {

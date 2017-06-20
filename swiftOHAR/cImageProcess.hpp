@@ -13,7 +13,6 @@
 #include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
-#include "cRealsense.hpp"
 #endif /* cImageProcess_hpp */
 using namespace cv;
 using namespace std;
@@ -23,6 +22,7 @@ public:
     cImageProcess();
     cImageProcess(Mat);
     void DetectAndDrawMarkers();
+    Mat getDetectAndDrawMarkers(Mat);
     void RefreshFrame(Mat);
     vector<int> getIDs();
     Mat getImage();

@@ -10,13 +10,15 @@
 #include <stdio.h>
 #include <iostream>
 #include <librealsense/rs.hpp>
-class cRealsense{
+class cRealsense
+{
 public:
     cRealsense();
     cv::Mat colorImage();
     cv::Mat depthImage();
     cv::Mat D2CImage();
     cv::Mat C2DImage();
+    cv::Mat detectedImage();
     void init();
     void waitForNextFrame();
     void stop();

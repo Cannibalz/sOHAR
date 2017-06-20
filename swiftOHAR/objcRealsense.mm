@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "objRealsense.h"
 #import "cRealsense.hpp"
-
+//#import "cImageProcess.hpp"
 @interface NSImage (NSImage_openCV)
 +(NSImage*)imageWithCVMat:(const cv::Mat&)cvMat;
 -(id)initWithCVMat:(const cv::Mat&)cvMat;
@@ -85,6 +85,7 @@
 @implementation objCRealsense
 {
     cRealsense crs;
+    //cImageProcess cIP;
 }
 - (void)initRealsense
 {
@@ -100,6 +101,19 @@
 }
 - (NSImage *)nsColorImage
 {
+    return [[NSImage alloc]initWithCVMat:crs.colorImage()];
+}
+- (NSImage *)nsDepthImage
+{
+    return [[NSImage alloc]initWithCVMat:crs.depthImage()];
+}
+- (NSImage *)nsC2DImage
+{
+    return [[NSImage alloc]initWithCVMat:crs.C2DImage()];
+}
+- (NSImage *)nsDetectedColorImage
+{
+    
     return [[NSImage alloc]initWithCVMat:crs.colorImage()];
 }
 @end
