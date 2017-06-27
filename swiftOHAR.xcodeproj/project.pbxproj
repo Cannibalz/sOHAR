@@ -14,7 +14,9 @@
 		4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09149A1EAF43540007A351 /* MTKViewController.swift */; };
 		4C4538F91F02412100131156 /* scnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4538F81F02412100131156 /* scnView.swift */; };
 		4C4539141F024B3100131156 /* model.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 4C4539131F024B3000131156 /* model.scnassets */; };
-		4C4539161F0257EE00131156 /* MKY.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C4539151F0257ED00131156 /* MKY.jpg */; };
+		4C45391A1F025EBF00131156 /* MKY.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 4C4539181F025EBE00131156 /* MKY.mtl */; };
+		4C45391C1F025EEC00131156 /* MKY.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4C45391B1F025EEB00131156 /* MKY.obj */; };
+		4C45391E1F025F0100131156 /* MKY.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C45391D1F025F0100131156 /* MKY.jpg */; };
 		4C4BF8E91EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */; };
 		4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C77B3D11EF7C4F6002A1B20 /* objImageProcess.mm */; };
 		4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */; };
@@ -65,7 +67,9 @@
 		4C09149A1EAF43540007A351 /* MTKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTKViewController.swift; sourceTree = "<group>"; };
 		4C4538F81F02412100131156 /* scnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = scnView.swift; sourceTree = "<group>"; };
 		4C4539131F024B3000131156 /* model.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; name = model.scnassets; path = ../../model.scnassets; sourceTree = "<group>"; };
-		4C4539151F0257ED00131156 /* MKY.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = MKY.jpg; path = ../../model.scnassets/MKY.jpg; sourceTree = "<group>"; };
+		4C4539181F025EBE00131156 /* MKY.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MKY.mtl; path = ../../model.scnassets/MKY.mtl; sourceTree = "<group>"; };
+		4C45391B1F025EEB00131156 /* MKY.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = MKY.obj; path = ../../model.scnassets/MKY.obj; sourceTree = "<group>"; };
+		4C45391D1F025F0100131156 /* MKY.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = MKY.jpg; path = ../../../.Trash/MKY.jpg; sourceTree = "<group>"; };
 		4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_calib3d.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_calib3d.3.2.0.dylib; sourceTree = "<group>"; };
 		4C4BF8EA1EF12E55004EFB93 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		4C77B3D11EF7C4F6002A1B20 /* objImageProcess.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = objImageProcess.mm; sourceTree = "<group>"; };
@@ -169,7 +173,9 @@
 		4CC29FA21EA4867200298246 /* swiftOHAR */ = {
 			isa = PBXGroup;
 			children = (
-				4C4539151F0257ED00131156 /* MKY.jpg */,
+				4C45391D1F025F0100131156 /* MKY.jpg */,
+				4C4539181F025EBE00131156 /* MKY.mtl */,
+				4C45391B1F025EEB00131156 /* MKY.obj */,
 				4CC29FCE1EA493E400298246 /* C  */,
 				4C09148E1EA5F5B90007A351 /* ObjC */,
 				AA606AA71EF2C39F0001DDEA /* AAPLMathUtilities.h */,
@@ -350,7 +356,9 @@
 				4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */,
 				4CC29FAB1EA4867200298246 /* Main.storyboard in Resources */,
 				4C4539141F024B3100131156 /* model.scnassets in Resources */,
-				4C4539161F0257EE00131156 /* MKY.jpg in Resources */,
+				4C45391E1F025F0100131156 /* MKY.jpg in Resources */,
+				4C45391A1F025EBF00131156 /* MKY.mtl in Resources */,
+				4C45391C1F025EEC00131156 /* MKY.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

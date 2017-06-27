@@ -53,15 +53,16 @@ class ViewController: NSViewController {
     {
         scnScene = SCNScene()
         let bundle = Bundle.main
-        let path = bundle.path(forResource: "MKY",ofType:"obj",inDirectory: "model.scnassets")
+        let path = bundle.path(forResource: "MKY",ofType:"obj")
         let url = NSURL(fileURLWithPath: path!)
         let asset = MDLAsset(url:url as URL)
         let stageObject = asset.object(at: 0)
         let stage = SCNNode(mdlObject: stageObject)
         let texture = SCNMaterial()
         //texture.diffuse.contents = NSImage(named: "model.scnassets/MKY.jpg")
-        texture.diffuse.contents = NSImage(named: "MKY.jpg")
-        stage.geometry?.firstMaterial = texture
+        //texture.diffuse.contents = NSImage(named: "MKY.jpg")
+        //stage.geometry?.firstMaterial = texture
+        scnScene.rootNode.addChildNode(stage)
         scnARView.scene = scnScene
     }
 }
