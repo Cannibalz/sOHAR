@@ -10,6 +10,7 @@ import Cocoa
 import Metal
 import MetalKit
 import SceneKit
+import SceneKit.ModelIO
 class ViewController: NSViewController {
     @IBOutlet weak var colorView: NSImageView!
     @IBOutlet weak var depthView: NSImageView!
@@ -51,6 +52,16 @@ class ViewController: NSViewController {
     func setupScene()
     {
         scnScene = SCNScene()
+        let bundle = Bundle.main
+        let path = bundle.path(forResource: "MKY",ofType:"obj",inDirectory: "model.scnassets")
+        let url = NSURL(fileURLWithPath: path!)
+        let asset = MDLAsset(url:url as URL)
+        let stageObject = asset.object(at: 0)
+        let stage = SCNNode(mdlObject: stageObject)
+        let texture = SCNMaterial()
+        //texture.diffuse.contents = NSImage(named: "model.scnassets/MKY.jpg")
+        texture.diffuse.contents = NSImage(named: "MKY.jpg")
+        stage.geometry?.firstMaterial = texture
         scnARView.scene = scnScene
     }
 }
