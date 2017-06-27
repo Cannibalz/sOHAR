@@ -59,9 +59,13 @@ class ViewController: NSViewController {
         let stageObject = asset.object(at: 0)
         let stage = SCNNode(mdlObject: stageObject)
         let texture = SCNMaterial()
-        //texture.diffuse.contents = NSImage(named: "model.scnassets/MKY.jpg")
-        //texture.diffuse.contents = NSImage(named: "MKY.jpg")
-        //stage.geometry?.firstMaterial = texture
+        texture.diffuse.contents = NSImage(named: "model.scnassets/MKY.jpg")
+        texture.diffuse.contents = NSImage(named: "MKY.jpg")
+        stage.geometry?.firstMaterial = texture
+        //stage.pivot = SCNMatrix4MakeRotation(CGFloat(M_PI_2/2), 0, 1, 0) 旋轉
+        stage.rotation = SCNVector4(0,0.5,0,CGFloat(M_PI_2/2))
+        stage.scale = SCNVector3(x:0.5, y:0.5, z:0.5)
+        stage.position = SCNVector3(x:15, y:0, z:0)
         scnScene.rootNode.addChildNode(stage)
         scnARView.scene = scnScene
     }
