@@ -38,7 +38,7 @@ class Renderer : NSObject, MTKViewDelegate
         // Use 4x MSAA multisampling
         view.sampleCount = 4
         // Clear to solid white
-        view.clearColor = MTLClearColorMake(1, 1, 1, 0) //背景顏色
+        view.clearColor = MTLClearColorMake(1, 1, 1, 0.1) //背景顏色
         // Use a BGRA 8-bit normalized texture for the drawable
         view.colorPixelFormat = .bgra8Unorm
         // Use a 32-bit depth buffer
@@ -146,8 +146,7 @@ class Renderer : NSObject, MTKViewDelegate
         // We keep track of time so we can animate the various transformations
         time = time + timestep
         
-        let modelToWorldMatrix = matrix4x4_rotation(Float(time) * 0.5, vector_float3(0.7, 1, 0))
-        
+        let modelToWorldMatrix = matrix4x4_rotation(Float(time) * 0.5, vector_float3(0, 1, 0))
         // So that the figure doesn't get distorted when the window changes size or rotates,
         // we factor the current aspect ration into our projection matrix. We also select
         // sensible values for the vertical view angle and the distances to the near and far planes.
@@ -162,6 +161,7 @@ class Renderer : NSObject, MTKViewDelegate
         
         // The combined model-view-projection matrix moves our vertices from model space into clip space
         let mvMatrix = matrix_multiply(viewMatrix, modelToWorldMatrix);
+        
         constants.modelViewProjectionMatrix = matrix_multiply(projectionMatrix, mvMatrix)
         constants.normalMatrix = matrix_inverse_transpose(matrix_upper_left_3x3(mvMatrix))
     }

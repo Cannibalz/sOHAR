@@ -113,7 +113,6 @@
 }
 - (NSImage *)nsDetectedColorImage
 {
-    
-    return [[NSImage alloc]initWithCVMat:crs.colorImage()];
+    return [[NSImage alloc]initWithCVMat:crs.detectedImage()];
 }
 @end

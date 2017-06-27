@@ -44,8 +44,12 @@ cv::Mat cRealsense:: C2DImage()
 }
 cv::Mat cRealsense:: detectedImage()
 {
+    Mat returnDetectedImage;
     cv::Mat color(cv::Size(640, 480), CV_8UC3, (void*)dev->get_frame_data(rs::stream::color), cv::Mat::AUTO_STEP);
-    return color;
+    cImageProcess cIP;
+    returnDetectedImage = cIP.getDetectAndDrawMarkers(color);
+    cv::cvtColor(returnDetectedImage, returnDetectedImage, CV_BGR2RGB);
+    return returnDetectedImage;
 }
 void cRealsense::init() try
 {
