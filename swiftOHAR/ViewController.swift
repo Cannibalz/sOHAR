@@ -67,7 +67,7 @@ class ViewController: NSViewController {
         renderObject.geometry?.firstMaterial = texture
         renderObject.name = "mky"
         //stage.scale = SCNVector3(x:0.5, y:0.5, z:0.5)
-        renderObject.position = SCNVector3(x:0, y:0, z:2)//z越大圖越大？
+        renderObject.position = SCNVector3(x:0, y:0, z:-6)//z越大物體越近？
         
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
         scnScene.rootNode.addChildNode(renderObject)
