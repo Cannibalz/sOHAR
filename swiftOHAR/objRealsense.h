@@ -17,6 +17,7 @@
 -(NSImage *)nsC2DImage;
 -(void)printHelloWorld;
 -(void)waitForNextFrame;
+
 @end
 
 

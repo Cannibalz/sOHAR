@@ -49,6 +49,9 @@ cv::Mat cRealsense:: detectedImage()
     cImageProcess cIP;
     returnDetectedImage = cIP.getDetectAndDrawMarkers(color);
     cv::cvtColor(returnDetectedImage, returnDetectedImage, CV_BGR2RGB);
+    tvecs = cIP.getTvecs();
+    rvecs = cIP.getRvecs();
+    ids = cIP.getIDs();
     return returnDetectedImage;
 }
 void cRealsense::init() try

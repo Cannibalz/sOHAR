@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <librealsense/rs.hpp>
+using namespace std;
 class cRealsense
 {
 public:
@@ -26,5 +27,7 @@ public:
 private:
     rs::context ctx;
     rs::device *dev;
+    vector<cv::Vec3d> rvecs,tvecs;
+    vector<int> ids;
 };
 

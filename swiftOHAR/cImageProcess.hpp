@@ -26,6 +26,8 @@ public:
     void RefreshFrame(Mat);
     vector<int> getIDs();
     Mat getImage();
+    vector<Vec3d> getRvecs();
+    vector<Vec3d> getTvecs();
     Vec3d getRvec(int);
     Vec3d getTvec(int);
     Mat SobelEdgeDetect(Mat); 

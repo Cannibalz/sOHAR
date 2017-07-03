@@ -115,6 +115,14 @@ Vec3d cImageProcess::getTvec(int index)
 {
     return tvecs[index];
 }
+vector<Vec3d> cImageProcess::getRvecs()
+{
+    return  rvecs;
+}
+vector<Vec3d> cImageProcess::getTvecs()
+{
+    return  tvecs;
+}
 Mat cImageProcess::getImage()
 {
     return ARImage;
