@@ -22,6 +22,8 @@ class ViewController: NSViewController {
     var nsImg : NSImage? = nil
     var renderer: Renderer!
     var scnScene : SCNScene!
+    var time = TimeInterval(0.0)
+    let timestep = 1.0 / 30
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
@@ -54,20 +56,45 @@ class ViewController: NSViewController {
         scnScene = SCNScene()
         let bundle = Bundle.main
         let path = bundle.path(forResource: "MKY",ofType:"obj")
+        //let path = bundle.path(forResource: "tikiPot",ofType:"stl")
         let url = NSURL(fileURLWithPath: path!)
         let asset = MDLAsset(url:url as URL)
         let stageObject = asset.object(at: 0)
-        let stage = SCNNode(mdlObject: stageObject)
+        let renderObject = SCNNode(mdlObject: stageObject)
         let texture = SCNMaterial()
-        texture.diffuse.contents = NSImage(named: "model.scnassets/MKY.jpg")
+        //texture.diffuse.contents = NSImage(named: "model.scnassets/MKY.jpg")
         texture.diffuse.contents = NSImage(named: "MKY.jpg")
-        stage.geometry?.firstMaterial = texture
-        //stage.pivot = SCNMatrix4MakeRotation(CGFloat(M_PI_2/2), 0, 1, 0) 旋轉
-        stage.rotation = SCNVector4(0,0.5,0,CGFloat(M_PI_2/2))
-        stage.scale = SCNVector3(x:0.5, y:0.5, z:0.5)
-        stage.position = SCNVector3(x:15, y:0, z:0)
-        scnScene.rootNode.addChildNode(stage)
+        renderObject.geometry?.firstMaterial = texture
+        renderObject.name = "mky"
+        //stage.scale = SCNVector3(x:0.5, y:0.5, z:0.5)
+        renderObject.position = SCNVector3(x:0, y:0, z:2)//z越大圖越大？
+        
+        scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
+        scnScene.rootNode.addChildNode(renderObject)
         scnARView.scene = scnScene
+        scnARView.showsStatistics = true
+        scnARView.allowsCameraControl = true
+        scnARView.autoenablesDefaultLighting = true
+        var scnTimer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(scnRender), userInfo: nil, repeats: true)
+    }
+    func buildCameraNode(x:CGFloat,y:CGFloat,z:CGFloat) -> SCNNode!
+    {
+        var cameraNode : SCNNode!
+        cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = SCNVector3(x:x, y:y, z:z)
+        return cameraNode
+    }
+    func scnRender()
+    {
+        time = time + timestep
+        for node in scnScene.rootNode.childNodes
+        {
+            if node.name == "mky"
+            {
+                node.rotation = SCNVector4(0,0.5,0,CGFloat(M_PI_2/2)*CGFloat(time))
+            }
+        }
     }
 }
 
