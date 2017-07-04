@@ -99,6 +99,18 @@
 {
     crs.waitForNextFrame();
 }
+- (NSMutableArray *)cgTvecs
+{
+    vector<cv::Vec3d> Tvecs = crs.Tvecs();
+    CGFloat cgTvecs[Tvecs.size()][3];
+    for(int i = 0;i<Tvecs.size();i++)
+    {
+        cgTvecs[i][0] = CGFloat(Tvecs[i][0]);
+        cgTvecs[i][1] = CGFloat(Tvecs[i][1]);
+        cgTvecs[i][2] = CGFloat(Tvecs[i][2]);
+    }
+    return cgTvecs;
+}
 - (NSImage *)nsColorImage
 {
     return [[NSImage alloc]initWithCVMat:crs.colorImage()];

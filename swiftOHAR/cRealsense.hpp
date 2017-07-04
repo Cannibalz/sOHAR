@@ -20,6 +20,8 @@ public:
     cv::Mat D2CImage();
     cv::Mat C2DImage();
     cv::Mat detectedImage();
+    vector<cv::Vec3d> Tvecs();
+    vector<cv::Vec3d> Rvecs();
     void init();
     void waitForNextFrame();
     void stop();

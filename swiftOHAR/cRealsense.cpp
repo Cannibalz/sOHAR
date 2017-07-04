@@ -54,6 +54,14 @@ cv::Mat cRealsense:: detectedImage()
     ids = cIP.getIDs();
     return returnDetectedImage;
 }
+vector<cv::Vec3d> cRealsense::Tvecs()
+{
+    return tvecs;
+}
+vector<cv::Vec3d> cRealsense::Rvecs()
+{
+    return rvecs;
+}
 void cRealsense::init() try
 {
     printf("There are %d connected RealSense devices.\n", ctx.get_device_count());
