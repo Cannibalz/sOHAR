@@ -101,18 +101,12 @@ string cRealsense::getPoseInformation()
         string singleRow = "{";
         singleRow = "\"id\":" + to_string(ids[i]) + ",";
         cv::Mat oneTvec(3,1,CV_64FC1);
-        //oneTvec = tvecs[i];
-        double *ptrDst[oneTvec.rows];
-        for(int i = 0 ;i < oneTvec.rows; ++i) {
-            ptrDst[i] = oneTvec.ptr<double>(i);
-            
-            for(int j = 0; j < oneTvec.cols; ++j) {
-                double value = ptrDst[i][j];
-                cout<< "value:" << value << "\n";
-            }
+        for(int j=0;j<3;j++)
+        {
+            oneTvec.at<double>(j,0) = tvecs.at(i)[j];
         }
-        //singleRow = singleRow + "\"tvec\":[" + to_String(oneTvec.ptr<double>) ++ "," ;
-        jsonString+=singleRow;
+        cout << "gg:"<<oneTvec.at<double>(0,0) << "," << oneTvec.at<double>(0,1) << "," << oneTvec.at<double>(0,2) << "\n";
+        jsonString += singleRow;
     }
     //cout<<jsonString;
     return "";
