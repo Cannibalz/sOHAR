@@ -101,8 +101,9 @@
 }
 - (NSString *)cgTvecs
 {
-    NSString *jsonInformation = @"";
-    crs.getPoseInformation();
+    NSString *jsonInformation = [NSString stringWithCString:crs.getPoseInformation().c_str()
+                                                   encoding:[NSString defaultCStringEncoding]];
+    
     //vector<cv::Vec3d> Tvecs = crs.Tvecs();
     //NSArray *myArray = [NSArray arrayWithObjects:&Tvecs[0] count:Tvecs.size()];
     return jsonInformation;

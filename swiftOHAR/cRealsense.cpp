@@ -117,8 +117,8 @@ string cRealsense::getPoseInformation()
         jsonString += singleRow;
     }
     jsonString += "]";
-    cout<<jsonString;
-    return "";
+    //cout<<jsonString;
+    return jsonString;
 }
 void cRealsense::waitForNextFrame()
 {
