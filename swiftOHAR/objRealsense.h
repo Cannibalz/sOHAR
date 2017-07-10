@@ -11,7 +11,7 @@
 @interface objCRealsense : NSObject
 -(void)initRealsense;
 -(void)stop;
--(NSMutableArray)cgTvecs;
+-(NSString *)cgTvecs;
 -(NSImage *)nsColorImage;
 -(NSImage *)nsDepthImage;
 -(NSImage *)nsDetectedColorImage;

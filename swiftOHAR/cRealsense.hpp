@@ -22,6 +22,7 @@ public:
     cv::Mat detectedImage();
     vector<cv::Vec3d> Tvecs();
     vector<cv::Vec3d> Rvecs();
+    string getPoseInformation();
     void init();
     void waitForNextFrame();
     void stop();

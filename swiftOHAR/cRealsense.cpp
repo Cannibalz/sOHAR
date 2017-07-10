@@ -92,6 +92,31 @@ catch(const rs::error & e)
     printf("    %s\n", e.what());
     //return EXIT_FAILURE;
 }
+string cRealsense::getPoseInformation()
+{
+    string jsonString = "[";
+    //cout << tvecs.size() << "||fuck you||" << tvecs[0];
+    for(int i = 0;i<ids.size();i++)
+    {
+        string singleRow = "{";
+        singleRow = "\"id\":" + to_string(ids[i]) + ",";
+        cv::Mat oneTvec(3,1,CV_64FC1);
+        //oneTvec = tvecs[i];
+        double *ptrDst[oneTvec.rows];
+        for(int i = 0 ;i < oneTvec.rows; ++i) {
+            ptrDst[i] = oneTvec.ptr<double>(i);
+            
+            for(int j = 0; j < oneTvec.cols; ++j) {
+                double value = ptrDst[i][j];
+                cout<< "value:" << value << "\n";
+            }
+        }
+        //singleRow = singleRow + "\"tvec\":[" + to_String(oneTvec.ptr<double>) ++ "," ;
+        jsonString+=singleRow;
+    }
+    //cout<<jsonString;
+    return "";
+}
 void cRealsense::waitForNextFrame()
 {
     dev->wait_for_frames(); 

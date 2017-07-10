@@ -99,17 +99,13 @@
 {
     crs.waitForNextFrame();
 }
-- (NSMutableArray *)cgTvecs
+- (NSString *)cgTvecs
 {
-    vector<cv::Vec3d> Tvecs = crs.Tvecs();
-    CGFloat cgTvecs[Tvecs.size()][3];
-    for(int i = 0;i<Tvecs.size();i++)
-    {
-        cgTvecs[i][0] = CGFloat(Tvecs[i][0]);
-        cgTvecs[i][1] = CGFloat(Tvecs[i][1]);
-        cgTvecs[i][2] = CGFloat(Tvecs[i][2]);
-    }
-    return cgTvecs;
+    NSString *jsonInformation = @"";
+    crs.getPoseInformation();
+    //vector<cv::Vec3d> Tvecs = crs.Tvecs();
+    //NSArray *myArray = [NSArray arrayWithObjects:&Tvecs[0] count:Tvecs.size()];
+    return jsonInformation;
 }
 - (NSImage *)nsColorImage
 {

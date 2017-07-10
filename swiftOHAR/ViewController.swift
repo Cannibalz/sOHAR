@@ -46,6 +46,7 @@ class ViewController: NSViewController {
     func renderImg()
     {
         rs.waitForNextFrame()
+        rs.cgTvecs()
         colorView.image = rs.nsDetectedColorImage()
         depthView.image = rs.nsDepthImage()
         C2DView.image = rs.nsC2DImage()
