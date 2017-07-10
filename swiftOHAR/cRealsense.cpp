@@ -99,16 +99,25 @@ string cRealsense::getPoseInformation()
     for(int i = 0;i<ids.size();i++)
     {
         string singleRow = "{";
-        singleRow = "\"id\":" + to_string(ids[i]) + ",";
+        singleRow = singleRow + "\"id\":" + to_string(ids[i]) + ",";
         cv::Mat oneTvec(3,1,CV_64FC1);
+        cv::Mat oneRvec(3,1,CV_64FC1);
         for(int j=0;j<3;j++)
         {
             oneTvec.at<double>(j,0) = tvecs.at(i)[j];
+            oneRvec.row(j).col(0) = rvecs[i][j];
         }
-        cout << "gg:"<<oneTvec.at<double>(0,0) << "," << oneTvec.at<double>(0,1) << "," << oneTvec.at<double>(0,2) << "\n";
+        //cout << "gg:"<<oneTvec.at<double>(0,0) << "," << oneTvec.at<double>(0,1) << "," << oneTvec.at<double>(0,2) << "\n";
+        singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
+        singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
+        if(i != (ids.size()-1))
+        {
+            singleRow += ",";
+        }
         jsonString += singleRow;
     }
-    //cout<<jsonString;
+    jsonString += "]";
+    cout<<jsonString;
     return "";
 }
 void cRealsense::waitForNextFrame()
