@@ -31,6 +31,7 @@ class ViewController: NSViewController {
     var scnScene : SCNScene!
     var time = TimeInterval(0.0)
     let timestep = 1.0 / 30
+    var markersPose : [markerPose] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
@@ -103,13 +104,14 @@ class ViewController: NSViewController {
             let jsonData = markerPoseJsonString?.data(using: .utf8)
             let decoder = JSONDecoder()
             let KingGeorge = try! decoder.decode([markerPose].self, from: jsonData!);
+            markersPose = KingGeorge
             print(KingGeorge)
         }
         for node in scnScene.rootNode.childNodes
         {
             if node.name == "mky"
             {
-                //node.rotation = SCNVector4(0.5,0.5,0,CGFloat(Double.pi/2/2)*CGFloat(time)) //旋轉
+                node.rotation = SCNVector4(markersPose[0].Rvec[0],markersPose[0].Rvec[1],markersPose[0].Rvec[2],Double(CGFloat(Double.pi/2/2))) //旋轉
             }
         }
     }
