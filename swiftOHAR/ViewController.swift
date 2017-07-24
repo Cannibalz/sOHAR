@@ -15,8 +15,8 @@ import SceneKit.ModelIO
 struct markerPose : Codable
 {
     var id: Int
-    var tvec: [Double]
-    var rvec: [Double]
+    var Tvec: [Double]
+    var Rvec: [Double]
 }
 class ViewController: NSViewController {
     @IBOutlet weak var colorView: NSImageView!
@@ -99,9 +99,11 @@ class ViewController: NSViewController {
         var markerPoseJsonString = rs.getPoseInformation()
         if markerPoseJsonString != "[]"
         {
-            let jsonData = markerPoseJsonString?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
+            //let jsonData = markerPoseJsonString?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
+            let jsonData = markerPoseJsonString?.data(using: .utf8)
             let decoder = JSONDecoder()
             let KingGeorge = try! decoder.decode([markerPose].self, from: jsonData!);
+            print(KingGeorge)
         }
         for node in scnScene.rootNode.childNodes
         {
