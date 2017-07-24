@@ -11,6 +11,13 @@ import Metal
 import MetalKit
 import SceneKit
 import SceneKit.ModelIO
+
+struct markerPose : Codable
+{
+    var id: Int
+    var tvec: [Double]
+    var rvec: [Double]
+}
 class ViewController: NSViewController {
     @IBOutlet weak var colorView: NSImageView!
     @IBOutlet weak var depthView: NSImageView!
@@ -46,7 +53,7 @@ class ViewController: NSViewController {
     func renderImg()
     {
         rs.waitForNextFrame()
-        rs.cgTvecs()
+        rs.getPoseInformation()
         colorView.image = rs.nsDetectedColorImage()
         depthView.image = rs.nsDepthImage()
         C2DView.image = rs.nsC2DImage()
@@ -68,7 +75,7 @@ class ViewController: NSViewController {
         renderObject.geometry?.firstMaterial = texture
         renderObject.name = "mky"
         //stage.scale = SCNVector3(x:0.5, y:0.5, z:0.5)
-        renderObject.position = SCNVector3(x:2, y:2, z:-1)//z越大物體越近？
+        renderObject.position = SCNVector3(x:0, y:0, z:-1)//z越大物體越近？
         
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
         scnScene.rootNode.addChildNode(renderObject)
@@ -89,11 +96,18 @@ class ViewController: NSViewController {
     func scnRender()
     {
         time = time + timestep
+        var markerPoseJsonString = rs.getPoseInformation()
+        if markerPoseJsonString != "[]"
+        {
+            let jsonData = markerPoseJsonString?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
+            let decoder = JSONDecoder()
+            let KingGeorge = try! decoder.decode([markerPose].self, from: jsonData!);
+        }
         for node in scnScene.rootNode.childNodes
         {
             if node.name == "mky"
             {
-                node.rotation = SCNVector4(0,0.5,0,CGFloat(M_PI_2/2)*CGFloat(time))
+                //node.rotation = SCNVector4(0.5,0.5,0,CGFloat(Double.pi/2/2)*CGFloat(time)) //旋轉
             }
         }
     }

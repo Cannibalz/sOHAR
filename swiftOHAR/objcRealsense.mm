@@ -99,7 +99,7 @@
 {
     crs.waitForNextFrame();
 }
-- (NSString *)cgTvecs
+- (NSString *)getPoseInformation
 {
     NSString *jsonInformation = [NSString stringWithCString:crs.getPoseInformation().c_str()
                                                    encoding:[NSString defaultCStringEncoding]];
