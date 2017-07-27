@@ -25,6 +25,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var scnARView: SCNView!
     @IBOutlet weak var arView: MTKView!
     var timer : Timer = Timer()
+    var scnTimer = Timer()
     var rs : objCRealsense = objCRealsense()
     var nsImg : NSImage? = nil
     var renderer: Renderer!
@@ -84,7 +85,7 @@ class ViewController: NSViewController {
         scnARView.showsStatistics = true
         scnARView.allowsCameraControl = true
         scnARView.autoenablesDefaultLighting = true
-        var scnTimer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(scnRender), userInfo: nil, repeats: true)
+     scnTimer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(scnRender), userInfo: nil, repeats: true)
     }
     func buildCameraNode(x:CGFloat,y:CGFloat,z:CGFloat) -> SCNNode!
     {
@@ -105,20 +106,27 @@ class ViewController: NSViewController {
             let decoder = JSONDecoder()
             let KingGeorge = try! decoder.decode([markerPose].self, from: jsonData!);
             markersPose = KingGeorge
-            print(markersPose[0].Rvec)
+            //print(Double.pi/180)
+            print(markersPose[0].Tvec)
+            //yaw=[1] pitch=[0] roll=[2]
         }
         for node in scnScene.rootNode.childNodes
         {
             if node.name == "mky" && markersPose.count > 0
             {
-                //node.rotation = SCNVector4(markersPose[0].Rvec[0],markersPose[0].Rvec[1],markersPose[0].Rvec[2],/*Double(CGFloat(Double.pi/2))*/90) //旋轉
-                //node.eulerAngles = SCNVector3Make(0,0,CGFloat(-markersPose[0].Rvec[1])) //Roll
-                //node.eulerAngles = SCNVector3Make(0, CGFloat(markersPose[0].Rvec[2]), 0) //Yaw
-                node.eulerAngles = SCNVector3Make(CGFloat(markersPose[0].Rvec[0]+2.5),0,0)
-                
+                node.eulerAngles = SCNVector3Make(markersPose[0].Rvec[0].toCGFloatRadius()+3.14,
+                                                  -markersPose[0].Rvec[1].toCGFloatRadius(),
+                                                  -markersPose[0].Rvec[2].toCGFloatRadius())
             }
         }
     }
 }
-
+extension Double
+{
+    func toCGFloatRadius()->CGFloat
+    {
+        return CGFloat(self * .pi / 180)
+        //用法： Radians = degree.toCGFloatRadius()
+    }
+}
 

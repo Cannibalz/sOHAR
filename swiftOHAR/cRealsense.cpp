@@ -102,14 +102,22 @@ string cRealsense::getPoseInformation()
         singleRow = singleRow + "\"id\":" + to_string(ids[i]) + ",";
         cv::Mat oneTvec(3,1,CV_64FC1);
         cv::Mat oneRvec(3,1,CV_64FC1);
+        cv::Mat oneRMat(4,4,CV_64F);
+        Vec3d eulerAngles;
         for(int j=0;j<3;j++)
         {
             oneTvec.at<double>(j,0) = tvecs.at(i)[j];
             oneRvec.row(j).col(0) = rvecs[i][j];
         }
+        Rodrigues(rvecs[i], oneRMat);
+        getEulerAngles(oneRMat, eulerAngles);
+        //print("ea:");
+        //print(eulerAngles); //數值為角度
+        //print("\n");
         //cout << "gg:"<<oneTvec.at<double>(0,0) << "," << oneTvec.at<double>(0,1) << "," << oneTvec.at<double>(0,2) << "\n";
         singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
-        singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
+        //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
+        singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "]}";
         if(i != (ids.size()-1))
         {
             singleRow += ",";
@@ -131,4 +139,21 @@ void cRealsense::stop()
 void cRealsense::helloWorld()
 {
     std::cout<<"HELLO WORLD";
+}
+void cRealsense::getEulerAngles(Mat &rotCamerMatrix,Vec3d &eulerAngles)
+{
+    Mat cameraMatrix,rotMatrix,transVect,rotMatrixX,rotMatrixY,rotMatrixZ;
+    double* _r = rotCamerMatrix.ptr<double>();
+    double projMatrix[12] = {_r[0],_r[1],_r[2],0,
+        _r[3],_r[4],_r[5],0,
+        _r[6],_r[7],_r[8],0};
+    //yaw=[1] pitch=[0] roll=[2]
+    decomposeProjectionMatrix( Mat(3,4,CV_64FC1,projMatrix),
+                              cameraMatrix,
+                              rotMatrix,
+                              transVect,
+                              rotMatrixX,
+                              rotMatrixY,
+                              rotMatrixZ,
+                              eulerAngles);
 }
