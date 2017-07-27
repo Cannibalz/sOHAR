@@ -111,6 +111,16 @@ string cRealsense::getPoseInformation()
         }
         Rodrigues(rvecs[i], oneRMat);
         getEulerAngles(oneRMat, eulerAngles);
+//        Mat RotX(3,3,DataType<double>::type);
+//        setIdentity(RotX);
+//        RotX.at<double>(4) = -1;
+//        RotX.at<double>(8) = -1;
+//        cout << "oneTvec" << oneTvec << endl;
+//        Mat testOneRMat = oneRMat.t();
+//        cout << "RotationMat" << testOneRMat << endl;
+//        Mat tvecConverted = -testOneRMat * oneTvec;
+//        tvecConverted = RotX * tvecConverted;
+//        cout << "tvec" << tvecConverted << endl;
         //print("ea:");
         //print(eulerAngles); //數值為角度
         //print("\n");
@@ -122,6 +132,7 @@ string cRealsense::getPoseInformation()
         {
             singleRow += ",";
         }
+        
         jsonString += singleRow;
     }
     jsonString += "]";

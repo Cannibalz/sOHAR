@@ -16,6 +16,9 @@
 		4C4BF8E91EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */; };
 		4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C77B3D11EF7C4F6002A1B20 /* objImageProcess.mm */; };
 		4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */; };
+		4CBFAF851F29BFBB002E8F8B /* MKY.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4CBFAF831F29BF18002E8F8B /* MKY.jpg */; };
+		4CBFAF861F29BFBE002E8F8B /* MKY.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 4CBFAF841F29BF18002E8F8B /* MKY.mtl */; };
+		4CBFAF871F29BFC1002E8F8B /* MKY.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CBFAF821F29BF18002E8F8B /* MKY.obj */; };
 		4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FA31EA4867200298246 /* AppDelegate.swift */; };
 		4CC29FA61EA4867200298246 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CC29FA51EA4867200298246 /* ViewController.swift */; };
 		4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC29FA71EA4867200298246 /* Assets.xcassets */; };
@@ -33,9 +36,6 @@
 		AA606AAA1EF2C39F0001DDEA /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA61EF2C39F0001DDEA /* Mesh.swift */; };
 		AA606AAB1EF2C39F0001DDEA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA81EF2C39F0001DDEA /* Shaders.metal */; };
 		AA606AAC1EF2C39F0001DDEA /* AAPLMathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA91EF2C39F0001DDEA /* AAPLMathUtilities.m */; };
-		AAA3F2D71F271D7E004E561B /* MKY.mtl in Resources */ = {isa = PBXBuildFile; fileRef = AAA3F2D41F271D7E004E561B /* MKY.mtl */; };
-		AAA3F2D81F271D7E004E561B /* MKY.obj in Resources */ = {isa = PBXBuildFile; fileRef = AAA3F2D51F271D7E004E561B /* MKY.obj */; };
-		AAA3F2D91F271D7E004E561B /* MKY.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AAA3F2D61F271D7E004E561B /* MKY.jpg */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +71,12 @@
 		4C77B3D31EF7C526002A1B20 /* objImageProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = objImageProcess.h; sourceTree = "<group>"; };
 		4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cImageProcess.cpp; sourceTree = "<group>"; };
 		4CB2B2A21EF1286C00FF14E0 /* cImageProcess.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cImageProcess.hpp; sourceTree = "<group>"; };
+		4CBFAF7F1F29BE9C002E8F8B /* MKY.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MKY.jpg; sourceTree = "<group>"; };
+		4CBFAF801F29BE9C002E8F8B /* MKY.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = MKY.obj; sourceTree = "<group>"; };
+		4CBFAF811F29BE9C002E8F8B /* MKY.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = MKY.mtl; sourceTree = "<group>"; };
+		4CBFAF821F29BF18002E8F8B /* MKY.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = MKY.obj; sourceTree = "<group>"; };
+		4CBFAF831F29BF18002E8F8B /* MKY.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MKY.jpg; sourceTree = "<group>"; };
+		4CBFAF841F29BF18002E8F8B /* MKY.mtl */ = {isa = PBXFileReference; lastKnownFileType = text; path = MKY.mtl; sourceTree = "<group>"; };
 		4CC29FA01EA4867200298246 /* swiftOHAR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swiftOHAR.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC29FA31EA4867200298246 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4CC29FA51EA4867200298246 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -96,9 +102,6 @@
 		AA606AA81EF2C39F0001DDEA /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = ../../../Downloads/AdoptingMetalIApracticalapproachtoyourfirstMetalapp/MetalTexturedMesh/Shaders.metal; sourceTree = "<group>"; };
 		AA606AA91EF2C39F0001DDEA /* AAPLMathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAPLMathUtilities.m; path = ../../../Downloads/AdoptingMetalIApracticalapproachtoyourfirstMetalapp/MetalTexturedMesh/AAPLMathUtilities.m; sourceTree = "<group>"; };
 		AAA3F2D11F271CA1004E561B /* model.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = model.scnassets; sourceTree = "<group>"; };
-		AAA3F2D41F271D7E004E561B /* MKY.mtl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MKY.mtl; sourceTree = "<group>"; };
-		AAA3F2D51F271D7E004E561B /* MKY.obj */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MKY.obj; sourceTree = "<group>"; };
-		AAA3F2D61F271D7E004E561B /* MKY.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MKY.jpg; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -172,6 +175,9 @@
 		4CC29FA21EA4867200298246 /* swiftOHAR */ = {
 			isa = PBXGroup;
 			children = (
+				4CBFAF831F29BF18002E8F8B /* MKY.jpg */,
+				4CBFAF841F29BF18002E8F8B /* MKY.mtl */,
+				4CBFAF821F29BF18002E8F8B /* MKY.obj */,
 				AAA3F2D31F271D7E004E561B /* Model */,
 				4CC29FCE1EA493E400298246 /* C  */,
 				4C09148E1EA5F5B90007A351 /* ObjC */,
@@ -243,9 +249,9 @@
 		AAA3F2D31F271D7E004E561B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				AAA3F2D41F271D7E004E561B /* MKY.mtl */,
-				AAA3F2D51F271D7E004E561B /* MKY.obj */,
-				AAA3F2D61F271D7E004E561B /* MKY.jpg */,
+				4CBFAF7F1F29BE9C002E8F8B /* MKY.jpg */,
+				4CBFAF811F29BE9C002E8F8B /* MKY.mtl */,
+				4CBFAF801F29BE9C002E8F8B /* MKY.obj */,
 			);
 			name = Model;
 			path = ../../../Desktop/Model;
@@ -361,11 +367,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAA3F2D71F271D7E004E561B /* MKY.mtl in Resources */,
-				AAA3F2D81F271D7E004E561B /* MKY.obj in Resources */,
 				4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */,
 				4CC29FAB1EA4867200298246 /* Main.storyboard in Resources */,
-				AAA3F2D91F271D7E004E561B /* MKY.jpg in Resources */,
+				4CBFAF861F29BFBE002E8F8B /* MKY.mtl in Resources */,
+				4CBFAF871F29BFC1002E8F8B /* MKY.obj in Resources */,
+				4CBFAF851F29BFBB002E8F8B /* MKY.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

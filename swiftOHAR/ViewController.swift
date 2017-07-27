@@ -19,11 +19,18 @@ struct markerPose : Codable
     var Rvec: [Double]
 }
 class ViewController: NSViewController {
+    @IBOutlet weak var silderTvec0: NSSlider!
+    @IBOutlet weak var silderTvec1: NSSlider!
+    @IBOutlet weak var silderTvec2: NSSlider!
     @IBOutlet weak var colorView: NSImageView!
     @IBOutlet weak var depthView: NSImageView!
     @IBOutlet weak var C2DView: NSImageView!
     @IBOutlet weak var scnARView: SCNView!
     @IBOutlet weak var arView: MTKView!
+    @IBOutlet weak var tvec0: NSTextField!
+    @IBOutlet weak var tvec1: NSTextField!
+    @IBOutlet weak var tvec2: NSTextField!
+    
     var timer : Timer = Timer()
     var scnTimer = Timer()
     var rs : objCRealsense = objCRealsense()
@@ -37,7 +44,7 @@ class ViewController: NSViewController {
         super.viewDidLoad()
         rs.initRealsense()
         timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
-        renderer = Renderer(mtkView: arView)
+        //renderer = Renderer(mtkView: arView)
         setupScene()
     }
     override var representedObject: Any? {
@@ -77,11 +84,12 @@ class ViewController: NSViewController {
         renderObject.geometry?.firstMaterial = texture
         renderObject.name = "mky"
         //stage.scale = SCNVector3(x:0.5, y:0.5, z:0.5)
-        renderObject.position = SCNVector3(x:0, y:0, z:-1)//z越大物體越近？
+        renderObject.position = SCNVector3(x:0, y:0, z:-3)//z越大物體越近？
         
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
         scnScene.rootNode.addChildNode(renderObject)
         scnARView.scene = scnScene
+        
         scnARView.showsStatistics = true
         scnARView.allowsCameraControl = true
         scnARView.autoenablesDefaultLighting = true
@@ -106,17 +114,23 @@ class ViewController: NSViewController {
             let decoder = JSONDecoder()
             let KingGeorge = try! decoder.decode([markerPose].self, from: jsonData!);
             markersPose = KingGeorge
+        
             //print(Double.pi/180)
             print(markersPose[0].Tvec)
             //yaw=[1] pitch=[0] roll=[2]
         }
         for node in scnScene.rootNode.childNodes
         {
-            if node.name == "mky" && markersPose.count > 0
+            if node.name == "mky" && markersPose.count > 0 && markersPose[0].id == 228
             {
                 node.eulerAngles = SCNVector3Make(markersPose[0].Rvec[0].toCGFloatRadius()+3.14,
                                                   -markersPose[0].Rvec[1].toCGFloatRadius(),
                                                   -markersPose[0].Rvec[2].toCGFloatRadius())
+                //node.position = SCNVector3Make(CGFloat(markersPose[0].Tvec[0]), -CGFloat(markersPose[0].Tvec[1]), -CGFloat(markersPose[0].Tvec[2]))
+                node.position = SCNVector3Make(CGFloat(silderTvec0.doubleValue), CGFloat(silderTvec1.doubleValue), CGFloat(silderTvec2.doubleValue))
+                tvec0.doubleValue = markersPose[0].Tvec[0]
+                tvec1.doubleValue = markersPose[0].Tvec[1]
+                tvec2.doubleValue = markersPose[0].Tvec[2]
             }
         }
     }
