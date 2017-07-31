@@ -116,7 +116,7 @@ class ViewController: NSViewController {
             markersPose = KingGeorge
         
             //print(Double.pi/180)
-            print(markersPose[0].Tvec)
+            //print(markersPose[0].Tvec)
             //yaw=[1] pitch=[0] roll=[2]
         }
         for node in scnScene.rootNode.childNodes
@@ -128,6 +128,9 @@ class ViewController: NSViewController {
                                                   -markersPose[0].Rvec[2].toCGFloatRadius())
                 //node.position = SCNVector3Make(CGFloat(markersPose[0].Tvec[0]), -CGFloat(markersPose[0].Tvec[1]), -CGFloat(markersPose[0].Tvec[2]))
                 node.position = SCNVector3Make(CGFloat(silderTvec0.doubleValue), CGFloat(silderTvec1.doubleValue), CGFloat(silderTvec2.doubleValue))
+//                tvec0.doubleValue = silderTvec0.doubleValue
+//                tvec1.doubleValue = silderTvec1.doubleValue
+//                tvec2.doubleValue = silderTvec2.doubleValue
                 tvec0.doubleValue = markersPose[0].Tvec[0]
                 tvec1.doubleValue = markersPose[0].Tvec[1]
                 tvec2.doubleValue = markersPose[0].Tvec[2]
