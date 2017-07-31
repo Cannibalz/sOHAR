@@ -33,6 +33,7 @@ void cImageProcess::RefreshFrame(cv::Mat Image)
 void cImageProcess::DetectAndDrawMarkers()
 {
     cv::aruco::detectMarkers(inputImage, dictionary, corners, ids);
+
     inputImage.copyTo(ARImage);
     if(ids.size()>0)
     {
@@ -122,6 +123,10 @@ vector<Vec3d> cImageProcess::getRvecs()
 vector<Vec3d> cImageProcess::getTvecs()
 {
     return  tvecs;
+}
+vector<vector<Point2f>> cImageProcess::getCorners()
+{
+    return corners;
 }
 Mat cImageProcess::getImage()
 {

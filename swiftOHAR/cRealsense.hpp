@@ -32,6 +32,7 @@ private:
     rs::context ctx;
     rs::device *dev;
     vector<cv::Vec3d> rvecs,tvecs;
+    vector<vector<Point2f>> corners;
     vector<int> ids;
     void getEulerAngles(Mat&,Vec3d&);
 };

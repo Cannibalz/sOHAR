@@ -30,6 +30,7 @@ public:
     vector<Vec3d> getTvecs();
     Vec3d getRvec(int);
     Vec3d getTvec(int);
+    vector<vector<Point2f>> getCorners();
     Mat SobelEdgeDetect(Mat); 
 private:
     Mat ARImage;

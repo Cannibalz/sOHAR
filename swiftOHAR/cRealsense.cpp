@@ -52,6 +52,7 @@ cv::Mat cRealsense:: detectedImage()
     tvecs = cIP.getTvecs();
     rvecs = cIP.getRvecs();
     ids = cIP.getIDs();
+    corners = cIP.getCorners();
     return returnDetectedImage;
 }
 vector<cv::Vec3d> cRealsense::Tvecs()
@@ -98,6 +99,7 @@ string cRealsense::getPoseInformation()
     //cout << tvecs.size() << "||fuck you||" << tvecs[0];
     for(int i = 0;i<ids.size();i++)
     {
+        cout <<"corner in " << i << corners[i] << endl;
         string singleRow = "{";
         singleRow = singleRow + "\"id\":" + to_string(ids[i]) + ",";
         cv::Mat oneTvec(3,1,CV_64FC1);
@@ -113,7 +115,7 @@ string cRealsense::getPoseInformation()
         getEulerAngles(oneRMat, eulerAngles);
         Mat RotX = oneRMat.t();
         Mat tvecConverted = -RotX * oneTvec;
-        cout << "tvec" << tvecConverted << endl;
+        //cout << "tvec" << tvecConverted << endl;
         //print("ea:");
         //print(eulerAngles); //數值為角度
         //print("\n");
@@ -121,6 +123,7 @@ string cRealsense::getPoseInformation()
         singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
         //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
         singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "]}";
+        //singleRow = singleRow
         if(i != (ids.size()-1))
         {
             singleRow += ",";
