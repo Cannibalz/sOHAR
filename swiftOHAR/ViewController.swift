@@ -125,7 +125,7 @@ class ViewController: NSViewController {
         {
             if node.name == "mky" && markersPose.count > 0 && markersPose[0].id == 228
             {
-                node.eulerAngles = SCNVector3Make(markersPose[0].Rvec[0].toCGFloatRadius()+3.14,
+                node.eulerAngles = SCNVector3Make(markersPose[0].Rvec[0].toCGFloatRadius()+CGFloat(Double.pi),
                                                   -markersPose[0].Rvec[1].toCGFloatRadius(),
                                                   -markersPose[0].Rvec[2].toCGFloatRadius())
                 //node.position = SCNVector3Make(CGFloat(markersPose[0].Tvec[0]), -CGFloat(markersPose[0].Tvec[1]), -CGFloat(markersPose[0].Tvec[2]))
