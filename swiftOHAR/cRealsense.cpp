@@ -105,6 +105,7 @@ string cRealsense::getPoseInformation()
         cv::Mat oneTvec(3,1,CV_64FC1);
         cv::Mat oneRvec(3,1,CV_64FC1);
         cv::Mat oneRMat(4,4,CV_64F);
+        vector<Point2f> oneCorners = corners[0];
         Vec3d eulerAngles;
         for(int j=0;j<3;j++)
         {
@@ -122,8 +123,8 @@ string cRealsense::getPoseInformation()
         //cout << "gg:"<<oneTvec.at<double>(0,0) << "," << oneTvec.at<double>(0,1) << "," << oneTvec.at<double>(0,2) << "\n";
         singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
         //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
-        singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "]}";
-        //singleRow = singleRow
+        singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "],";
+        singleRow = singleRow + "\"Corners\":[[" + to_string(oneCorners[0].x) + "," + to_string(oneCorners[0].y) + "],[" + to_string(oneCorners[1].x) + "," + to_string(oneCorners[1].y) + "],[" + to_string(oneCorners[2].x) + "," + to_string(oneCorners[2].y) + "],[" + to_string(oneCorners[3].x) + "," + to_string(oneCorners[3].y) + "]]}";
         if(i != (ids.size()-1))
         {
             singleRow += ",";
@@ -132,7 +133,7 @@ string cRealsense::getPoseInformation()
         jsonString += singleRow;
     }
     jsonString += "]";
-    //cout<<jsonString;
+    cout<<jsonString;
     return jsonString;
 }
 void cRealsense::waitForNextFrame()

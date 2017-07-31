@@ -17,6 +17,7 @@ struct markerPose : Codable
     var id: Int
     var Tvec: [Double]
     var Rvec: [Double]
+    var Corners : [[Double]]
 }
 class ViewController: NSViewController {
     @IBOutlet weak var silderTvec0: NSSlider!
@@ -119,6 +120,7 @@ class ViewController: NSViewController {
             //print(markersPose[0].Tvec)
             //yaw=[1] pitch=[0] roll=[2]
         }
+        print(markersPose);
         for node in scnScene.rootNode.childNodes
         {
             if node.name == "mky" && markersPose.count > 0 && markersPose[0].id == 228
