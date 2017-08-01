@@ -120,22 +120,36 @@ class ViewController: NSViewController {
             //print(markersPose[0].Tvec)
             //yaw=[1] pitch=[0] roll=[2]
         }
-        print(markersPose);
+        //print(markersPose);
         for node in scnScene.rootNode.childNodes
         {
             if node.name == "mky" && markersPose.count > 0 && markersPose[0].id == 228
             {
+                var middleX = Double()
+                var middleY = Double()
+                for corner in markersPose[0].Corners
+                {
+                    middleX += corner[0]
+                    middleY += corner[1]
+                }
+                middleX = (middleX/4-320)/50
+                middleY = -(middleY/4-240)/50
+                
                 node.eulerAngles = SCNVector3Make(markersPose[0].Rvec[0].toCGFloatRadius()+CGFloat(Double.pi),
                                                   -markersPose[0].Rvec[1].toCGFloatRadius(),
                                                   -markersPose[0].Rvec[2].toCGFloatRadius())
                 //node.position = SCNVector3Make(CGFloat(markersPose[0].Tvec[0]), -CGFloat(markersPose[0].Tvec[1]), -CGFloat(markersPose[0].Tvec[2]))
-                node.position = SCNVector3Make(CGFloat(silderTvec0.doubleValue), CGFloat(silderTvec1.doubleValue), CGFloat(silderTvec2.doubleValue))
-//                tvec0.doubleValue = silderTvec0.doubleValue
-//                tvec1.doubleValue = silderTvec1.doubleValue
-//                tvec2.doubleValue = silderTvec2.doubleValue
-                tvec0.doubleValue = markersPose[0].Tvec[0]
-                tvec1.doubleValue = markersPose[0].Tvec[1]
-                tvec2.doubleValue = markersPose[0].Tvec[2]
+                node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
+                
+                //print("X=\(middleX),Y=\(middleY)")
+                //max x value = 3.2 y=2.4
+//                tvec0.doubleValue = markersPose[0].Tvec[0]
+//                tvec1.doubleValue = markersPose[0].Tvec[1]
+//                tvec2.doubleValue = markersPose[0].Tvec[2]
+                tvec0.doubleValue = silderTvec0.doubleValue
+                tvec1.doubleValue = silderTvec1.doubleValue
+                tvec2.doubleValue = silderTvec2.doubleValue
+                //node.position = SCNVector3Make(CGFloat(silderTvec0.doubleValue),CGFloat(silderTvec1.doubleValue),CGFloat(silderTvec2.doubleValue))
             }
         }
     }

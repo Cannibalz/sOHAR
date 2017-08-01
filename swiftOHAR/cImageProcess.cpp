@@ -12,8 +12,8 @@ cImageProcess::cImageProcess()
 {
     markerLength = 0.05f;
     dictionary = cv::aruco::getPredefinedDictionary(aruco::DICT_ARUCO_ORIGINAL);
-    //cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
-    cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
+    cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
+    //cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
     cv::FileStorage fs;
     fs.open(filename, cv::FileStorage::READ);
     fs["Camera_Matrix"] >> cameraMatrix;

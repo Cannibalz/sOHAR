@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13168.3" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="13122.17" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13168.3"/>
-        <plugIn identifier="com.apple.SceneKitIBPlugin" version="13168.3"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="13122.17"/>
+        <plugIn identifier="com.apple.SceneKitIBPlugin" version="13122.17"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -685,11 +685,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="961" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbQ-rh-cKV">
+                            <sceneView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-kb-aXZ">
                                 <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="1Mr-gG-wQ4"/>
-                            </imageView>
+                            </sceneView>
                             <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tOB-tf-zb3" customClass="MTKView">
                                 <rect key="frame" x="320" y="240" width="320" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -704,10 +703,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="SXe-Hr-IFE"/>
                             </imageView>
-                            <sceneView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-kb-aXZ">
-                                <rect key="frame" x="641" y="240" width="320" height="240"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                            </sceneView>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nwx-v1-2WC">
                                 <rect key="frame" x="705" y="208" width="143" height="17"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -757,8 +752,13 @@
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Atd-LW-wju">
                                 <rect key="frame" x="752" y="85" width="96" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" minValue="-10" maxValue="10" tickMarkPosition="above" sliderType="linear" id="ead-8Y-2LP"/>
+                                <sliderCell key="cell" state="on" alignment="left" minValue="-10" maxValue="10" doubleValue="-3" tickMarkPosition="above" sliderType="linear" id="ead-8Y-2LP"/>
                             </slider>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbQ-rh-cKV">
+                                <rect key="frame" x="640" y="240" width="320" height="240"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="1Mr-gG-wQ4"/>
+                            </imageView>
                         </subviews>
                     </view>
                     <connections>

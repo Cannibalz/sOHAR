@@ -99,7 +99,7 @@ string cRealsense::getPoseInformation()
     //cout << tvecs.size() << "||fuck you||" << tvecs[0];
     for(int i = 0;i<ids.size();i++)
     {
-        cout <<"corner in " << i << corners[i] << endl;
+        
         string singleRow = "{";
         singleRow = singleRow + "\"id\":" + to_string(ids[i]) + ",";
         cv::Mat oneTvec(3,1,CV_64FC1);
@@ -133,7 +133,7 @@ string cRealsense::getPoseInformation()
         jsonString += singleRow;
     }
     jsonString += "]";
-    cout<<jsonString;
+    //cout<<jsonString;
     return jsonString;
 }
 void cRealsense::waitForNextFrame()
