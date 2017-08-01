@@ -127,20 +127,32 @@ class ViewController: NSViewController {
             {
                 var middleX = Double()
                 var middleY = Double()
+                var avgLength = Double()
                 for corner in markersPose[0].Corners
                 {
                     middleX += corner[0]
                     middleY += corner[1]
                 }
+                for i in 0..<markersPose[0].Corners.count
+                {
+                    if i == (markersPose[0].Corners.count-1)
+                    {
+                        avgLength += sqrt(pow((markersPose[0].Corners[i][0]-markersPose[0].Corners[0][0]), 2) + pow((markersPose[0].Corners[i][1]-markersPose[0].Corners[0][1]),2))
+                    }
+                    else
+                    {
+                        avgLength += sqrt(pow((markersPose[0].Corners[i][0]-markersPose[0].Corners[i+1][0]), 2) + pow((markersPose[0].Corners[i][1]-markersPose[0].Corners[i+1][1]),2))
+                    }
+                }
                 middleX = (middleX/4-320)/50
                 middleY = -(middleY/4-240)/50
-                
+                avgLength = avgLength/4
                 node.eulerAngles = SCNVector3Make(markersPose[0].Rvec[0].toCGFloatRadius()+CGFloat(Double.pi),
                                                   -markersPose[0].Rvec[1].toCGFloatRadius(),
                                                   -markersPose[0].Rvec[2].toCGFloatRadius())
                 //node.position = SCNVector3Make(CGFloat(markersPose[0].Tvec[0]), -CGFloat(markersPose[0].Tvec[1]), -CGFloat(markersPose[0].Tvec[2]))
                 node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
-                
+                node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
                 //print("X=\(middleX),Y=\(middleY)")
                 //max x value = 3.2 y=2.4
 //                tvec0.doubleValue = markersPose[0].Tvec[0]
