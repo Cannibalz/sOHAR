@@ -107,7 +107,7 @@ class ViewController: NSViewController {
     func scnRender()
     {
         time = time + timestep
-        var markerPoseJsonString = rs.getPoseInformation()
+        let markerPoseJsonString = rs.getPoseInformation()
         if markerPoseJsonString != "[]"
         {
             //let jsonData = markerPoseJsonString?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
@@ -121,6 +121,10 @@ class ViewController: NSViewController {
             //yaw=[1] pitch=[0] roll=[2]
         }
         //print(markersPose);
+        for Marker in markers
+        {
+            
+        }
         for node in scnScene.rootNode.childNodes
         {
             if node.name == "mky" && markers.count > 0 && markers[0].id == 228
@@ -151,8 +155,6 @@ class ViewController: NSViewController {
                 node.eulerAngles = makeEularAngles(rvec : markers[0].Rvec)
                 node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
                 node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
-                //print("X=\(middleX),Y=\(middleY)")
-                //max x value = 3.2 y=2.4
 //                tvec0.doubleValue = markersPose[0].Tvec[0]
 //                tvec1.doubleValue = markersPose[0].Tvec[1]
 //                tvec2.doubleValue = markersPose[0].Tvec[2]
