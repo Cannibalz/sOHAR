@@ -12,7 +12,7 @@ import MetalKit
 import SceneKit
 import SceneKit.ModelIO
 
-struct markerPose : Codable
+struct marker : Codable
 {
     var id: Int
     var Tvec: [Double]
@@ -40,7 +40,7 @@ class ViewController: NSViewController {
     var scnScene : SCNScene!
     var time = TimeInterval(0.0)
     let timestep = 1.0 / 30
-    var markersPose : [markerPose] = []
+    var markers : [marker] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
@@ -113,8 +113,8 @@ class ViewController: NSViewController {
             //let jsonData = markerPoseJsonString?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
             let jsonData = markerPoseJsonString?.data(using: .utf8)
             let decoder = JSONDecoder()
-            let KingGeorge = try! decoder.decode([markerPose].self, from: jsonData!);
-            markersPose = KingGeorge
+            let KingGeorge = try! decoder.decode([marker].self, from: jsonData!);
+            markers = KingGeorge
         
             //print(Double.pi/180)
             //print(markersPose[0].Tvec)
@@ -123,34 +123,32 @@ class ViewController: NSViewController {
         //print(markersPose);
         for node in scnScene.rootNode.childNodes
         {
-            if node.name == "mky" && markersPose.count > 0 && markersPose[0].id == 228
+            if node.name == "mky" && markers.count > 0 && markers[0].id == 228
             {
                 var middleX = Double()
                 var middleY = Double()
                 var avgLength = Double()
-                for corner in markersPose[0].Corners
+                for corner in markers[0].Corners
                 {
                     middleX += corner[0]
                     middleY += corner[1]
                 }
-                for i in 0..<markersPose[0].Corners.count
+                
+                for i in 0..<markers[0].Corners.count
                 {
-                    if i == (markersPose[0].Corners.count-1)
+                    if i == (markers[0].Corners.count-1)
                     {
-                        avgLength += sqrt(pow((markersPose[0].Corners[i][0]-markersPose[0].Corners[0][0]), 2) + pow((markersPose[0].Corners[i][1]-markersPose[0].Corners[0][1]),2))
+                        avgLength += sqrt(pow((markers[0].Corners[i][0]-markers[0].Corners[0][0]), 2) + pow((markers[0].Corners[i][1]-markers[0].Corners[0][1]),2))
                     }
                     else
                     {
-                        avgLength += sqrt(pow((markersPose[0].Corners[i][0]-markersPose[0].Corners[i+1][0]), 2) + pow((markersPose[0].Corners[i][1]-markersPose[0].Corners[i+1][1]),2))
+                        avgLength += sqrt(pow((markers[0].Corners[i][0]-markers[0].Corners[i+1][0]), 2) + pow((markers[0].Corners[i][1]-markers[0].Corners[i+1][1]),2))
                     }
                 }
                 middleX = (middleX/4-320)/50
                 middleY = -(middleY/4-240)/50
                 avgLength = avgLength/4
-                node.eulerAngles = SCNVector3Make(markersPose[0].Rvec[0].toCGFloatRadius()+CGFloat(Double.pi),
-                                                  -markersPose[0].Rvec[1].toCGFloatRadius(),
-                                                  -markersPose[0].Rvec[2].toCGFloatRadius())
-                //node.position = SCNVector3Make(CGFloat(markersPose[0].Tvec[0]), -CGFloat(markersPose[0].Tvec[1]), -CGFloat(markersPose[0].Tvec[2]))
+                node.eulerAngles = makeEularAngles(rvec : markers[0].Rvec)
                 node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
                 node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
                 //print("X=\(middleX),Y=\(middleY)")
@@ -164,6 +162,11 @@ class ViewController: NSViewController {
                 //node.position = SCNVector3Make(CGFloat(silderTvec0.doubleValue),CGFloat(silderTvec1.doubleValue),CGFloat(silderTvec2.doubleValue))
             }
         }
+    }
+    func makeEularAngles(rvec : [Double]) -> SCNVector3
+    {
+        let eulerAngles = SCNVector3Make(rvec[0].toCGFloatRadius()+CGFloat(Double.pi) ,-rvec[1].toCGFloatRadius(), -rvec[2].toCGFloatRadius())
+        return eulerAngles
     }
 }
 extension Double
