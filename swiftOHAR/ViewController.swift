@@ -37,7 +37,7 @@ class ViewController: NSViewController {
     var rs : objCRealsense = objCRealsense()
     var nsImg : NSImage? = nil
     var renderer: Renderer!
-    var scnScene : SCNScene!
+    var scnScene = ARViewController()
     var time = TimeInterval(0.0)
     let timestep = 1.0 / 30
     var markers : [marker] = []
@@ -71,7 +71,7 @@ class ViewController: NSViewController {
     }
     func setupScene()
     {
-        scnScene = SCNScene()
+        //scnScene = SCNScene()
         let bundle = Bundle.main
         let path = bundle.path(forResource: "MKY",ofType:"obj")
         //let path = bundle.path(forResource: "tikiPot",ofType:"stl")
