@@ -12,13 +12,6 @@ import MetalKit
 import SceneKit
 import SceneKit.ModelIO
 
-struct marker : Codable
-{
-    var id: Int
-    var Tvec: [Double]
-    var Rvec: [Double]
-    var Corners : [[Double]]
-}
 class ViewController: NSViewController {
     @IBOutlet weak var silderTvec0: NSSlider!
     @IBOutlet weak var silderTvec1: NSSlider!
@@ -31,7 +24,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var tvec0: NSTextField!
     @IBOutlet weak var tvec1: NSTextField!
     @IBOutlet weak var tvec2: NSTextField!
-    
+    private var nodeArray : [SCNNode] = []
     var timer : Timer = Timer()
     var scnTimer = Timer()
     var rs : objCRealsense = objCRealsense()
@@ -73,7 +66,7 @@ class ViewController: NSViewController {
     {
         //scnScene = SCNScene()
         let bundle = Bundle.main
-        let path = bundle.path(forResource: "MKY",ofType:"obj")
+        let path = bundle.path(forResource: "lowpolytree",ofType:"obj")
         //let path = bundle.path(forResource: "tikiPot",ofType:"stl")
         let url = NSURL(fileURLWithPath: path!)
         let asset = MDLAsset(url:url as URL)
@@ -84,13 +77,13 @@ class ViewController: NSViewController {
         texture.diffuse.contents = NSImage(named: "MKY.jpg")
         renderObject.geometry?.firstMaterial = texture
         renderObject.name = "mky"
+        //renderObject.scale = SCNVector3(0.001,0.001,0.001)
         //stage.scale = SCNVector3(x:0.5, y:0.5, z:0.5)
         renderObject.position = SCNVector3(x:0, y:0, z:-3)//z越大物體越近？
-        
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
         scnScene.rootNode.addChildNode(renderObject)
         scnARView.scene = scnScene
-        
+
         scnARView.showsStatistics = true
         scnARView.allowsCameraControl = true
         scnARView.autoenablesDefaultLighting = true
@@ -115,7 +108,7 @@ class ViewController: NSViewController {
             let decoder = JSONDecoder()
             let KingGeorge = try! decoder.decode([marker].self, from: jsonData!);
             markers = KingGeorge
-        
+
             //print(Double.pi/180)
             //print(markersPose[0].Tvec)
             //yaw=[1] pitch=[0] roll=[2]
