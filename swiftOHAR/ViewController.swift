@@ -60,7 +60,7 @@ class ViewController: NSViewController {
         print("viewDidDisappear")
         exit(0)
     }
-    func renderImg()
+    func renderImg() //get frame
     {
         rs.waitForNextFrame()
         rs.getPoseInformation()
@@ -89,6 +89,7 @@ class ViewController: NSViewController {
         
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
         scnScene.rootNode.addChildNode(renderObject)
+        
         scnARView.scene = scnScene
         
         scnARView.showsStatistics = true
@@ -121,6 +122,7 @@ class ViewController: NSViewController {
             //yaw=[1] pitch=[0] roll=[2]
         }
         //print(markersPose);
+        
         for node in scnScene.rootNode.childNodes
         {
             if node.name == "mky" && markersPose.count > 0 && markersPose[0].id == 228
@@ -151,7 +153,7 @@ class ViewController: NSViewController {
                                                   -markersPose[0].Rvec[1].toCGFloatRadius(),
                                                   -markersPose[0].Rvec[2].toCGFloatRadius())
                 //node.position = SCNVector3Make(CGFloat(markersPose[0].Tvec[0]), -CGFloat(markersPose[0].Tvec[1]), -CGFloat(markersPose[0].Tvec[2]))
-                node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
+                node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),CGFloat(-3))
                 node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
                 //print("X=\(middleX),Y=\(middleY)")
                 //max x value = 3.2 y=2.4
