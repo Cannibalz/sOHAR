@@ -34,10 +34,7 @@ class ViewController: NSViewController {
     var time = TimeInterval(0.0)
     let timestep = 1.0 / 30
     var markers : [marker] = []
-<<<<<<< HEAD
     var MS = markerSystem()
-=======
->>>>>>> 41e9967fe5804ab6fdf48eeb1be1786b1aee6ccc
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
@@ -105,10 +102,8 @@ class ViewController: NSViewController {
     {
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
-<<<<<<< HEAD
         MS.setMarkers(byJsonString: markerPoseJsonString!)
-=======
->>>>>>> 41e9967fe5804ab6fdf48eeb1be1786b1aee6ccc
+
         if markerPoseJsonString != "[]"
         {
             //let jsonData = markerPoseJsonString?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
