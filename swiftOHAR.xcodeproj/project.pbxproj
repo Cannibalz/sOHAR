@@ -35,9 +35,15 @@
 		4CC29FE51EA4A85800298246 /* librealsense.1.12.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */; };
 		4CD5F0991F7CDE9700F3A931 /* football.scn in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0981F7CDE9700F3A931 /* football.scn */; };
 		4CD5F09B1F7CDEFA00F3A931 /* micky.scn in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F09A1F7CDEFA00F3A931 /* micky.scn */; };
+<<<<<<< HEAD
 		AA1165FA1F7E32D800C56A15 /* deer.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0A51F7CF20000F3A931 /* deer.obj */; };
 		AA1165FB1F7E32DA00C56A15 /* lowpolytree.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0A61F7CF20000F3A931 /* lowpolytree.obj */; };
 		AA1165FC1F7E32DC00C56A15 /* Mickey_Mouse.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0A71F7CF20000F3A931 /* Mickey_Mouse.obj */; };
+=======
+		4CD5F09D1F7CE6B400F3A931 /* deer.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F09C1F7CE5CB00F3A931 /* deer.obj */; };
+		4CD5F09F1F7CEA8400F3A931 /* Mickey_Mouse.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F09E1F7CEA7C00F3A931 /* Mickey_Mouse.obj */; };
+		4CD5F0A11F7CEDF600F3A931 /* lowpolytree.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0A01F7CEDEB00F3A931 /* lowpolytree.obj */; };
+>>>>>>> 41e9967fe5804ab6fdf48eeb1be1786b1aee6ccc
 		AA606AAA1EF2C39F0001DDEA /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA61EF2C39F0001DDEA /* Mesh.swift */; };
 		AA606AAB1EF2C39F0001DDEA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA81EF2C39F0001DDEA /* Shaders.metal */; };
 		AA606AAC1EF2C39F0001DDEA /* AAPLMathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA91EF2C39F0001DDEA /* AAPLMathUtilities.m */; };
@@ -105,6 +111,12 @@
 		4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = librealsense.1.12.1.dylib; path = ../../../../usr/local/lib/librealsense.1.12.1.dylib; sourceTree = "<group>"; };
 		4CD5F0981F7CDE9700F3A931 /* football.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = football.scn; path = Model/football.scn; sourceTree = "<group>"; };
 		4CD5F09A1F7CDEFA00F3A931 /* micky.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = micky.scn; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		4CD5F09C1F7CE5CB00F3A931 /* deer.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = deer.obj; sourceTree = "<group>"; };
+		4CD5F09E1F7CEA7C00F3A931 /* Mickey_Mouse.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mickey_Mouse.obj; sourceTree = "<group>"; };
+		4CD5F0A01F7CEDEB00F3A931 /* lowpolytree.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = lowpolytree.obj; sourceTree = "<group>"; };
+>>>>>>> 41e9967fe5804ab6fdf48eeb1be1786b1aee6ccc
 		4CD5F0A51F7CF20000F3A931 /* deer.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = deer.obj; sourceTree = "<group>"; };
 		4CD5F0A61F7CF20000F3A931 /* lowpolytree.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = lowpolytree.obj; sourceTree = "<group>"; };
 		4CD5F0A71F7CF20000F3A931 /* Mickey_Mouse.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mickey_Mouse.obj; sourceTree = "<group>"; };
@@ -267,9 +279,12 @@
 		AAA3F2D31F271D7E004E561B /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				4CD5F09E1F7CEA7C00F3A931 /* Mickey_Mouse.obj */,
 				4CBFAF7F1F29BE9C002E8F8B /* MKY.jpg */,
+				4CD5F0A01F7CEDEB00F3A931 /* lowpolytree.obj */,
 				4CBFAF811F29BE9C002E8F8B /* MKY.mtl */,
 				4CBFAF801F29BE9C002E8F8B /* MKY.obj */,
+				4CD5F09C1F7CE5CB00F3A931 /* deer.obj */,
 			);
 			name = Model;
 			path = ../../../Desktop/Model;
@@ -385,16 +400,24 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4CD5F09F1F7CEA8400F3A931 /* Mickey_Mouse.obj in Resources */,
 				4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */,
 				4CC29FAB1EA4867200298246 /* Main.storyboard in Resources */,
+<<<<<<< HEAD
 				AA1165FC1F7E32DC00C56A15 /* Mickey_Mouse.obj in Resources */,
 				4CD5F0991F7CDE9700F3A931 /* football.scn in Resources */,
 				4CD5F09B1F7CDEFA00F3A931 /* micky.scn in Resources */,
 				AA1165FA1F7E32D800C56A15 /* deer.obj in Resources */,
 				AA1165FB1F7E32DA00C56A15 /* lowpolytree.obj in Resources */,
+=======
+				4CD5F0991F7CDE9700F3A931 /* football.scn in Resources */,
+				4CD5F09B1F7CDEFA00F3A931 /* micky.scn in Resources */,
+				4CD5F0A11F7CEDF600F3A931 /* lowpolytree.obj in Resources */,
+>>>>>>> 41e9967fe5804ab6fdf48eeb1be1786b1aee6ccc
 				4CBFAF861F29BFBE002E8F8B /* MKY.mtl in Resources */,
 				4CBFAF871F29BFC1002E8F8B /* MKY.obj in Resources */,
 				4CBFAF851F29BFBB002E8F8B /* MKY.jpg in Resources */,
+				4CD5F09D1F7CE6B400F3A931 /* deer.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
