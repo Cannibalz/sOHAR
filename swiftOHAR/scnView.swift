@@ -12,14 +12,6 @@ import MetalKit
 import SceneKit
 import SceneKit.ModelIO
 
-struct marker : Codable
-{
-    var id: Int
-    var Tvec: [Double]
-    var Rvec: [Double]
-    var Corners : [[Double]]
-}
-
 class ARViewController : SCNScene
 {
     

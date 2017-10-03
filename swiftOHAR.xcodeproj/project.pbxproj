@@ -202,6 +202,7 @@
 				AA606AA81EF2C39F0001DDEA /* Shaders.metal */,
 				4CC29FA31EA4867200298246 /* AppDelegate.swift */,
 				4CC29FA51EA4867200298246 /* ViewController.swift */,
+				BC2179AAF737ED74CD4232D9 /* markerSystem.swift */,
 				4CD5F0981F7CDE9700F3A931 /* football.scn */,
 				4CD5F09A1F7CDEFA00F3A931 /* micky.scn */,
 				4C4538F81F02412100131156 /* scnView.swift */,
@@ -211,7 +212,6 @@
 				4CC29FA91EA4867200298246 /* Main.storyboard */,
 				4CC29FAC1EA4867200298246 /* Info.plist */,
 				4C0914951EA6034A0007A351 /* Bridging-Header.h */,
-				BC2179AAF737ED74CD4232D9 /* markerSystem.swift */,
 			);
 			path = swiftOHAR;
 			sourceTree = "<group>";
@@ -267,12 +267,9 @@
 		AAA3F2D31F271D7E004E561B /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				4CD5F09E1F7CEA7C00F3A931 /* Mickey_Mouse.obj */,
 				4CBFAF7F1F29BE9C002E8F8B /* MKY.jpg */,
-				4CD5F0A01F7CEDEB00F3A931 /* lowpolytree.obj */,
 				4CBFAF811F29BE9C002E8F8B /* MKY.mtl */,
 				4CBFAF801F29BE9C002E8F8B /* MKY.obj */,
-				4CD5F09C1F7CE5CB00F3A931 /* deer.obj */,
 			);
 			name = Model;
 			path = ../../../Desktop/Model;
@@ -388,7 +385,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4CD5F09F1F7CEA8400F3A931 /* Mickey_Mouse.obj in Resources */,
 				4CC29FA81EA4867200298246 /* Assets.xcassets in Resources */,
 				4CC29FAB1EA4867200298246 /* Main.storyboard in Resources */,
 				AA1165FC1F7E32DC00C56A15 /* Mickey_Mouse.obj in Resources */,
@@ -399,7 +395,6 @@
 				4CBFAF861F29BFBE002E8F8B /* MKY.mtl in Resources */,
 				4CBFAF871F29BFC1002E8F8B /* MKY.obj in Resources */,
 				4CBFAF851F29BFBB002E8F8B /* MKY.jpg in Resources */,
-				4CD5F09D1F7CE6B400F3A931 /* deer.obj in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
