@@ -19,11 +19,19 @@ struct marker : Codable
 
 class markerSystem : NSObject
 {
+    private var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
+    var previousIdDictionary : Dictionary = [Int:Int]()
     var idDictionary : Dictionary = [Int:Int]()
-    var dictionary: Dictionary<Int, (String, String)> = [Int:(String,String)]()
+    var virtualModelDictionary: Dictionary<Int, (String, String)> = [Int:(String,String)]()
+    //id對應模型、材質的索引
     var markers : [marker] = []
-
+    override init()
+    {
+        super.init()
+        scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
+        virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
+    }
     func setMarkers(byJsonString : String)
     {
         if byJsonString != "[]"
@@ -37,27 +45,42 @@ class markerSystem : NSObject
     }
     func idCalculating()
     {
-        var tempId : Dictionary = [Int:Int]() //now
+        //var tempId : Dictionary = [Int:Int]() //now
+        self.idDictionary = [Int:Int]()
         for marker in markers
         {
-            if tempId[marker.id] == nil
+            if self.idDictionary[marker.id] == nil
             {
-                tempId[marker.id] = 1
+                self.idDictionary[marker.id] = 1
             }
             else
             {
-                tempId[marker.id] = tempId[marker.id]!+1
+                self.idDictionary[marker.id] = self.idDictionary[marker.id]!+1
             }
         }
-        for ID in tempId
+        for id in idDictionary
         {
-           idDictionary[ID.key] = ID.value
-        }
-        for ID in idDictionary
-        {
-            if tempId[ID.key] == nil
+            if previousIdDictionary[id.key] == nil
             {
-                idDictionary.removeValue(forKey: ID.key)
+                //新增此id節點
+            }
+            else if previousIdDictionary[id.key] != nil
+            {
+                if previousIdDictionary[id.key]! > id.value
+                {
+                    //刪除此id多餘節點
+                }
+                else if previousIdDictionary[id.key]! < id.value
+                {
+                    //新增此id剩餘節點
+                }
+            }
+        }
+        for id in previousIdDictionary
+        {
+            if idDictionary[id.key] == nil
+            {
+                //刪除此id所有節點
             }
         }
     }
@@ -65,7 +88,7 @@ class markerSystem : NSObject
     {
         return self.Count
     }
-    func createNodeModel(objName:String,textureName:String) -> SCNNode
+    func createNodeModel(objName:String,textureName:String,nodeName:String) -> SCNNode
     {
         let bundle = Bundle.main
         let path = bundle.path(forResource: objName,ofType:"obj")
@@ -75,9 +98,21 @@ class markerSystem : NSObject
         let objNode = SCNNode(mdlObject: stageObject)
         let texture = SCNMaterial()
         texture.diffuse.contents = NSImage(named: textureName)
+        objNode.name = nodeName
         objNode.geometry?.firstMaterial = texture
         //renderObject.scale = SCNVector3(0.001,0.001,0.001)
         return objNode
     }
-    
+    func setMarkerPosition(marker:marker) -> SCNVector3
+    {
+        return SCNVector3()
+    }
+    func buildCameraNode(x:CGFloat,y:CGFloat,z:CGFloat) -> SCNNode!
+    {
+        var cameraNode : SCNNode!
+        cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = SCNVector3(x:x, y:y, z:z)
+        return cameraNode
+    }
 }

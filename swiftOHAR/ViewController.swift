@@ -67,7 +67,7 @@ class ViewController: NSViewController {
     {
         //scnScene = SCNScene()
         let bundle = Bundle.main
-        let path = bundle.path(forResource: "lowpolytree",ofType:"obj")
+        let path = bundle.path(forResource: "Mickey_Mouse",ofType:"obj")
         //let path = bundle.path(forResource: "tikiPot",ofType:"stl")
         let url = NSURL(fileURLWithPath: path!)
         let asset = MDLAsset(url:url as URL)
@@ -106,6 +106,9 @@ class ViewController: NSViewController {
 
         if markerPoseJsonString != "[]"
         {
+            MS.setMarkers(byJsonString: markerPoseJsonString!)
+        
+            
             //let jsonData = markerPoseJsonString?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
             let jsonData = markerPoseJsonString?.data(using: .utf8)
             let decoder = JSONDecoder()
