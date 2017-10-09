@@ -9,7 +9,7 @@ import MetalKit
 import SceneKit
 import SceneKit.ModelIO
 
-struct marker : Codable
+struct Marker : Codable
 {
     var id: Int
     var Tvec: [Double]
@@ -25,7 +25,10 @@ class markerSystem : NSObject
     var idDictionary : Dictionary = [Int:Int]()
     var virtualModelDictionary: Dictionary<Int, (String, String)> = [Int:(String,String)]()
     //id對應模型、材質的索引
-    var markers : [marker] = []
+    var markers : [Marker] = []
+    
+    let cullNodeTheshold : UInt = 33;
+    var cullNodeCount : UInt = 0;
     override init()
     {
         super.init()
@@ -38,9 +41,20 @@ class markerSystem : NSObject
         {
             let jsonData = byJsonString.data(using: .utf8)
             let decoder = JSONDecoder()
-            let KingGeorge = try! decoder.decode([marker].self, from: jsonData!);
+            let KingGeorge = try! decoder.decode([Marker].self, from: jsonData!);
             self.markers = KingGeorge
             idCalculating()
+            setVirtualObject()
+            cullNodeCount -= 1;
+        }
+        else
+        {
+            if cullNodeCount == cullNodeCount
+            {
+                scnScene.rootNode.removeFromParentNode()
+                scnScene.rootNode.addChildNode(buildCameraNode(x: 0, y: 0, z: 5))
+            }
+            cullNodeCount += 1;
         }
     }
     func idCalculating()
@@ -62,16 +76,43 @@ class markerSystem : NSObject
         {
             if previousIdDictionary[id.key] == nil
             {
+                for nodeId in 0..<id.value
+                {
+                    var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
+                    
+                }
+//                var idCounter = 0
+//                for marker in markers
+//                {
+//                    if marker.id == id.key
+//                    {
+//                        var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(idCounter)")
+//                        var PositionAndScale = objPositionCalculating(Corners: marker.Corners)
+//                        node.position = PositionAndScale["position"]!
+//                        node.scale = PositionAndScale["scale"]!
+//                        node.eulerAngles = makeEularAngles(rvec : marker.Rvec)
+//                        scnScene.rootNode.addChildNode(node)
+//                        idCounter+=1
+//                    }
+//                }
                 //新增此id節點
             }
             else if previousIdDictionary[id.key] != nil
             {
                 if previousIdDictionary[id.key]! > id.value
                 {
+                    for nodeId in id.value..<previousIdDictionary[id.value]!
+                    {
+                        scnScene.rootNode.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
+                    }
                     //刪除此id多餘節點
                 }
                 else if previousIdDictionary[id.key]! < id.value
                 {
+                    for nodeId in previousIdDictionary[id.value]!..<id.value
+                    {
+                        var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
+                    }
                     //新增此id剩餘節點
                 }
             }
@@ -80,7 +121,29 @@ class markerSystem : NSObject
         {
             if idDictionary[id.key] == nil
             {
-                //刪除此id所有節點
+                for nodeId in 0..<id.value
+                {
+                    scnScene.rootNode.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
+                }
+            }
+            //刪除此id所有節點
+        }
+    }
+    func setVirtualObject()
+    {
+        let arrIDKey = idDictionary.keys
+        for IDKey in arrIDKey
+        {
+            let arrID = markers.filter{ (marker) -> Bool in //取得Markers中所有特定ID的元素
+                return marker.id == IDKey}
+            for i in 0..<arrID.count
+            {
+                var Node = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: true)
+                var positionAndScale = objPositionCalculating(Corners: arrID[i].Corners)
+                Node?.position = positionAndScale["position"]!
+                Node?.scale = positionAndScale["scale"]!
+                Node?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
+                
             }
         }
     }
@@ -103,7 +166,7 @@ class markerSystem : NSObject
         //renderObject.scale = SCNVector3(0.001,0.001,0.001)
         return objNode
     }
-    func setMarkerPosition(marker:marker) -> SCNVector3
+    func setMarkerPosition(marker:Marker) -> SCNVector3
     {
         return SCNVector3()
     }
@@ -114,5 +177,40 @@ class markerSystem : NSObject
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3(x:x, y:y, z:z)
         return cameraNode
+    }
+    func objPositionCalculating(Corners: [[Double]]) -> [String:SCNVector3]
+    {
+        var middleX = Double()
+        var middleY = Double()
+        var avgLength = Double()
+        for corner in Corners
+        {
+            middleX += corner[0]
+            middleY += corner[1]
+        }
+        
+        for i in 0..<Corners.count
+        {
+            if i == (Corners.count-1)
+            {
+                avgLength += sqrt(pow((Corners[i][0]-Corners[0][0]), 2) + pow((Corners[i][1]-Corners[0][1]),2))
+            }
+            else
+            {
+                avgLength += sqrt(pow((Corners[i][0]-markers[0].Corners[i+1][0]), 2) + pow((Corners[i][1]-Corners[i+1][1]),2))
+            }
+        }
+        middleX = (middleX/4-320)/50
+        middleY = -(middleY/4-240)/50
+        avgLength = avgLength/4
+        //node.eulerAngles = makeEularAngles(rvec : markers[0].Rvec)
+        //node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
+//        node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
+        return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
+    }
+    func makeEularAngles(rvec : [Double]) -> SCNVector3
+    {
+        let eulerAngles = SCNVector3Make(rvec[0].toCGFloatRadius()+CGFloat(Double.pi) ,-rvec[1].toCGFloatRadius(), -rvec[2].toCGFloatRadius())
+        return eulerAngles
     }
 }

@@ -33,7 +33,7 @@ class ViewController: NSViewController {
     var scnScene = ARViewController()
     var time = TimeInterval(0.0)
     let timestep = 1.0 / 30
-    var markers : [marker] = []
+    var markers : [Marker] = []
     var MS = markerSystem()
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +112,7 @@ class ViewController: NSViewController {
             //let jsonData = markerPoseJsonString?.data(using: String.Encoding(rawValue: String.Encoding.utf8.rawValue))
             let jsonData = markerPoseJsonString?.data(using: .utf8)
             let decoder = JSONDecoder()
-            let KingGeorge = try! decoder.decode([marker].self, from: jsonData!);
+            let KingGeorge = try! decoder.decode([Marker].self, from: jsonData!);
             markers = KingGeorge
 
             //print(Double.pi/180)
