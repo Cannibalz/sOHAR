@@ -19,7 +19,7 @@ struct Marker : Codable
 
 class markerSystem : NSObject
 {
-    private var scnScene : SCNScene = SCNScene()
+    var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
     var previousIdDictionary : Dictionary = [Int:Int]()
     var idDictionary : Dictionary = [Int:Int]()
@@ -27,8 +27,6 @@ class markerSystem : NSObject
     //id對應模型、材質的索引
     var markers : [Marker] = []
     
-    let cullNodeTheshold : UInt = 33;
-    var cullNodeCount : UInt = 0;
     override init()
     {
         super.init()
@@ -37,25 +35,16 @@ class markerSystem : NSObject
     }
     func setMarkers(byJsonString : String)
     {
-        if byJsonString != "[]"
-        {
+        //if byJsonString != "[]"
+        //{
             let jsonData = byJsonString.data(using: .utf8)
             let decoder = JSONDecoder()
             let KingGeorge = try! decoder.decode([Marker].self, from: jsonData!);
             self.markers = KingGeorge
             idCalculating()
             setVirtualObject()
-            cullNodeCount -= 1;
-        }
-        else
-        {
-            if cullNodeCount == cullNodeCount
-            {
-                scnScene.rootNode.removeFromParentNode()
-                scnScene.rootNode.addChildNode(buildCameraNode(x: 0, y: 0, z: 5))
-            }
-            cullNodeCount += 1;
-        }
+        //}
+        previousIdDictionary = idDictionary
     }
     func idCalculating()
     {
@@ -78,8 +67,9 @@ class markerSystem : NSObject
             {
                 for nodeId in 0..<id.value
                 {
+                    print("\(id.key):\(id.value)")
                     var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
-                    
+                    scnScene.rootNode.addChildNode(node)
                 }
 //                var idCounter = 0
 //                for marker in markers
@@ -101,7 +91,7 @@ class markerSystem : NSObject
             {
                 if previousIdDictionary[id.key]! > id.value
                 {
-                    for nodeId in id.value..<previousIdDictionary[id.value]!
+                    for nodeId in id.value..<previousIdDictionary[id.key]!
                     {
                         scnScene.rootNode.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
                     }
@@ -109,9 +99,11 @@ class markerSystem : NSObject
                 }
                 else if previousIdDictionary[id.key]! < id.value
                 {
-                    for nodeId in previousIdDictionary[id.value]!..<id.value
+                    print(previousIdDictionary)
+                    for nodeId in previousIdDictionary[id.key]!..<id.value
                     {
                         var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
+                        scnScene.rootNode.addChildNode(node)
                     }
                     //新增此id剩餘節點
                 }
@@ -132,17 +124,19 @@ class markerSystem : NSObject
     func setVirtualObject()
     {
         let arrIDKey = idDictionary.keys
+        print(arrIDKey)
+        print(scnScene.rootNode.childNodes)
         for IDKey in arrIDKey
         {
+            print("IDKey:\(IDKey)")
             let arrID = markers.filter{ (marker) -> Bool in //取得Markers中所有特定ID的元素
                 return marker.id == IDKey}
             for i in 0..<arrID.count
             {
-                var Node = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: true)
                 var positionAndScale = objPositionCalculating(Corners: arrID[i].Corners)
-                Node?.position = positionAndScale["position"]!
-                Node?.scale = positionAndScale["scale"]!
-                Node?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
+                scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
+                scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
+                scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
                 
             }
         }
