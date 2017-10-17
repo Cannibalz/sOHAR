@@ -32,6 +32,7 @@ class markerSystem : NSObject
         super.init()
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
+        virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
     }
     func setMarkers(byJsonString : String)
     {
@@ -40,7 +41,15 @@ class markerSystem : NSObject
             let jsonData = byJsonString.data(using: .utf8)
             let decoder = JSONDecoder()
             let KingGeorge = try! decoder.decode([Marker].self, from: jsonData!);
-            self.markers = KingGeorge
+            var filterMarker = [Marker]()
+            for crew in KingGeorge  //刪除沒在資料庫內的marker
+            {
+                if virtualModelDictionary[crew.id] != nil
+                {
+                    filterMarker.append(crew)
+                }
+            }
+            self.markers = filterMarker
             idCalculating()
             setVirtualObject()
         //}
@@ -71,20 +80,6 @@ class markerSystem : NSObject
                     var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
                     scnScene.rootNode.addChildNode(node)
                 }
-//                var idCounter = 0
-//                for marker in markers
-//                {
-//                    if marker.id == id.key
-//                    {
-//                        var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(idCounter)")
-//                        var PositionAndScale = objPositionCalculating(Corners: marker.Corners)
-//                        node.position = PositionAndScale["position"]!
-//                        node.scale = PositionAndScale["scale"]!
-//                        node.eulerAngles = makeEularAngles(rvec : marker.Rvec)
-//                        scnScene.rootNode.addChildNode(node)
-//                        idCounter+=1
-//                    }
-//                }
                 //新增此id節點
             }
             else if previousIdDictionary[id.key] != nil
@@ -137,7 +132,9 @@ class markerSystem : NSObject
                 scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
                 scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
-                
+                var scnn = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)
+                print(scnn?.name)
+                print(scnn?.position)
             }
         }
     }

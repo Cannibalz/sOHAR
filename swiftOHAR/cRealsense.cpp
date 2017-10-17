@@ -106,7 +106,7 @@ string cRealsense::getPoseInformation()
             cv::Mat oneTvec(3,1,CV_64FC1);
             cv::Mat oneRvec(3,1,CV_64FC1);
             cv::Mat oneRMat(4,4,CV_64F);
-            vector<Point2f> oneCorners = corners[0];
+            vector<Point2f> oneCorners = corners[i];
             Vec3d eulerAngles;
             for(int j=0;j<3;j++)
             {
