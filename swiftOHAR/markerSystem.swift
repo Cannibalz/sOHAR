@@ -188,7 +188,7 @@ class markerSystem : NSObject
             }
             else
             {
-                avgLength += sqrt(pow((Corners[i][0]-markers[0].Corners[i+1][0]), 2) + pow((Corners[i][1]-Corners[i+1][1]),2))
+                avgLength += sqrt(pow((Corners[i][0]-Corners[i+1][0]), 2) + pow((Corners[i][1]-Corners[i+1][1]),2))
             }
         }
         middleX = (middleX/4-320)/50
