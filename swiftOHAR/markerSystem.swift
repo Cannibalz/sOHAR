@@ -121,6 +121,7 @@ class markerSystem : NSObject
         let arrIDKey = idDictionary.keys
         print(arrIDKey)
         print(scnScene.rootNode.childNodes)
+    
         for IDKey in arrIDKey
         {
             print("IDKey:\(IDKey)")
@@ -130,11 +131,10 @@ class markerSystem : NSObject
             {
                 var positionAndScale = objPositionCalculating(Corners: arrID[i].Corners)
                 scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
+                let scnMaterial = SCNMaterial()
                 scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
-                var scnn = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)
-                print(scnn?.name)
-                print(scnn?.position)
+            
             }
         }
     }
@@ -167,6 +167,7 @@ class markerSystem : NSObject
         cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3(x:x, y:y, z:z)
+        cameraNode.camera?.zNear = 7.3
         return cameraNode
     }
     func objPositionCalculating(Corners: [[Double]]) -> [String:SCNVector3]
