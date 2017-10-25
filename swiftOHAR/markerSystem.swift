@@ -21,6 +21,8 @@ class markerSystem : NSObject
 {
     var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
+    var renderPass : MTLRenderPassDescriptor = MTLRenderPassDescriptor()
+    var depthBufferDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: MTLPixelFormat.depth32Float_stencil8, width: 640, height: 480, mipmapped: false)
     var previousIdDictionary : Dictionary = [Int:Int]()
     var idDictionary : Dictionary = [Int:Int]()
     var virtualModelDictionary: Dictionary<Int, (String, String)> = [Int:(String,String)]()
@@ -118,10 +120,12 @@ class markerSystem : NSObject
     }
     func setVirtualObject()
     {
+        depthBufferDescriptor.usage = MTLTextureUsage.renderTarget
+        //renderPass.depthAttachment.texture = self.mtl
+        
         let arrIDKey = idDictionary.keys
         print(arrIDKey)
         print(scnScene.rootNode.childNodes)
-    
         for IDKey in arrIDKey
         {
             print("IDKey:\(IDKey)")
@@ -167,7 +171,7 @@ class markerSystem : NSObject
         cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3(x:x, y:y, z:z)
-        cameraNode.camera?.zNear = 7.3
+        //cameraNode.camera?.zNear = 7.3
         return cameraNode
     }
     func objPositionCalculating(Corners: [[Double]]) -> [String:SCNVector3]
@@ -202,7 +206,7 @@ class markerSystem : NSObject
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {
-        let eulerAngles = SCNVector3Make(rvec[0].toCGFloatRadius()+CGFloat(Double.pi) ,-rvec[1].toCGFloatRadius(), -rvec[2].toCGFloatRadius())
+        let eulerAngles = SCNVector3Make(rvec[0].toCGFloatRadius()+CGFloat(3*Double.pi/2) ,-rvec[1].toCGFloatRadius(), -rvec[2].toCGFloatRadius())
         return eulerAngles
     }
 }
