@@ -60,6 +60,7 @@ class ViewController: NSViewController {
         rs.getPoseInformation()
         colorView.image = rs.nsDetectedColorImage()
         depthView.image = rs.nsDepthImage()
+        print(depthView.image)
         C2DView.image = rs.nsC2DImage()
         MS.scnScene.background.contents = rs.nsColorImage()
     }
@@ -85,6 +86,7 @@ class ViewController: NSViewController {
         scnScene.rootNode.addChildNode(renderObject)
         //scnARView.scene = scnScene
         scnARView.scene = MS.scnScene
+        
         scnARView.showsStatistics = true
         scnARView.allowsCameraControl = true
         scnARView.autoenablesDefaultLighting = true

@@ -18,6 +18,7 @@ public:
     cRealsense();
     cv::Mat colorImage();
     cv::Mat depthImage();
+    cv::Mat metalDepthTexture();
     cv::Mat D2CImage();
     cv::Mat C2DImage();
     cv::Mat detectedImage();

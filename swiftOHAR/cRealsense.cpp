@@ -27,12 +27,19 @@ cv::Mat cRealsense:: depthImage()
     rs::intrinsics depth_intr = dev->get_stream_intrinsics(rs::stream::depth);
     cv::Mat depth16( depth_intr.height,depth_intr.width,CV_16U,(void*)dev->get_frame_data(rs::stream::depth) );
     cv::Mat depth8u = depth16;
-    depth8u.convertTo( depth8u, CV_8UC1, 255.0/10000 );
+    depth8u.convertTo( depth8u, CV_8UC1, /*1/255.0*/255.0/10000 );
     //uint16_t *depthImage = (uint16_t *) dev->get_frame_data(rs::stream::depth);
     cv::Mat returnDepth;//(depth_intr.height,depth_intr.width,CV_16UC1,depthImage);
+    cv::Mat metalDepth = Mat(640,480,CV_32FC1);
     depth8u.copyTo(returnDepth);
+    //metalDepth.row(0).col(0) = 0.5;
+    depth8u.convertTo(metalDepth,CV_32FC1,1.0/255.0);
+    //cout << "min: " << min << ",Max: " << max << endl;
+    //cout << "Mat: " << endl << metalDepth << endl;
     return returnDepth;
+    //return metalDepth;
 }
+
 cv::Mat cRealsense:: C2DImage()
 {
     cv::Mat alignedC2D(cv::Size(640,480),CV_8UC3,(void*)dev->get_frame_data(rs::stream::color_aligned_to_depth), cv::Mat::AUTO_STEP);

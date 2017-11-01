@@ -23,6 +23,7 @@ class markerSystem : NSObject
     private var Count : Int = 0
     var renderPass : MTLRenderPassDescriptor = MTLRenderPassDescriptor()
     var depthBufferDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: MTLPixelFormat.depth32Float_stencil8, width: 640, height: 480, mipmapped: false)
+    let depthStencilDescriptor = MTLDepthStencilDescriptor()
     var previousIdDictionary : Dictionary = [Int:Int]()
     var idDictionary : Dictionary = [Int:Int]()
     var virtualModelDictionary: Dictionary<Int, (String, String)> = [Int:(String,String)]()
@@ -33,6 +34,7 @@ class markerSystem : NSObject
     {
         super.init()
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
+        depthStencilDescriptor.isDepthWriteEnabled = true
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
     }
