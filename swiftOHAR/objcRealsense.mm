@@ -44,22 +44,25 @@
     NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize() * cvMat.total()];
     
     CGColorSpaceRef colorSpace;
-    
-    if (cvMat.elemSize() == 1)
+    int BPC = 8;
+    int BPP = 0;
+    if (cvMat.elemSize() == 1 || cvMat.elemSize() == 4)
     {
         colorSpace = CGColorSpaceCreateDeviceGray();
+        BPP = 32;
     }
     else
     {
         colorSpace = CGColorSpaceCreateDeviceRGB();
+        BPP = 24;
     }
     
     CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
     
     CGImageRef imageRef = CGImageCreate(cvMat.cols,                                     // Width
                                         cvMat.rows,                                     // Height
-                                        8,                                              // Bits per component
-                                        8 * cvMat.elemSize(),                           // Bits per pixel
+                                        BPC,                                              // Bits per component
+                                        /*BPC * cvMat.elemSize()*/BPP,                           // Bits per pixel
                                         cvMat.step[0],                                  // Bytes per row
                                         colorSpace,                                     // Colorspace
                                         kCGImageAlphaNone | kCGBitmapByteOrderDefault,  // Bitmap info flags
@@ -114,6 +117,8 @@
 }
 - (NSImage *)nsDepthImage
 {
+    NSLog(@"ColorSize: %d",crs.colorImage().elemSize());
+    NSLog(@"DepthSize: %d",crs.depthImage().elemSize());
     return [[NSImage alloc]initWithCVMat:crs.depthImage()];
 }
 - (NSImage *)nsC2DImage

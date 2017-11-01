@@ -36,8 +36,8 @@ cv::Mat cRealsense:: depthImage()
     depth8u.convertTo(metalDepth,CV_32FC1,1.0/255.0);
     //cout << "min: " << min << ",Max: " << max << endl;
     //cout << "Mat: " << endl << metalDepth << endl;
-    return returnDepth;
-    //return metalDepth;
+    //return returnDepth;
+    return metalDepth;
 }
 
 cv::Mat cRealsense:: C2DImage()
