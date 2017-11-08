@@ -35,7 +35,7 @@ cv::Mat cRealsense:: depthImage()
     //metalDepth.row(0).col(0) = 0.5;
     depth8u.convertTo(metalDepth,CV_32FC1,1.0/255.0);
     //cout << "min: " << min << ",Max: " << max << endl;
-    //cout << "Mat: " << endl << metalDepth << endl;
+    //cout << "Count: " << metalDepth.channels() << "Mat: " << endl << metalDepth << endl;
     //return returnDepth;
     return metalDepth;
 }

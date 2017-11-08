@@ -49,14 +49,15 @@
     if (cvMat.elemSize() == 1 || cvMat.elemSize() == 4)
     {
         colorSpace = CGColorSpaceCreateDeviceGray();
+        BPC = 32;
         BPP = 32;
     }
     else
     {
         colorSpace = CGColorSpaceCreateDeviceRGB();
+        BPC = 8;
         BPP = 24;
     }
-    
     CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
     
     CGImageRef imageRef = CGImageCreate(cvMat.cols,                                     // Width
@@ -117,8 +118,8 @@
 }
 - (NSImage *)nsDepthImage
 {
-    NSLog(@"ColorSize: %d",crs.colorImage().elemSize());
-    NSLog(@"DepthSize: %d",crs.depthImage().elemSize());
+    //NSLog(@"DepthSize: %d",crs.depthImage().elemSize());
+    //NSLog(@"Depth...%d",crs.depthImage().channels());
     return [[NSImage alloc]initWithCVMat:crs.depthImage()];
 }
 - (NSImage *)nsC2DImage
