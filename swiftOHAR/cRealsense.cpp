@@ -37,7 +37,7 @@ cv::Mat cRealsense:: depthImage()
     //cout << "min: " << min << ",Max: " << max << endl;
     //cout << "Mat: " << endl << metalDepth << endl;
     //return returnDepth;
-    return metalDepth;
+    return returnDepth;
 }
 
 cv::Mat cRealsense:: C2DImage()

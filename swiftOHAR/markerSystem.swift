@@ -19,6 +19,8 @@ struct Marker : Codable
 
 class markerSystem : NSObject
 {
+    let mtlDevice = MTLCreateSystemDefaultDevice()
+    var depthImage = NSImage()
     var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
     var renderPass : MTLRenderPassDescriptor = MTLRenderPassDescriptor()
@@ -123,11 +125,22 @@ class markerSystem : NSObject
     func setVirtualObject()
     {
         depthBufferDescriptor.usage = MTLTextureUsage.renderTarget
-        //renderPass.depthAttachment.texture = self.mtl
+        var textureLoader = MTKTextureLoader.init(device: mtlDevice!)
+        var imageRect:CGRect = CGRect(x: 0, y: 0, width: depthImage.size.width, height: depthImage.size.height)
+        var imageRef = depthImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+        
+        var texture : MTLTexture? = try! textureLoader.newTexture(with: imageRef!, options: [:])
+        do{
+            texture = try textureLoader.newTexture(with: imageRef!, options: [:])
+        }
+        catch let error as NSError {
+            fatalError("Unexpected error ocurred: \(error.localizedDescription).")
+        }
+        renderPass.depthAttachment.texture = texture
         
         let arrIDKey = idDictionary.keys
-        print(arrIDKey)
-        print(scnScene.rootNode.childNodes)
+//        print(arrIDKey)
+//        print(scnScene.rootNode.childNodes)
         for IDKey in arrIDKey
         {
             print("IDKey:\(IDKey)")

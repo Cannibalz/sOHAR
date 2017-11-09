@@ -49,7 +49,7 @@
     if (cvMat.elemSize() == 1 || cvMat.elemSize() == 4)
     {
         colorSpace = CGColorSpaceCreateDeviceGray();
-        BPP = 32;
+        BPP = 8;
     }
     else
     {
