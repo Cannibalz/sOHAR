@@ -123,6 +123,7 @@ class markerSystem : NSObject
     func setVirtualObject()
     {
         depthBufferDescriptor.usage = MTLTextureUsage.renderTarget
+        let depthDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .depth32Float, width: 640, height: 480, mipmapped: false)
         //renderPass.depthAttachment.texture = self.mtl
         
         let arrIDKey = idDictionary.keys
