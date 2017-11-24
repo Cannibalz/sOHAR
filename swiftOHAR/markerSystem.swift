@@ -19,6 +19,13 @@ struct Marker : Codable
 
 class markerSystem : NSObject
 {
+    
+    var device : MTLDevice = MTLCreateSystemDefaultDevice()!
+    var commandQueue : MTLCommandQueue!
+    var renderer : SCNRenderer!
+    var renderPassDescriptor : MTLRenderPassDescriptor = MTLRenderPassDescriptor()
+    let stencilTextureDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .stencil8, width: 640, height: 480, mipmapped: false)
+    
     var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
     var renderPass : MTLRenderPassDescriptor = MTLRenderPassDescriptor()
@@ -33,10 +40,31 @@ class markerSystem : NSObject
     override init()
     {
         super.init()
+        stencilTextureDescriptor.resourceOptions = .storageModePrivate
+        commandQueue = device.makeCommandQueue()
+        
+        let stencilTexture = device.makeTexture(descriptor: stencilTextureDescriptor)
+        let stencilAttachment = renderPassDescriptor.stencilAttachment
+        stencilAttachment?.texture = stencilTexture
+        stencilAttachment?.loadAction = .clear
+        stencilAttachment?.storeAction = .dontCare
+        stencilAttachment?.clearStencil = 0
+        
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
         depthStencilDescriptor.isDepthWriteEnabled = true
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
+        
+        stencilTextureDescriptor.textureType = .type2D
+        
+    }
+    func setupPlane()
+    {
+        var pipelineStateDescriptor = MTLRenderPipelineDescriptor.init()
+        pipelineStateDescriptor.label = "pipeline for plane"
+        pipelineStateDescriptor.sampleCount = 1
+        pipelineStateDescriptor.fragmentFunction = nil
+        
     }
     func setMarkers(byJsonString : String)
     {

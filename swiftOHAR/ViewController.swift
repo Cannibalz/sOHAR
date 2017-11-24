@@ -60,7 +60,6 @@ class ViewController: NSViewController {
         rs.getPoseInformation()
         colorView.image = rs.nsDetectedColorImage()
         depthView.image = rs.nsDepthImage()
-        print(depthView.image)
         C2DView.image = rs.nsC2DImage()
         MS.scnScene.background.contents = rs.nsColorImage()
     }
