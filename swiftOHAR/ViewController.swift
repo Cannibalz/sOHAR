@@ -39,6 +39,7 @@ class ViewController: NSViewController {
     let timestep = 1.0 / 30
     var markers : [Marker] = []
     var MS = markerSystem()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
@@ -64,6 +65,8 @@ class ViewController: NSViewController {
         rs.getPoseInformation()
         colorView.image = rs.nsDetectedColorImage()
         depthView.image = rs.nsDepthImage()
+
+        
         C2DView.image = rs.nsC2DImage()
         MS.scnScene.background.contents = rs.nsColorImage()
     }

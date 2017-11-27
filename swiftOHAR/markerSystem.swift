@@ -19,10 +19,7 @@ struct Marker : Codable
 
 class markerSystem : NSObject
 {
-    
-    var commandQueue : MTLCommandQueue!
-    var renderer : SCNRenderer!
-    
+
     var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
     var previousIdDictionary : Dictionary = [Int:Int]()
@@ -140,12 +137,15 @@ class markerSystem : NSObject
     }
     func setVirtualObject()
     {
-        let depthDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .depth32Float, width: 640, height: 480, mipmapped: false)
-        //renderPass.depthAttachment.texture = self.mtl
+
+        
+        
+        
         
         let arrIDKey = idDictionary.keys
-        //print(arrIDKey)
-        //print(scnScene.rootNode.childNodes)
+//        print(arrIDKey)
+//        print(scnScene.rootNode.childNodes)
+
         for IDKey in arrIDKey
         {
             //print("IDKey:\(IDKey)")
