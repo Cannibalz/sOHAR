@@ -16,6 +16,7 @@ cRealsense::cRealsense()
 }
 cv::Mat cRealsense:: colorImage()
 {
+    //cv::Mat color(cv::Size(960, 720), CV_8UC3, (void*)dev->get_frame_data(rs::stream::color), cv::Mat::AUTO_STEP);
     cv::Mat color(cv::Size(640, 480), CV_8UC3, (void*)dev->get_frame_data(rs::stream::color), cv::Mat::AUTO_STEP);
     cv::Mat returnColor;
     color.copyTo(returnColor);

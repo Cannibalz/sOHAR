@@ -15,6 +15,7 @@
 		4C4538F91F02412100131156 /* scnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4538F81F02412100131156 /* scnView.swift */; };
 		4C4BF8E91EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */; };
 		4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */ = {isa = PBXBuildFile; fileRef = 4C77B3D11EF7C4F6002A1B20 /* objImageProcess.mm */; };
+		4C8D35191FCBEF5F00D3EC4F /* CollisionTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C8D35181FCBEF5F00D3EC4F /* CollisionTypes.swift */; };
 		4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */; };
 		4CBFAF851F29BFBB002E8F8B /* MKY.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4CBFAF831F29BF18002E8F8B /* MKY.jpg */; };
 		4CBFAF861F29BFBE002E8F8B /* MKY.mtl in Resources */ = {isa = PBXBuildFile; fileRef = 4CBFAF841F29BF18002E8F8B /* MKY.mtl */; };
@@ -75,6 +76,7 @@
 		4C4BF8EA1EF12E55004EFB93 /* MetalPerformanceShaders.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MetalPerformanceShaders.framework; path = System/Library/Frameworks/MetalPerformanceShaders.framework; sourceTree = SDKROOT; };
 		4C77B3D11EF7C4F6002A1B20 /* objImageProcess.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = objImageProcess.mm; sourceTree = "<group>"; };
 		4C77B3D31EF7C526002A1B20 /* objImageProcess.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = objImageProcess.h; sourceTree = "<group>"; };
+		4C8D35181FCBEF5F00D3EC4F /* CollisionTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollisionTypes.swift; sourceTree = "<group>"; };
 		4CB2B2A11EF1286C00FF14E0 /* cImageProcess.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cImageProcess.cpp; sourceTree = "<group>"; };
 		4CB2B2A21EF1286C00FF14E0 /* cImageProcess.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = cImageProcess.hpp; sourceTree = "<group>"; };
 		4CBFAF7F1F29BE9C002E8F8B /* MKY.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = MKY.jpg; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 				4CC29FA31EA4867200298246 /* AppDelegate.swift */,
 				4CC29FA51EA4867200298246 /* ViewController.swift */,
 				BC2179AAF737ED74CD4232D9 /* markerSystem.swift */,
+				4C8D35181FCBEF5F00D3EC4F /* CollisionTypes.swift */,
 				4CD5F0981F7CDE9700F3A931 /* football.scn */,
 				4CD5F09A1F7CDEFA00F3A931 /* micky.scn */,
 				4C4538F81F02412100131156 /* scnView.swift */,
@@ -420,6 +423,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				AA606AAB1EF2C39F0001DDEA /* Shaders.metal in Sources */,
+				4C8D35191FCBEF5F00D3EC4F /* CollisionTypes.swift in Sources */,
 				AA606AAC1EF2C39F0001DDEA /* AAPLMathUtilities.m in Sources */,
 				4C0914941EA601D40007A351 /* cRealsense.cpp in Sources */,
 				AA606AAA1EF2C39F0001DDEA /* Mesh.swift in Sources */,

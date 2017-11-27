@@ -25,6 +25,10 @@ class ViewController: NSViewController {
     @IBOutlet weak var tvec1: NSTextField!
     @IBOutlet weak var tvec2: NSTextField!
     private var nodeArray : [SCNNode] = []
+    
+    let maxX : Float = 0.769800186158227
+    let maxY : Float = 0.57735019922565
+    
     var timer : Timer = Timer()
     var scnTimer = Timer()
     var rs : objCRealsense = objCRealsense()
@@ -65,30 +69,17 @@ class ViewController: NSViewController {
     }
     func setupScene()
     {
-        //scnScene = SCNScene()
-        let bundle = Bundle.main
-        let path = bundle.path(forResource: "Mickey_Mouse",ofType:"obj")
-        //let path = bundle.path(forResource: "tikiPot",ofType:"stl")
-        let url = NSURL(fileURLWithPath: path!)
-        let asset = MDLAsset(url:url as URL)
-        let stageObject = asset.object(at: 0)
-        let renderObject = SCNNode(mdlObject: stageObject)
-        let texture = SCNMaterial()
-        //texture.diffuse.contents = NSImage(named: "model.scnassets/MKY.jpg")
-        texture.diffuse.contents = NSImage(named: "MKY.jpg")
-        renderObject.geometry?.firstMaterial = texture
-        renderObject.name = "mky"
-        //renderObject.scale = SCNVector3(0.001,0.001,0.001)
-        //stage.scale = SCNVector3(x:0.5, y:0.5, z:0.5)
-        renderObject.position = SCNVector3(x:0, y:0, z:-3)//z越大物體越近？
-        scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
-        scnScene.rootNode.addChildNode(renderObject)
-        //scnARView.scene = scnScene
+
         scnARView.scene = MS.scnScene
-        
+        scnARView.pointOfView = buildCameraNode(x: 0, y: 0, z: 5)
         scnARView.showsStatistics = true
         scnARView.allowsCameraControl = true
         scnARView.autoenablesDefaultLighting = true
+        let yy = SCNVector3(480,360,0)
+        let oo = SCNVector3(maxX/2,maxY/2,4)
+        print(scnARView.projectPoint(oo))
+        
+        
      scnTimer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(scnRender), userInfo: nil, repeats: true)
     }
     func buildCameraNode(x:CGFloat,y:CGFloat,z:CGFloat) -> SCNNode!

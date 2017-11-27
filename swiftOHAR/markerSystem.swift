@@ -20,17 +20,11 @@ struct Marker : Codable
 class markerSystem : NSObject
 {
     
-    var device : MTLDevice = MTLCreateSystemDefaultDevice()!
     var commandQueue : MTLCommandQueue!
     var renderer : SCNRenderer!
-    var renderPassDescriptor : MTLRenderPassDescriptor = MTLRenderPassDescriptor()
-    let stencilTextureDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .stencil8, width: 640, height: 480, mipmapped: false)
     
     var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
-    var renderPass : MTLRenderPassDescriptor = MTLRenderPassDescriptor()
-    var depthBufferDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: MTLPixelFormat.depth32Float_stencil8, width: 640, height: 480, mipmapped: false)
-    let depthStencilDescriptor = MTLDepthStencilDescriptor()
     var previousIdDictionary : Dictionary = [Int:Int]()
     var idDictionary : Dictionary = [Int:Int]()
     var virtualModelDictionary: Dictionary<Int, (String, String)> = [Int:(String,String)]()
@@ -40,30 +34,26 @@ class markerSystem : NSObject
     override init()
     {
         super.init()
-        stencilTextureDescriptor.resourceOptions = .storageModePrivate
-        commandQueue = device.makeCommandQueue()
         
-        let stencilTexture = device.makeTexture(descriptor: stencilTextureDescriptor)
-        let stencilAttachment = renderPassDescriptor.stencilAttachment
-        stencilAttachment?.texture = stencilTexture
-        stencilAttachment?.loadAction = .clear
-        stencilAttachment?.storeAction = .dontCare
-        stencilAttachment?.clearStencil = 0
+        //scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
+        var plane = SCNPlane(width: 5, height: 2)
+        if #available(OSX 10.13, *) {
+            plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+        } else {
+            // Fallback on earlier versions
+        }
+        plane.firstMaterial?.isDoubleSided = true
+        var planeNode = SCNNode(geometry: plane)
+        planeNode.renderingOrder = -10
+        planeNode.position = SCNVector3(0,0,-2)
+        planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+        planeNode.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
+        planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
         
-        scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
-        depthStencilDescriptor.isDepthWriteEnabled = true
+        scnScene.rootNode.addChildNode(planeNode)
+        
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
-        
-        stencilTextureDescriptor.textureType = .type2D
-        
-    }
-    func setupPlane()
-    {
-        var pipelineStateDescriptor = MTLRenderPipelineDescriptor.init()
-        pipelineStateDescriptor.label = "pipeline for plane"
-        pipelineStateDescriptor.sampleCount = 1
-        pipelineStateDescriptor.fragmentFunction = nil
         
     }
     func setMarkers(byJsonString : String)
@@ -108,7 +98,7 @@ class markerSystem : NSObject
             {
                 for nodeId in 0..<id.value
                 {
-                    print("\(id.key):\(id.value)")
+                    //print("\(id.key):\(id.value)")
                     var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
                     scnScene.rootNode.addChildNode(node)
                 }
@@ -126,7 +116,7 @@ class markerSystem : NSObject
                 }
                 else if previousIdDictionary[id.key]! < id.value
                 {
-                    print(previousIdDictionary)
+                    //print(previousIdDictionary)
                     for nodeId in previousIdDictionary[id.key]!..<id.value
                     {
                         var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
@@ -150,16 +140,15 @@ class markerSystem : NSObject
     }
     func setVirtualObject()
     {
-        depthBufferDescriptor.usage = MTLTextureUsage.renderTarget
         let depthDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .depth32Float, width: 640, height: 480, mipmapped: false)
         //renderPass.depthAttachment.texture = self.mtl
         
         let arrIDKey = idDictionary.keys
-        print(arrIDKey)
-        print(scnScene.rootNode.childNodes)
+        //print(arrIDKey)
+        //print(scnScene.rootNode.childNodes)
         for IDKey in arrIDKey
         {
-            print("IDKey:\(IDKey)")
+            //print("IDKey:\(IDKey)")
             let arrID = markers.filter{ (marker) -> Bool in //取得Markers中所有特定ID的元素
                 return marker.id == IDKey}
             for i in 0..<arrID.count
@@ -189,6 +178,10 @@ class markerSystem : NSObject
         texture.diffuse.contents = NSImage(named: textureName)
         objNode.name = nodeName
         objNode.geometry?.firstMaterial = texture
+        objNode.physicsBody = SCNPhysicsBody(type : .static,shape : nil)
+        objNode.renderingOrder = 10
+        objNode.physicsBody?.categoryBitMask = CollisionTypes.object.rawValue
+        objNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue|CollisionTypes.realDepth.rawValue
         //renderObject.scale = SCNVector3(0.001,0.001,0.001)
         return objNode
     }
