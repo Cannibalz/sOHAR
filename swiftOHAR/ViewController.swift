@@ -78,7 +78,7 @@ class ViewController: NSViewController {
         let yy = SCNVector3(480,360,0)
         let oo = SCNVector3(maxX/2,maxY/2,4)
         print(scnARView.projectPoint(oo))
-        //push
+        
         
         
      scnTimer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(scnRender), userInfo: nil, repeats: true)
