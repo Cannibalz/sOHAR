@@ -32,7 +32,7 @@ class markerSystem : NSObject
     {
         super.init()
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
-        let plane = SCNPlane(width: 1, height: 1)
+        let plane = SCNPlane(width: 0.2, height: 0.2)
         //let plane = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
         if #available(OSX 10.13, *) {
             //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
@@ -44,6 +44,7 @@ class markerSystem : NSObject
         planeNode.renderingOrder = -10
         planeNode.name = "bigPlane"
         planeNode.position = SCNVector3(0,0,-2)
+        print(view.projectPoint(planeNode.position))
         planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         planeNode.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
         planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
@@ -223,13 +224,20 @@ class markerSystem : NSObject
                 avgLength += sqrt(pow((Corners[i][0]-Corners[i+1][0]), 2) + pow((Corners[i][1]-Corners[i+1][1]),2))
             }
         }
-        middleX = (middleX/4-320)/50
-        middleY = -(middleY/4-240)/50
+        //middleX = (middleX/4-320)/50
+        middleX = middleX/4
+        middleY = middleY/4
+        //middleY = -(middleY/4-240)/50
         avgLength = avgLength/4
+        print(avgLength)
         //node.eulerAngles = makeEularAngles(rvec : markers[0].Rvec)
         //node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
 //        node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
-        return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
+        let position2D = SCNVector3(middleX,middleY,1-(avgLength/200))
+        //return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
+        var position3D = view.unprojectPoint(position2D)
+        position3D.y *= -1
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.1),CGFloat(0.1),CGFloat(0.1))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {

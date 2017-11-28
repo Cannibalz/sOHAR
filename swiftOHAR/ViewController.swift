@@ -43,7 +43,7 @@ class ViewController: NSViewController {
     let timestep = 1.0 / 30
     var markers : [Marker] = []
     var MS = markerSystem()
-    var planePositionIn2D = SCNVector3(480,360,0)
+    var planePositionIn2D = SCNVector3(480,360,0.4)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,11 +81,11 @@ class ViewController: NSViewController {
         MS.setMarkers(byJsonString: markerPoseJsonString!)
         planePositionIn2D = SCNVector3(338.706115722656,258.706146240234,0.883838415145874)
         print(scnARView.unprojectPoint(planePositionIn2D))
-        var planePosition = SCNVector3(0,0,-2)
+        var planePosition = SCNVector3(0,0,3.8)
         
         planePosition.x = CGFloat(silderTvec0.floatValue)
         planePosition.y = CGFloat(silderTvec1.floatValue)
-        planePosition.z = CGFloat(silderTvec2.floatValue)
+        //planePosition.z = CGFloat(silderTvec2.floatValue)
         
         
         let projectPoint = scnARView.projectPoint(planePosition)
