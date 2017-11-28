@@ -15,11 +15,12 @@ import SceneKit.ModelIO
 class ViewController: NSViewController {
     @IBOutlet weak var silderTvec0: NSSlider!
     @IBOutlet weak var silderTvec1: NSSlider!
+    //@IBOutlet weak var scnARView: ARViewController!
     @IBOutlet weak var silderTvec2: NSSlider!
     @IBOutlet weak var colorView: NSImageView!
     @IBOutlet weak var depthView: NSImageView!
     @IBOutlet weak var C2DView: NSImageView!
-    @IBOutlet weak var scnARView: SCNView!
+    
     @IBOutlet weak var arView: MTKView!
     @IBOutlet weak var tvec0: NSTextField!
     @IBOutlet weak var tvec1: NSTextField!
@@ -34,14 +35,16 @@ class ViewController: NSViewController {
     var rs : objCRealsense = objCRealsense()
     var nsImg : NSImage? = nil
     var renderer: Renderer!
-    var scnScene = ARViewController()
     var time = TimeInterval(0.0)
     let timestep = 1.0 / 30
     var markers : [Marker] = []
     var MS = markerSystem()
+    var planePositionIn2D = SCNVector3(480,360,0)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //scnARView = ARViewController(frame: NSRect.init(x: 0, y: 0, width: 640, height: 480), options: nil)
+        
         rs.initRealsense()
         timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
         //renderer = Renderer(mtkView: arView)
@@ -68,19 +71,26 @@ class ViewController: NSViewController {
 
         
         C2DView.image = rs.nsC2DImage()
+        //scnARView.scene?.background.contents = rs.nsColorImage()
         MS.scnScene.background.contents = rs.nsColorImage()
     }
     func setupScene()
     {
 
-        scnARView.scene = MS.scnScene
-        scnARView.pointOfView = buildCameraNode(x: 0, y: 0, z: 5)
-        scnARView.showsStatistics = true
-        scnARView.allowsCameraControl = true
-        scnARView.autoenablesDefaultLighting = true
-        let yy = SCNVector3(480,360,0)
-        let oo = SCNVector3(maxX/2,maxY/2,4)
-        print(scnARView.projectPoint(oo))
+//        scnARView.scene = MS.scnScene
+//        scnARView.pointOfView = buildCameraNode(x: 0, y: 0, z: 5)
+//        scnARView.showsStatistics = true
+//        scnARView.allowsCameraControl = true
+//        scnARView.autoenablesDefaultLighting = true
+//        let yy = SCNVector3(160,120,-1)
+//        let scnBox = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
+//        scnBox.firstMaterial?.diffuse.contents = NSColor.blue
+//        let nodeBox = SCNNode(geometry: scnBox)
+//        nodeBox.name = "BOXXX"
+//        nodeBox.renderingOrder = -20
+//        scnARView.scene?.rootNode.addChildNode(nodeBox)
+//        let oo = SCNVector3(x: -0.193417131900787, y: -0.145062863826752, z: 4.49748754501343)
+//        print(scnARView.projectPoint(oo))
         //
         
         
@@ -97,6 +107,15 @@ class ViewController: NSViewController {
     func scnRender()
     {
         time = time + timestep
+        planePositionIn2D.x = CGFloat(silderTvec0.floatValue)
+        planePositionIn2D.y = CGFloat(silderTvec1.floatValue)
+        planePositionIn2D.z = CGFloat(silderTvec2.floatValue)
+        //scnARView.scene?.rootNode.childNode(withName: "BOXXX", recursively: true)?.position = scnARView.unprojectPoint(planePositionIn2D)
+        //print(scnARView.scene?.rootNode.childNode(withName: "BOXXX", recursively: false)?.position)
+        
+        tvec0.stringValue = "\(silderTvec0.floatValue)"
+        tvec1.stringValue = "\(silderTvec1.floatValue)"
+        tvec2.stringValue = "\(silderTvec2.floatValue)"
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
     }

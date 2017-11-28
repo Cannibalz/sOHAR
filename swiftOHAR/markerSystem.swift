@@ -47,7 +47,7 @@ class markerSystem : NSObject
         planeNode.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
         planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
         
-        scnScene.rootNode.addChildNode(planeNode)
+        //scnScene.rootNode.addChildNode(planeNode)
         
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")

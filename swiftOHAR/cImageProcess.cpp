@@ -10,7 +10,7 @@
 
 cImageProcess::cImageProcess()
 {
-    markerLength = 0.05f;
+    markerLength = 0.1f;
     dictionary = cv::aruco::getPredefinedDictionary(aruco::DICT_ARUCO_ORIGINAL);
     //cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
     cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
