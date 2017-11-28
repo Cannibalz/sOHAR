@@ -14,10 +14,7 @@ import SceneKit.ModelIO
 
 class ARViewController : SCNView
 {
-    override init()
-    {
-        super.init()
-    }
+    
     override init(frame: NSRect, options: [String : Any]? = nil) {
         super.init(frame: frame, options: nil)
         print("tests")

@@ -689,7 +689,7 @@
                                 <rect key="frame" x="320" y="240" width="320" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </customView>
-                            <sceneView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-kb-aXZ" customClass="ARViewController" customModule="swiftOHAR" customModuleProvider="target">
+                            <sceneView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-kb-aXZ">
                                 <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </sceneView>
@@ -737,17 +737,17 @@
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nIC-yJ-5kw">
                                 <rect key="frame" x="752" y="169" width="96" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="640" doubleValue="480" tickMarkPosition="above" sliderType="linear" id="wJA-Vt-6am"/>
+                                <sliderCell key="cell" state="on" alignment="left" minValue="-0.76980018615822698" maxValue="0.76980018615822698" doubleValue="0.35999999999999999" tickMarkPosition="above" sliderType="linear" id="wJA-Vt-6am"/>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="l8d-BJ-5wh">
                                 <rect key="frame" x="752" y="129" width="96" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" maxValue="480" doubleValue="360" tickMarkPosition="above" sliderType="linear" id="3jc-EV-w6P"/>
+                                <sliderCell key="cell" state="on" alignment="left" minValue="-0.57699999999999996" maxValue="0.57699999999999996" doubleValue="0.35999999999999999" tickMarkPosition="above" sliderType="linear" id="3jc-EV-w6P"/>
                             </slider>
                             <slider verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Atd-LW-wju">
                                 <rect key="frame" x="752" y="85" width="96" height="19"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                                <sliderCell key="cell" state="on" alignment="left" minValue="-5" maxValue="5" tickMarkPosition="above" sliderType="linear" id="ead-8Y-2LP"/>
+                                <sliderCell key="cell" state="on" alignment="left" minValue="-8" maxValue="4" doubleValue="-3" tickMarkPosition="above" sliderType="linear" id="ead-8Y-2LP"/>
                             </slider>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zbQ-rh-cKV">
                                 <rect key="frame" x="640" y="240" width="320" height="240"/>
@@ -766,6 +766,7 @@
                         <outlet property="arView" destination="tOB-tf-zb3" id="KVC-6Q-hEs"/>
                         <outlet property="colorView" destination="zbQ-rh-cKV" id="o3B-uZ-qOR"/>
                         <outlet property="depthView" destination="c58-nI-WNY" id="EQK-cC-ArJ"/>
+                        <outlet property="scnARView" destination="GMA-kb-aXZ" id="HAc-1E-FJi"/>
                         <outlet property="silderTvec0" destination="nIC-yJ-5kw" id="RdD-J6-p6g"/>
                         <outlet property="silderTvec1" destination="l8d-BJ-5wh" id="l9T-q0-FGw"/>
                         <outlet property="silderTvec2" destination="Atd-LW-wju" id="iWw-MI-0eU"/>

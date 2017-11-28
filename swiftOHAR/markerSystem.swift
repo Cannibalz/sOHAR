@@ -19,7 +19,7 @@ struct Marker : Codable
 
 class markerSystem : NSObject
 {
-
+    var view : SCNView = SCNView()
     var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
     var previousIdDictionary : Dictionary = [Int:Int]()
@@ -31,27 +31,32 @@ class markerSystem : NSObject
     override init()
     {
         super.init()
-        
-        //scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
-        var plane = SCNPlane(width: 5, height: 2)
+        scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
+        let plane = SCNPlane(width: 1, height: 1)
+        //let plane = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
         if #available(OSX 10.13, *) {
-            plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+            //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
         } else {
             // Fallback on earlier versions
         }
         plane.firstMaterial?.isDoubleSided = true
-        var planeNode = SCNNode(geometry: plane)
+        let planeNode = SCNNode(geometry: plane)
         planeNode.renderingOrder = -10
+        planeNode.name = "bigPlane"
         planeNode.position = SCNVector3(0,0,-2)
         planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
         planeNode.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
         planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
-        
-        //scnScene.rootNode.addChildNode(planeNode)
-        
+        scnScene.rootNode.addChildNode(planeNode)
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
         
+    }
+    convenience init(scnView:SCNView) {
+        self.init()
+        self.view = scnView
+        self.view.scene = scnScene
+        self.view.showsStatistics = true
     }
     func setMarkers(byJsonString : String)
     {
@@ -73,6 +78,9 @@ class markerSystem : NSObject
             setVirtualObject()
         //}
         previousIdDictionary = idDictionary
+        //print(view.unprojectPoint(SCNVector3(0,0,0)))
+        print(view.scene?.rootNode.childNode(withName: "bigPlane", recursively: false)?.position)
+        print(view.projectPoint((view.scene?.rootNode.childNode(withName: "bigPlane", recursively: false)?.position)!))
     }
     func idCalculating()
     {
@@ -138,10 +146,6 @@ class markerSystem : NSObject
     func setVirtualObject()
     {
 
-        
-        
-        
-        
         let arrIDKey = idDictionary.keys
 //        print(arrIDKey)
 //        print(scnScene.rootNode.childNodes)
@@ -185,21 +189,20 @@ class markerSystem : NSObject
         //renderObject.scale = SCNVector3(0.001,0.001,0.001)
         return objNode
     }
-    func setMarkerPosition(marker:Marker) -> SCNVector3
-    {
-        return SCNVector3()
-    }
     func buildCameraNode(x:CGFloat,y:CGFloat,z:CGFloat) -> SCNNode!
     {
         var cameraNode : SCNNode!
         cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3(x:x, y:y, z:z)
+        cameraNode.camera?.usesOrthographicProjection = false
+        cameraNode.name = "camera"
         //cameraNode.camera?.zNear = 7.3
         return cameraNode
     }
     func objPositionCalculating(Corners: [[Double]]) -> [String:SCNVector3]
     {
+        print(Corners)
         var middleX = Double()
         var middleY = Double()
         var avgLength = Double()
