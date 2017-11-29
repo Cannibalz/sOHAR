@@ -31,6 +31,8 @@ class ViewController: NSViewController {
     var previousXY : [CGFloat] = [0,0]
     var previousZ : CGFloat = 0
     
+    var doDepthMap : Bool = true
+    
     let maxX : Float = 0.769800186158227
     let maxY : Float = 0.57735019922565
     let tempX : Float = 480
@@ -44,6 +46,7 @@ class ViewController: NSViewController {
     var markers : [Marker] = []
     var MS = markerSystem()
     var planePositionIn2D = SCNVector3(480,360,0.4)
+    var DM = DepthMask2D()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,10 +71,20 @@ class ViewController: NSViewController {
     }
     func renderImg()
     {
+        doDepthMap = !doDepthMap
         rs.waitForNextFrame()
         rs.getPoseInformation()
         colorView.image = rs.nsDetectedColorImage()
         depthView.image = rs.nsDepthImage()
+        
+        if doDepthMap
+        {
+            var imageData = depthView.image?.tiffRepresentation
+            var bitmapRep = NSBitmapImageRep.init(data: imageData!)
+            DM.setDepthValue(bitmapImageRep: bitmapRep!)
+        }
+        //print(DM.valueArray)
+        
         C2DView.image = rs.nsC2DImage()
         scnARView.scene?.background.contents = rs.nsColorImage()
         MS.scnScene.background.contents = rs.nsColorImage()

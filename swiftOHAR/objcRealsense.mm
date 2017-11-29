@@ -73,6 +73,7 @@
     
     
     NSBitmapImageRep *bitmapRep = [[NSBitmapImageRep alloc] initWithCGImage:imageRef];
+    //print(bitmapRep.bitmapData);
     NSImage *image = [[NSImage alloc] init];
     [image addRepresentation:bitmapRep];
     

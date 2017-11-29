@@ -20,6 +20,7 @@ struct Marker : Codable
 class markerSystem : NSObject
 {
     var view : SCNView = SCNView()
+    var depthArray = DepthMask2D()
     var scnScene : SCNScene = SCNScene()
     private var Count : Int = 0
     var previousIdDictionary : Dictionary = [Int:Int]()

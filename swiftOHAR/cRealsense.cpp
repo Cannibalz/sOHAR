@@ -38,6 +38,8 @@ cv::Mat cRealsense:: depthImage()
     //cout << "min: " << min << ",Max: " << max << endl;
     //cout << "Count: " << metalDepth.channels() << "Mat: " << endl << metalDepth << endl;
     //return returnDepth;
+
+    
     return returnDepth;
 }
 
