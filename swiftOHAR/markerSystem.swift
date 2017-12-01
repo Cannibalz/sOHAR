@@ -36,7 +36,7 @@ class markerSystem : NSObject
         let plane = SCNPlane(width: 0.2, height: 0.2)
         //let plane = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
         if #available(OSX 10.13, *) {
-            //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+            plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
         } else {
             // Fallback on earlier versions
         }
@@ -81,8 +81,8 @@ class markerSystem : NSObject
         //}
         previousIdDictionary = idDictionary
         //print(view.unprojectPoint(SCNVector3(0,0,0)))
-        print(view.scene?.rootNode.childNode(withName: "bigPlane", recursively: false)?.position)
-        print(view.projectPoint((view.scene?.rootNode.childNode(withName: "bigPlane", recursively: false)?.position)!))
+        //print(view.scene?.rootNode.childNode(withName: "bigPlane", recursively: false)?.position)
+        //print(view.projectPoint((view.scene?.rootNode.childNode(withName: "bigPlane", recursively: false)?.position)!))
     }
     func idCalculating()
     {
@@ -164,7 +164,9 @@ class markerSystem : NSObject
                 let scnMaterial = SCNMaterial()
                 scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
-            
+                var boundingBoxArray = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox
+                print("Max: \(view.projectPoint((boundingBoxArray?.max)!))")
+                print("Min: \(view.projectPoint((boundingBoxArray?.min)!))")
             }
         }
     }

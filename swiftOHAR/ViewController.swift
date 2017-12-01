@@ -53,6 +53,9 @@ class ViewController: NSViewController {
         //scnARView = ARViewController(frame: NSRect.init(x: 0, y: 0, width: 640, height: 480), options: nil)
         MS = markerSystem(scnView: scnARView)
         rs.initRealsense()
+        var pcNode = SCNNode()
+        pcNode.name = "pcNode"
+        scnARView.scene?.rootNode.addChildNode(pcNode)
         timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
         //renderer = Renderer(mtkView: arView)
         
@@ -81,7 +84,10 @@ class ViewController: NSViewController {
         {
             var imageData = depthView.image?.tiffRepresentation
             var bitmapRep = NSBitmapImageRep.init(data: imageData!)
-            DM.setDepthValue(bitmapImageRep: bitmapRep!)
+            DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView)
+            scnARView.scene?.rootNode.childNode(withName: "pcNode", recursively: false)?.removeFromParentNode()
+            scnARView.scene?.rootNode.addChildNode(DM.getNode())
+            
         }
         //print(DM.valueArray)
         
@@ -93,7 +99,7 @@ class ViewController: NSViewController {
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
         planePositionIn2D = SCNVector3(338.706115722656,258.706146240234,0.883838415145874)
-        print(scnARView.unprojectPoint(planePositionIn2D))
+        //print(scnARView.unprojectPoint(planePositionIn2D))
         var planePosition = SCNVector3(0,0,3.8)
         
         planePosition.x = CGFloat(silderTvec0.floatValue)
@@ -102,7 +108,7 @@ class ViewController: NSViewController {
         
         
         let projectPoint = scnARView.projectPoint(planePosition)
-        print(projectPoint)
+        //print(projectPoint)
         previousXY = [projectPoint.x,projectPoint.y] //2D的xy
         
         self.scnARView.scene?.rootNode.childNode(withName: "bigPlane", recursively: false)?.position = planePosition
