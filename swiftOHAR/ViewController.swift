@@ -50,14 +50,14 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //scnARView = ARViewController(frame: NSRect.init(x: 0, y: 0, width: 640, height: 480), options: nil)
         MS = markerSystem(scnView: scnARView)
         rs.initRealsense()
+        DM.downSample = 2
+        DM.aroundMarkerOnly = false
         var pcNode = SCNNode()
         pcNode.name = "pcNode"
         scnARView.scene?.rootNode.addChildNode(pcNode)
         timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
-        //renderer = Renderer(mtkView: arView)
         
     }
     override var representedObject: Any? {
@@ -78,7 +78,7 @@ class ViewController: NSViewController {
         rs.waitForNextFrame()
         rs.getPoseInformation()
         colorView.image = rs.nsDetectedColorImage()
-        depthView.image = rs.nsDepthImage()
+        depthView.image = rs.nsD2CImage()
         
         if doDepthMap
         {
@@ -91,7 +91,7 @@ class ViewController: NSViewController {
         }
         //print(DM.valueArray)
         
-        C2DView.image = rs.nsC2DImage()
+        //C2DView.image = rs.nsC2DImage()
         scnARView.scene?.background.contents = rs.nsColorImage()
         MS.scnScene.background.contents = rs.nsColorImage()
         

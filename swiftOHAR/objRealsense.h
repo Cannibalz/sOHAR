@@ -16,6 +16,7 @@
 -(NSImage *)nsDepthImage;
 -(NSImage *)nsDetectedColorImage;
 -(NSImage *)nsC2DImage;
+-(NSImage *)nsD2CImage;
 -(void)printHelloWorld;
 -(void)waitForNextFrame;
 

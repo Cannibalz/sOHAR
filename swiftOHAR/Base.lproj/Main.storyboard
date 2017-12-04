@@ -685,7 +685,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="961" height="480"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <customView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tOB-tf-zb3" customClass="MTKView">
+                            <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tOB-tf-zb3" customClass="MTKView">
                                 <rect key="frame" x="320" y="240" width="320" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </customView>

@@ -126,6 +126,10 @@
 {
     return [[NSImage alloc]initWithCVMat:crs.C2DImage()];
 }
+- (NSImage *)nsD2CImage
+{
+    return [[NSImage alloc]initWithCVMat:crs.D2CImage()];
+}
 - (NSImage *)nsDetectedColorImage
 {
     return [[NSImage alloc]initWithCVMat:crs.detectedImage()];

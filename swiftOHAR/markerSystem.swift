@@ -33,23 +33,23 @@ class markerSystem : NSObject
     {
         super.init()
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
-        let plane = SCNPlane(width: 0.2, height: 0.2)
-        //let plane = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
-        if #available(OSX 10.13, *) {
-            plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
-        } else {
-            // Fallback on earlier versions
-        }
-        plane.firstMaterial?.isDoubleSided = true
-        let planeNode = SCNNode(geometry: plane)
-        planeNode.renderingOrder = -10
-        planeNode.name = "bigPlane"
-        planeNode.position = SCNVector3(0,0,-2)
-        print(view.projectPoint(planeNode.position))
-        planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-        planeNode.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
-        planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
-        scnScene.rootNode.addChildNode(planeNode)
+//        let plane = SCNPlane(width: 0.2, height: 0.2)
+//        //let plane = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
+//        if #available(OSX 10.13, *) {
+//            plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+//        } else {
+//            // Fallback on earlier versions
+//        }
+//        plane.firstMaterial?.isDoubleSided = true
+//        let planeNode = SCNNode(geometry: plane)
+//        planeNode.renderingOrder = -10
+//        planeNode.name = "bigPlane"
+//        planeNode.position = SCNVector3(0,0,-2)
+//        print(view.projectPoint(planeNode.position))
+//        planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+//        planeNode.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
+//        planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
+//        scnScene.rootNode.addChildNode(planeNode)
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
         
@@ -59,6 +59,7 @@ class markerSystem : NSObject
         self.view = scnView
         self.view.scene = scnScene
         self.view.showsStatistics = true
+        
     }
     func setMarkers(byJsonString : String)
     {
@@ -172,7 +173,7 @@ class markerSystem : NSObject
     }
     func getCount() -> Int
     {
-        return self.Count
+        return self.Count 
     }
     func createNodeModel(objName:String,textureName:String,nodeName:String) -> SCNNode
     {

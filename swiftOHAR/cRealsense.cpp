@@ -31,13 +31,7 @@ cv::Mat cRealsense:: depthImage()
     depth8u.convertTo( depth8u, CV_8UC1, /*1/255.0*/255.0/10000 );
     //uint16_t *depthImage = (uint16_t *) dev->get_frame_data(rs::stream::depth);
     cv::Mat returnDepth;//(depth_intr.height,depth_intr.width,CV_16UC1,depthImage);
-    cv::Mat metalDepth = Mat(640,480,CV_32FC1);
     depth8u.copyTo(returnDepth);
-    //metalDepth.row(0).col(0) = 0.5;
-    depth8u.convertTo(metalDepth,CV_32FC1,1.0/255.0);
-    //cout << "min: " << min << ",Max: " << max << endl;
-    //cout << "Count: " << metalDepth.channels() << "Mat: " << endl << metalDepth << endl;
-    //return returnDepth;
 
     
     return returnDepth;
@@ -45,12 +39,17 @@ cv::Mat cRealsense:: depthImage()
 
 cv::Mat cRealsense:: C2DImage()
 {
-    cv::Mat alignedC2D(cv::Size(640,480),CV_8UC3,(void*)dev->get_frame_data(rs::stream::color_aligned_to_depth), cv::Mat::AUTO_STEP);
     uchar* pCad = (uchar*)dev->get_frame_data(rs::stream::color_aligned_to_depth);
     cv::Mat returnC2D(480,640,CV_8UC3,pCad);
-    alignedC2D.copyTo(returnC2D);
     cv::cvtColor(returnC2D, returnC2D, CV_BGR2RGB);
     return returnC2D;
+}
+cv::Mat cRealsense:: D2CImage()
+{
+    uchar* pDac = (uchar*)dev->get_frame_data(rs::stream::depth_aligned_to_color);
+    cv::Mat returnD2C(480,640,CV_16U,pDac); //長寬要反過來
+    returnD2C.convertTo(returnD2C, CV_8UC1,255.0/10000);
+    return returnD2C;
 }
 cv::Mat cRealsense:: detectedImage()
 {
