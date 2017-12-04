@@ -45,19 +45,36 @@ class ViewController: NSViewController {
     let timestep = 1.0 / 30
     var markers : [Marker] = []
     var MS = markerSystem()
-    var planePositionIn2D = SCNVector3(480,360,0.4)
     var DM = DepthMask2D()
+    var planePositionIn2D = SCNVector3(480,360,0.4)
+    var countt = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         MS = markerSystem(scnView: scnARView)
+        scnARView.scene?.rootNode.addChildNode(MS)
+        
+        let plane = SCNPlane(width: 0.3, height: 0.3)
+        plane.firstMaterial?.diffuse.contents = NSColor.black.withAlphaComponent(0.5)
+        plane.firstMaterial?.isDoubleSided = true
+        if #available(OSX 10.13, *) {
+            //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+        }
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.renderingOrder = -100
+        planeNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
+        scnARView.scene?.rootNode.addChildNode(planeNode)
         rs.initRealsense()
         DM.downSample = 2
         DM.aroundMarkerOnly = false
         var pcNode = SCNNode()
         pcNode.name = "pcNode"
+        pcNode.renderingOrder = -10
         scnARView.scene?.rootNode.addChildNode(pcNode)
-        timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
+        scnARView.delegate = self
+        scnARView.isPlaying = true
+        scnARView.preferredFramesPerSecond = 60
+        //timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
         
     }
     override var representedObject: Any? {
@@ -77,33 +94,29 @@ class ViewController: NSViewController {
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
         rs.getPoseInformation()
-        colorView.image = rs.nsDetectedColorImage()
-        depthView.image = rs.nsD2CImage()
-        
-        if doDepthMap
-        {
-            var imageData = depthView.image?.tiffRepresentation
-            var bitmapRep = NSBitmapImageRep.init(data: imageData!)
-            DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView)
-            scnARView.scene?.rootNode.childNode(withName: "pcNode", recursively: false)?.removeFromParentNode()
-            scnARView.scene?.rootNode.addChildNode(DM.getNode())
-            
-        }
-        //print(DM.valueArray)
-        
+        //nsView只能在mainThread處理
+        //colorView.image = rs.nsDetectedColorImage()
+        //depthView.image = rs.nsD2CImage()
         //C2DView.image = rs.nsC2DImage()
-        scnARView.scene?.background.contents = rs.nsColorImage()
-        MS.scnScene.background.contents = rs.nsColorImage()
+        if doDepthMap && countt < 10
+        {
+            //countt += 1
+            var imageData = rs.nsD2CImage().tiffRepresentation
+            var bitmapRep = NSBitmapImageRep.init(data: imageData!) //深度
+            DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView)
+            scnARView.scene?.rootNode.childNode(withName: "pcNode", recursively: true)?.removeFromParentNode()
+            scnARView.scene?.rootNode.addChildNode(DM.getNode())
+        }
         
+        MS.scnScene.background.contents = rs.nsDetectedColorImage()
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
         planePositionIn2D = SCNVector3(338.706115722656,258.706146240234,0.883838415145874)
         //print(scnARView.unprojectPoint(planePositionIn2D))
-        var planePosition = SCNVector3(0,0,3.8)
-        
-        planePosition.x = CGFloat(silderTvec0.floatValue)
-        planePosition.y = CGFloat(silderTvec1.floatValue)
+        var planePosition = SCNVector3(320,240,0.1)
+        //planePosition.x = CGFloat(silderTvec0.floatValue)
+        //planePosition.y = CGFloat(silderTvec1.floatValue)
         //planePosition.z = CGFloat(silderTvec2.floatValue)
         
         
@@ -111,8 +124,13 @@ class ViewController: NSViewController {
         //print(projectPoint)
         previousXY = [projectPoint.x,projectPoint.y] //2D的xy
         
-        self.scnARView.scene?.rootNode.childNode(withName: "bigPlane", recursively: false)?.position = planePosition
-        
+       
+    }
+}
+extension ViewController : SCNSceneRendererDelegate
+{
+    func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        renderImg()
     }
 }
 extension Double

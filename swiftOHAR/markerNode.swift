@@ -17,7 +17,7 @@ struct Marker : Codable
     var Corners : [[Double]]
 }
 
-class markerSystem : NSObject
+class markerSystem : SCNNode
 {
     var view : SCNView = SCNView()
     var depthArray = DepthMask2D()
@@ -28,28 +28,31 @@ class markerSystem : NSObject
     var virtualModelDictionary: Dictionary<Int, (String, String)> = [Int:(String,String)]()
     //id對應模型、材質的索引
     var markers : [Marker] = []
-    
     override init()
     {
         super.init()
+        self.name = "markerObjectNode"
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
-//        let plane = SCNPlane(width: 0.2, height: 0.2)
-//        //let plane = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
-//        if #available(OSX 10.13, *) {
-//            plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        plane.firstMaterial?.isDoubleSided = true
-//        let planeNode = SCNNode(geometry: plane)
-//        planeNode.renderingOrder = -10
-//        planeNode.name = "bigPlane"
-//        planeNode.position = SCNVector3(0,0,-2)
-//        print(view.projectPoint(planeNode.position))
-//        planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
+        let plane = SCNPlane(width: 1, height: 1)
+        //let plane = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
+        if #available(OSX 10.13, *) {
+            //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+        } else {
+            // Fallback on earlier versions
+        }
+        plane.firstMaterial?.isDoubleSided = true
+        let planeNode = SCNNode(geometry: plane)
+        planeNode.renderingOrder = 10
+        planeNode.name = "bigPlane"
+        
+        //planeNode.position = view.unprojectPoint(SCNVector3(320,240,0.5))
+        //print(view.projectPoint(planeNode.position))
+        planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
 //        planeNode.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
 //        planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
-//        scnScene.rootNode.addChildNode(planeNode)
+        planeNode.physicsBody?.categoryBitMask = CollisionTypes.object.rawValue
+        planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue|CollisionTypes.realDepth.rawValue
+        self.addChildNode(planeNode)
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
         
@@ -60,6 +63,11 @@ class markerSystem : NSObject
         self.view.scene = scnScene
         self.view.showsStatistics = true
         
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        //fatalError("init(coder:) has not been implemented")
     }
     func setMarkers(byJsonString : String)
     {
@@ -108,7 +116,8 @@ class markerSystem : NSObject
                 {
                     //print("\(id.key):\(id.value)")
                     var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
-                    scnScene.rootNode.addChildNode(node)
+                    //scnScene.rootNode.addChildNode(node)
+                    self.addChildNode(node)
                 }
                 //新增此id節點
             }
@@ -118,7 +127,8 @@ class markerSystem : NSObject
                 {
                     for nodeId in id.value..<previousIdDictionary[id.key]!
                     {
-                        scnScene.rootNode.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
+                        //scnScene.rootNode.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
+                        self.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
                     }
                     //刪除此id多餘節點
                 }
@@ -128,7 +138,8 @@ class markerSystem : NSObject
                     for nodeId in previousIdDictionary[id.key]!..<id.value
                     {
                         var node = createNodeModel(objName: (virtualModelDictionary[id.key]?.0)!, textureName: (virtualModelDictionary[id.key]?.1)!, nodeName: "\(id.key)-\(nodeId)")
-                        scnScene.rootNode.addChildNode(node)
+                        //scnScene.rootNode.addChildNode(node)
+                        self.addChildNode(node)
                     }
                     //新增此id剩餘節點
                 }
@@ -140,7 +151,8 @@ class markerSystem : NSObject
             {
                 for nodeId in 0..<id.value
                 {
-                    scnScene.rootNode.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
+                    //scnScene.rootNode.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
+                    self.childNode(withName: "\(id.key)-\(nodeId)", recursively: true)?.removeFromParentNode()
                 }
             }
             //刪除此id所有節點
@@ -161,13 +173,15 @@ class markerSystem : NSObject
             for i in 0..<arrID.count
             {
                 var positionAndScale = objPositionCalculating(Corners: arrID[i].Corners)
-                scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
-                let scnMaterial = SCNMaterial()
-                scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
-                scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
-                var boundingBoxArray = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox
-                print("Max: \(view.projectPoint((boundingBoxArray?.max)!))")
-                print("Min: \(view.projectPoint((boundingBoxArray?.min)!))")
+                //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
+                self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
+                //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
+                self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
+                //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
+                self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
+//                var boundingBoxArray = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox
+//                print("Max: \(view.projectPoint((boundingBoxArray?.max)!))")
+//                print("Min: \(view.projectPoint((boundingBoxArray?.min)!))")
             }
         }
     }
@@ -207,7 +221,7 @@ class markerSystem : NSObject
     }
     func objPositionCalculating(Corners: [[Double]]) -> [String:SCNVector3]
     {
-        print(Corners)
+        //print(Corners)
         var middleX = Double()
         var middleY = Double()
         var avgLength = Double()
@@ -241,7 +255,7 @@ class markerSystem : NSObject
         //return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
         var position3D = view.unprojectPoint(position2D)
         position3D.y *= -1
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.1),CGFloat(0.1),CGFloat(0.1))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.2),CGFloat(0.2),CGFloat(0.2))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {

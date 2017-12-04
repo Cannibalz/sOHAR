@@ -126,11 +126,8 @@ string cRealsense::getPoseInformation()
             getEulerAngles(oneRMat, eulerAngles);
             Mat RotX = oneRMat.t();
             Mat tvecConverted = -RotX * oneTvec;
-            //cout << "tvec" << tvecConverted << endl;
-            //print("ea:");
             //print(eulerAngles); //數值為角度
-            //print("\n");
-            //cout << "gg:"<<oneTvec.at<double>(0,0) << "," << oneTvec.at<double>(0,1) << "," << oneTvec.at<double>(0,2) << "\n";
+            
             singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
             //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
             singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "],";

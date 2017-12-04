@@ -12,7 +12,7 @@
 		4C0914981EA60E5B0007A351 /* libopencv_core.3.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */; };
 		4C0914991EA60E5B0007A351 /* libopencv_core.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C0914971EA60E5B0007A351 /* libopencv_core.dylib */; };
 		4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C09149A1EAF43540007A351 /* MTKViewController.swift */; };
-		4C31E79C1FCE8B9200A02718 /* depthMask2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C31E79B1FCE8B9200A02718 /* depthMask2D.swift */; };
+		4C31E79C1FCE8B9200A02718 /* depthMaskNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C31E79B1FCE8B9200A02718 /* depthMaskNode.swift */; };
 		4C31E79E1FD1540E00A02718 /* PointCloudVertex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C31E79D1FD1540E00A02718 /* PointCloudVertex.swift */; };
 		4C4538F91F02412100131156 /* ARViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4C4538F81F02412100131156 /* ARViewController.swift */; };
 		4C4BF8E91EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */; };
@@ -44,7 +44,7 @@
 		AA606AAA1EF2C39F0001DDEA /* Mesh.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA61EF2C39F0001DDEA /* Mesh.swift */; };
 		AA606AAB1EF2C39F0001DDEA /* Shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA81EF2C39F0001DDEA /* Shaders.metal */; };
 		AA606AAC1EF2C39F0001DDEA /* AAPLMathUtilities.m in Sources */ = {isa = PBXBuildFile; fileRef = AA606AA91EF2C39F0001DDEA /* AAPLMathUtilities.m */; };
-		BC217843D3D3658EF715E76C /* markerSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2179AAF737ED74CD4232D9 /* markerSystem.swift */; };
+		BC217843D3D3658EF715E76C /* markerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2179AAF737ED74CD4232D9 /* markerNode.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -73,7 +73,7 @@
 		4C0914961EA60E5B0007A351 /* libopencv_core.3.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.3.2.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.3.2.dylib; sourceTree = "<group>"; };
 		4C0914971EA60E5B0007A351 /* libopencv_core.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_core.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_core.dylib; sourceTree = "<group>"; };
 		4C09149A1EAF43540007A351 /* MTKViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MTKViewController.swift; sourceTree = "<group>"; };
-		4C31E79B1FCE8B9200A02718 /* depthMask2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = depthMask2D.swift; sourceTree = "<group>"; };
+		4C31E79B1FCE8B9200A02718 /* depthMaskNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = depthMaskNode.swift; sourceTree = "<group>"; };
 		4C31E79D1FD1540E00A02718 /* PointCloudVertex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointCloudVertex.swift; sourceTree = "<group>"; };
 		4C4538F81F02412100131156 /* ARViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewController.swift; sourceTree = "<group>"; };
 		4C4BF8E81EF12D2F004EFB93 /* libopencv_calib3d.3.2.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_calib3d.3.2.0.dylib; path = ../../../../usr/local/Cellar/opencv3/3.2.0/lib/libopencv_calib3d.3.2.0.dylib; sourceTree = "<group>"; };
@@ -119,7 +119,7 @@
 		AA606AA81EF2C39F0001DDEA /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = ../../../Downloads/AdoptingMetalIApracticalapproachtoyourfirstMetalapp/MetalTexturedMesh/Shaders.metal; sourceTree = "<group>"; };
 		AA606AA91EF2C39F0001DDEA /* AAPLMathUtilities.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AAPLMathUtilities.m; path = ../../../Downloads/AdoptingMetalIApracticalapproachtoyourfirstMetalapp/MetalTexturedMesh/AAPLMathUtilities.m; sourceTree = "<group>"; };
 		AAA3F2D11F271CA1004E561B /* model.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = model.scnassets; sourceTree = "<group>"; };
-		BC2179AAF737ED74CD4232D9 /* markerSystem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = markerSystem.swift; sourceTree = "<group>"; };
+		BC2179AAF737ED74CD4232D9 /* markerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = markerNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -206,11 +206,11 @@
 				AA606AA91EF2C39F0001DDEA /* AAPLMathUtilities.m */,
 				AA606AA61EF2C39F0001DDEA /* Mesh.swift */,
 				AA606AA81EF2C39F0001DDEA /* Shaders.metal */,
-				4C31E79B1FCE8B9200A02718 /* depthMask2D.swift */,
+				4C31E79B1FCE8B9200A02718 /* depthMaskNode.swift */,
 				4C31E79D1FD1540E00A02718 /* PointCloudVertex.swift */,
 				4CC29FA31EA4867200298246 /* AppDelegate.swift */,
 				4CC29FA51EA4867200298246 /* ViewController.swift */,
-				BC2179AAF737ED74CD4232D9 /* markerSystem.swift */,
+				BC2179AAF737ED74CD4232D9 /* markerNode.swift */,
 				4C4538F81F02412100131156 /* ARViewController.swift */,
 				4C8D35181FCBEF5F00D3EC4F /* CollisionTypes.swift */,
 				4CD5F0981F7CDE9700F3A931 /* football.scn */,
@@ -436,13 +436,13 @@
 				AA606AAA1EF2C39F0001DDEA /* Mesh.swift in Sources */,
 				4C4538F91F02412100131156 /* ARViewController.swift in Sources */,
 				4CC29FA61EA4867200298246 /* ViewController.swift in Sources */,
-				4C31E79C1FCE8B9200A02718 /* depthMask2D.swift in Sources */,
+				4C31E79C1FCE8B9200A02718 /* depthMaskNode.swift in Sources */,
 				4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */,
 				4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */,
 				4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */,
 				4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */,
 				4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */,
-				BC217843D3D3658EF715E76C /* markerSystem.swift in Sources */,
+				BC217843D3D3658EF715E76C /* markerNode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
