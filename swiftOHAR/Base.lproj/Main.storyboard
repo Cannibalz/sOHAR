@@ -755,15 +755,53 @@
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="1Mr-gG-wQ4"/>
                             </imageView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c58-nI-WNY">
-                                <rect key="frame" x="640" y="0.0" width="320" height="241"/>
+                                <rect key="frame" x="631" y="119" width="320" height="241"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" id="gZq-Fe-w4m"/>
                             </imageView>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wj1-XL-Ex3">
+                                <rect key="frame" x="646" y="49" width="91" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="using Mask" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="f48-nW-pCV">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="lX2-9f-Aw9">
+                                <rect key="frame" x="741" y="49" width="89" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="Mask color" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Jio-P8-TL1">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="efb-qa-ZV5">
+                                <rect key="frame" x="646" y="13" width="126" height="18"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="check" title="marker detection" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="mf3-ck-6ST">
+                                    <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xcZ-Ht-vxy">
+                                <rect key="frame" x="787" y="13" width="87" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="Change" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="p6b-cw-Bxa">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="fdsfdsfsd:" target="XfG-lQ-9wD" id="ZM7-D9-cOi"/>
+                                </connections>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
                         <outlet property="C2DView" destination="oxQ-00-xRE" id="Son-qG-iW6"/>
                         <outlet property="arView" destination="tOB-tf-zb3" id="KVC-6Q-hEs"/>
+                        <outlet property="cbMarkerDetection" destination="efb-qa-ZV5" id="1jA-g0-eCB"/>
+                        <outlet property="cbMaskColor" destination="lX2-9f-Aw9" id="BlC-mH-cB4"/>
+                        <outlet property="cbUsingMask" destination="wj1-XL-Ex3" id="9KM-4N-Yv5"/>
                         <outlet property="colorView" destination="zbQ-rh-cKV" id="o3B-uZ-qOR"/>
                         <outlet property="depthView" destination="c58-nI-WNY" id="EQK-cC-ArJ"/>
                         <outlet property="scnARView" destination="GMA-kb-aXZ" id="HAc-1E-FJi"/>

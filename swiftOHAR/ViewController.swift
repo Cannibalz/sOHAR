@@ -17,6 +17,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var silderTvec1: NSSlider!
     
     @IBOutlet weak var silderTvec2: NSSlider!
+    @IBOutlet weak var btnChangeSetting: NSButton!
     @IBOutlet weak var colorView: NSImageView!
     @IBOutlet weak var depthView: NSImageView!
     @IBOutlet weak var C2DView: NSImageView!
@@ -30,11 +31,14 @@ class ViewController: NSViewController {
     
     var previousXY : [CGFloat] = [0,0]
     var previousZ : CGFloat = 0
+    @IBOutlet weak var cbMarkerDetection: NSButton!
     
     var doDepthMap : Bool = true
     
     let maxX : Float = 0.769800186158227
     let maxY : Float = 0.57735019922565
+    @IBOutlet weak var cbMaskColor: NSButton!
+    @IBOutlet weak var cbUsingMask: NSButton!
     let tempX : Float = 480
     let tempY : Float = 360
     var timer : Timer = Timer()
@@ -51,9 +55,12 @@ class ViewController: NSViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        MS = markerSystem(scnView: scnARView)
-        scnARView.scene?.rootNode.addChildNode(MS)
+        rs.initRealsense()
         
+        MS = markerSystem(scnView: scnARView)
+        scnARView.scene?.rootNode.addChildNode(DM)
+        scnARView.scene?.rootNode.addChildNode(MS)
+        scnARView.antialiasingMode = .multisampling4X
         let plane = SCNPlane(width: 0.3, height: 0.3)
         plane.firstMaterial?.diffuse.contents = NSColor.black.withAlphaComponent(0.5)
         plane.firstMaterial?.isDoubleSided = true
@@ -61,16 +68,17 @@ class ViewController: NSViewController {
             //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
         }
         let planeNode = SCNNode(geometry: plane)
-        planeNode.renderingOrder = -100
+        planeNode.renderingOrder = -3
         planeNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
         scnARView.scene?.rootNode.addChildNode(planeNode)
-        rs.initRealsense()
         DM.downSample = 2
         DM.aroundMarkerOnly = false
-        var pcNode = SCNNode()
-        pcNode.name = "pcNode"
-        pcNode.renderingOrder = -10
-        scnARView.scene?.rootNode.addChildNode(pcNode)
+        
+//        var pcNode = SCNNode()
+//        pcNode.name = "pcNode"
+//        pcNode.renderingOrder = -2
+//        scnARView.scene?.rootNode.addChildNode(pcNode)
+        
         scnARView.delegate = self
         scnARView.isPlaying = true
         scnARView.preferredFramesPerSecond = 60
@@ -89,6 +97,24 @@ class ViewController: NSViewController {
         print("viewDidDisappear")
         exit(0)
     }
+    @IBAction func fdsfdsfsd(_ sender: Any) {
+        if cbUsingMask.state == NSOnState
+        {
+            DM.enable = true
+        }
+        else
+        {
+            DM.enable = false
+        }
+        if cbMaskColor.state == NSOnState
+        {
+            DM.coloredMask = true
+        }
+        else
+        {
+            DM.coloredMask = false
+        }
+    }
     func renderImg()
     {
         doDepthMap = !doDepthMap
@@ -98,17 +124,26 @@ class ViewController: NSViewController {
         //colorView.image = rs.nsDetectedColorImage()
         //depthView.image = rs.nsD2CImage()
         //C2DView.image = rs.nsC2DImage()
-        if doDepthMap && countt < 10
+        if doDepthMap && countt < 10 && DM.enable == true
         {
             //countt += 1
             var imageData = rs.nsD2CImage().tiffRepresentation
             var bitmapRep = NSBitmapImageRep.init(data: imageData!) //深度
             DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView)
-            scnARView.scene?.rootNode.childNode(withName: "pcNode", recursively: true)?.removeFromParentNode()
-            scnARView.scene?.rootNode.addChildNode(DM.getNode())
+            DM.refresh()
+//            scnARView.scene?.rootNode.childNode(withName: "pcNode", recursively: true)?.removeFromParentNode()
+//            scnARView.scene?.rootNode.addChildNode(DM.getNode())
         }
-        
-        MS.scnScene.background.contents = rs.nsDetectedColorImage()
+        rs.nsDetectedColorImage()
+        if cbMarkerDetection.state == NSOnState
+        {
+            MS.scnScene.background.contents = rs.nsDetectedColorImage()
+        }
+        else
+        {
+            MS.scnScene.background.contents = NSColor.black
+        }
+        //MS.scnScene.background.contents = rs.nsDetectedColorImage()
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
@@ -123,9 +158,8 @@ class ViewController: NSViewController {
         let projectPoint = scnARView.projectPoint(planePosition)
         //print(projectPoint)
         previousXY = [projectPoint.x,projectPoint.y] //2D的xy
-        
-       
     }
+    
 }
 extension ViewController : SCNSceneRendererDelegate
 {

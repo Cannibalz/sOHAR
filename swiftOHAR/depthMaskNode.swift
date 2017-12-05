@@ -9,27 +9,32 @@
 import Foundation
 import SceneKit
 
-class DepthMask2D
+class DepthMask2D : SCNNode
 {
     static let sharedInstance = DepthMask2D()
     
     var depthValueArray : [[CGFloat]] = Array(repeating: Array(repeating: 0, count: 480), count: 640)
     var depthPointCloud : [SCNVector3] = Array()
-    var pcNode : SCNNode = SCNNode()
+    var depthVertexArray : [PointCloudVertex] = Array()
+//    var pcNode : SCNNode = SCNNode()
     var downSample = 2
     var aroundMarkerOnly = false
+    var enable = true
     var performEvery_Times = 2
+    var coloredMask = true
     //var valueArray : [[NSColor]] = Array(repeating: Array(repeating: 0, count: 480), count: 640)
-    init() {
-        print(depthValueArray[0].count)
+    override init() {
+        super.init()
+        self.name = "depthMask"
+        self.renderingOrder = -10
     }
-    func setDepthValue(data:[[Int]])
-    {
-        
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
     }
     func setDepthValue(bitmapImageRep:NSBitmapImageRep,view:SCNView)
     {
         depthPointCloud = []
+        depthVertexArray = []
         for var x in stride(from: 0, to: depthValueArray.count, by: downSample)
         //for var x in 0..<depthValueArray.count
         {
@@ -39,31 +44,43 @@ class DepthMask2D
                 depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
                 if(depthValueArray[x][y] != 0)
                 {
-                    depthPointCloud.append(view.unprojectPoint(SCNVector3(CGFloat(x),CGFloat(y),depthValueArray[x][y])))
+                    let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x),CGFloat(y),depthValueArray[x][y]))
+                    depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 0, g: 1, b: 1))
+                    depthPointCloud.append(unprojectPointVector)
                 }
             }
         }
+    }
+    public func refresh()
+    {
+        
+            getNode()
+        print(self.geometry?.firstMaterial?.diffuse)
+        
     }
     public func getNode() -> SCNNode
     {
         let points = self.depthPointCloud
         //var vertices = Array(repeating: PointCloudVertex(x: 0,y: 0,z: 0,r: 0,g: 0,b: 0), count: points.count)
-        var vertices = Array(repeating: PointCloudVertex(x: 0,y: 0,z: 0,r: 0,g: 0,b: 0), count: points.count)
-        for i in 0..<(points.count) {
-            let p = points[i]
-            vertices[i].x = Float(p.x)
-            vertices[i].y = -Float(p.y)
-            vertices[i].z = Float(p.z)
-            vertices[i].r = Float(1.0)
-            vertices[i].g = Float(1.0)
-            vertices[i].b = Float(1.0)
-        }
+        var vertices = depthVertexArray
+        
+//        for i in 0..<(points.count) {
+//            let p = points[i]
+//            vertices[i].x = Float(p.x)
+//            vertices[i].y = -Float(p.y)
+//            vertices[i].z = Float(p.z)
+//            vertices[i].r = Float(0)
+//            vertices[i].g = Float(p.z)
+//            vertices[i].b = Float(0)
+//        }
         
         let node = buildNode(points: vertices)
         //node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
 //        node.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
 //        node.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
-        node.renderingOrder = -1000
+        node.renderingOrder = -1
+        node.opacity = 0
+        
         node.name = "pcNode"
         return node
     }
@@ -82,7 +99,7 @@ class DepthMask2D
             dataOffset: 0,
             dataStride: MemoryLayout<PointCloudVertex>.size
         )
-        let colorSource = SCNGeometrySource(
+        let colorSource = (
             data: vertexData as Data,
             semantic: SCNGeometrySource.Semantic.color,
             vectorCount: points.count,
@@ -99,17 +116,25 @@ class DepthMask2D
             bytesPerIndex: MemoryLayout<Int>.size
         )
         let pointsGeometry = SCNGeometry(sources: [positionSource], elements: [elements])
-        pointsGeometry.firstMaterial?.isDoubleSided = true
+        //pointsGeometry.firstMaterial?.isDoubleSided = true
+//        pointsGeometry.firstMaterial?.transparency = 1
+//        pointsGeometry.firstMaterial?.lightingModel = .constant
+//        pointsGeometry.firstMaterial?.readsFromDepthBuffer = true
+//        pointsGeometry.firstMaterial?.writesToDepthBuffer = true
+        pointsGeometry.firstMaterial?.diffuse.contents = NSColor.green
         
-        pointsGeometry.firstMaterial?.transparency = 1
-        //pointsGeometry.firstMaterial?.diffuse.contents = NSColor.green
-        pointsGeometry.firstMaterial?.lightingModel = .constant
-        pointsGeometry.firstMaterial?.writesToDepthBuffer = true
+//        pointsGeometry.firstMaterial?.lightingModel = .constant
+//        pointsGeometry.firstMaterial?.writesToDepthBuffer = true
         if #available(OSX 10.13, *) {
-            //pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+            pointsGeometry.firstMaterial?.blendMode = .replace
+            if !coloredMask
+            {
+                pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+            }
         } else {
             // Fallback on earlier versions
         }
+        self.geometry = pointsGeometry
         return SCNNode(geometry: pointsGeometry)
     }
 }

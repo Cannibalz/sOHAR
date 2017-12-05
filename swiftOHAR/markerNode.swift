@@ -198,13 +198,15 @@ class markerSystem : SCNNode
         let stageObject = asset.object(at: 0)
         let objNode = SCNNode(mdlObject: stageObject)
         let texture = SCNMaterial()
+        texture.readsFromDepthBuffer = true
+        texture.writesToDepthBuffer = true
         texture.diffuse.contents = NSImage(named: textureName)
         objNode.name = nodeName
         objNode.geometry?.firstMaterial = texture
-        objNode.physicsBody = SCNPhysicsBody(type : .static,shape : nil)
-        objNode.renderingOrder = 10
-        objNode.physicsBody?.categoryBitMask = CollisionTypes.object.rawValue
-        objNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue|CollisionTypes.realDepth.rawValue
+        objNode.renderingOrder = 1
+//        objNode.physicsBody = SCNPhysicsBody(type : .static,shape : nil)
+//        objNode.physicsBody?.categoryBitMask = CollisionTypes.object.rawValue
+//        objNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue|CollisionTypes.realDepth.rawValue
         //renderObject.scale = SCNVector3(0.001,0.001,0.001)
         return objNode
     }
@@ -247,7 +249,7 @@ class markerSystem : SCNNode
         middleY = middleY/4
         //middleY = -(middleY/4-240)/50
         avgLength = avgLength/4
-        print(avgLength)
+        //print(avgLength)
         //node.eulerAngles = makeEularAngles(rvec : markers[0].Rvec)
         //node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
 //        node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
@@ -255,7 +257,7 @@ class markerSystem : SCNNode
         //return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
         var position3D = view.unprojectPoint(position2D)
         position3D.y *= -1
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.2),CGFloat(0.2),CGFloat(0.2))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.3),CGFloat(0.3),CGFloat(0.3))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {
