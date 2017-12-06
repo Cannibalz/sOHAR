@@ -99,14 +99,14 @@ class DepthMask2D : SCNNode
             dataOffset: 0,
             dataStride: MemoryLayout<PointCloudVertex>.size
         )
-        let colorSource = (
+        let colorSource = SCNGeometrySource(
             data: vertexData as Data,
             semantic: SCNGeometrySource.Semantic.color,
             vectorCount: points.count,
             usesFloatComponents: true,
             componentsPerVector: 3,
             bytesPerComponent: MemoryLayout<Float>.size,
-            dataOffset: MemoryLayout<Float>.size * 3,//往後三格取顏色
+            dataOffset: MemoryLayout<Float>.size * 3,
             dataStride: MemoryLayout<PointCloudVertex>.size
         )
         let elements = SCNGeometryElement(
@@ -115,13 +115,13 @@ class DepthMask2D : SCNNode
             primitiveCount: points.count,
             bytesPerIndex: MemoryLayout<Int>.size
         )
-        let pointsGeometry = SCNGeometry(sources: [positionSource], elements: [elements])
+        let pointsGeometry = SCNGeometry(sources: [positionSource,colorSource], elements: [elements])
         //pointsGeometry.firstMaterial?.isDoubleSided = true
 //        pointsGeometry.firstMaterial?.transparency = 1
 //        pointsGeometry.firstMaterial?.lightingModel = .constant
 //        pointsGeometry.firstMaterial?.readsFromDepthBuffer = true
 //        pointsGeometry.firstMaterial?.writesToDepthBuffer = true
-        pointsGeometry.firstMaterial?.diffuse.contents = NSColor.green
+        //pointsGeometry.firstMaterial?.diffuse.contents = NSColor.green
         
 //        pointsGeometry.firstMaterial?.lightingModel = .constant
 //        pointsGeometry.firstMaterial?.writesToDepthBuffer = true
