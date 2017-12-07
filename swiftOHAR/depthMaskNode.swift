@@ -81,6 +81,7 @@ class DepthMask2D : SCNNode
                 print(view.projectPoint(node.boundingBox.max))
                 print(view.projectPoint(node.boundingBox.min))
                 var minmaxXY = highlightNode(node)
+                createLineNode(fromPos: node.boundingBox.min, toPos: node.boundingBox.max, color: .yellow)
                 let boundingSRange = node.boundingSphere
 //                var projectPointBBRmax = view.projectPoint((boundingBoxRange?.max)!)
 //                var projectPointBBRmin = view.projectPoint((boundingBoxRange?.min)!)
@@ -252,7 +253,7 @@ extension DepthMask2D
             }
             if TwoDpoint.y < minmaxXY[0][1]
             {
-                minmaxXY[0][1] = TwoDpoint.y
+                minmaxXY[0][1] = 0
             }
             if TwoDpoint.y > minmaxXY[1][1]
             {
@@ -275,15 +276,15 @@ extension DepthMask2D
         {
             minmaxXY[1][1] = 479
         }
-        print(pointArray)
-        print(minmaxXY)
+//        print(pointArray)
+//        print(minmaxXY)
         let zCoord = node.position.z
         
         let topLeft = SCNVector3Make(min.x, max.y, max.z)
         let bottomLeft = SCNVector3Make(min.x, min.y, min.z)
         let topRight = SCNVector3Make(max.x, max.y, max.z)
         let bottomRight = SCNVector3Make(max.x, min.y, min.z)
-        
+        print(scnView.projectPoint(topLeft))
         
         let bottomSide = createLineNode(fromPos: bottomLeft, toPos: bottomRight, color: .red)
         let leftSide = createLineNode(fromPos: bottomLeft, toPos: topLeft, color: .orange )
