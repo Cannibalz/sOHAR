@@ -69,10 +69,12 @@ class ViewController: NSViewController {
         }
         let planeNode = SCNNode(geometry: plane)
         planeNode.renderingOrder = -3
+        planeNode.name = "planeFromView"
         planeNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
         scnARView.scene?.rootNode.addChildNode(planeNode)
+        DM.scnView = self.scnARView
         DM.downSample = 2
-        DM.aroundMarkerOnly = false
+        DM.aroundMarkerOnly = true
         
 //        var pcNode = SCNNode()
 //        pcNode.name = "pcNode"
@@ -129,7 +131,7 @@ class ViewController: NSViewController {
             //countt += 1
             var imageData = rs.nsD2CImage().tiffRepresentation
             var bitmapRep = NSBitmapImageRep.init(data: imageData!) //深度
-            DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView)
+            DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView,idDictionary: MS.idDictionary)
             DM.refresh()
 //            scnARView.scene?.rootNode.childNode(withName: "pcNode", recursively: true)?.removeFromParentNode()
 //            scnARView.scene?.rootNode.addChildNode(DM.getNode())
@@ -153,7 +155,6 @@ class ViewController: NSViewController {
         //planePosition.x = CGFloat(silderTvec0.floatValue)
         //planePosition.y = CGFloat(silderTvec1.floatValue)
         //planePosition.z = CGFloat(silderTvec2.floatValue)
-        
         
         let projectPoint = scnARView.projectPoint(planePosition)
         //print(projectPoint)

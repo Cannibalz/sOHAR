@@ -22,6 +22,7 @@ class DepthMask2D : SCNNode
     var enable = true
     var performEvery_Times = 2
     var coloredMask = true
+    var scnView = SCNView()
     //var valueArray : [[NSColor]] = Array(repeating: Array(repeating: 0, count: 480), count: 640)
     override init() {
         super.init()
@@ -31,36 +32,95 @@ class DepthMask2D : SCNNode
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
-    func setDepthValue(bitmapImageRep:NSBitmapImageRep,view:SCNView)
+//    convenience init(view:SCNView) {
+//        //super.init()
+//        self.init()
+//        scnView = view
+//    }
+    func setDepthValue(bitmapImageRep:NSBitmapImageRep,view:SCNView,idDictionary:Dictionary<Int, Int>)
     {
         depthPointCloud = []
         depthVertexArray = []
-        for var x in stride(from: 0, to: depthValueArray.count, by: downSample)
-        //for var x in 0..<depthValueArray.count
+        if aroundMarkerOnly == false
         {
-            for var y in stride(from: 0, to: depthValueArray[x].count, by: downSample)
-            //for var y in 0..<depthValueArray[x].count
+            for var x in stride(from: 0, to: depthValueArray.count, by: downSample)
+                //for var x in 0..<depthValueArray.count
             {
-                depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
-                if(depthValueArray[x][y] != 0)
+                for var y in stride(from: 0, to: depthValueArray[x].count, by: downSample)
+                    //for var y in 0..<depthValueArray[x].count
                 {
-                    let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x),CGFloat(y),depthValueArray[x][y]))
-                    depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 0, g: 1, b: 1))
-                    depthPointCloud.append(unprojectPointVector)
+                    depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
+                    if(depthValueArray[x][y] != 0)
+                    {
+                        let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x),CGFloat(y),depthValueArray[x][y]))
+                        depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
+                        //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 1.0, g: 0, b: 0))
+                        depthPointCloud.append(unprojectPointVector)
+                    }
                 }
             }
+        }
+        else if aroundMarkerOnly
+        {
+            //print(view.scene?.rootNode.childNode(withName:"markerObjectNode", recursively: true)?.childNodes.count)
+            //print(idDictionary)
+            var markerIDstring = Array<String>()
+            for var id in idDictionary
+            {
+                for var i in 0..<id.value
+                {
+                    markerIDstring.append("\(id.key)-\(i)")
+                }
+            }
+            //for var markerName in markerIDstring
+            
+            for node in (view.scene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
+            {
+                //print(view.scene?.rootNode.childNode(withName:"markerObjectNode", recursively: true)?.childNodes[i].name)
+                //let boundingBoxRange = view.scene?.rootNode.childNode(withName: "planeFromView", recursively: false)?.boundingBox
+                print(view.projectPoint(node.boundingBox.max))
+                print(view.projectPoint(node.boundingBox.min))
+                var minmaxXY = highlightNode(node)
+                let boundingSRange = node.boundingSphere
+//                var projectPointBBRmax = view.projectPoint((boundingBoxRange?.max)!)
+//                var projectPointBBRmin = view.projectPoint((boundingBoxRange?.min)!)
+//                if projectPointBBRmax.x > 640
+//                {
+//                    projectPointBBRmax.x = 640
+//                }
+//                if projectPointBBRmin.y > 480
+//                {
+//                    projectPointBBRmax.y = 480
+//                }
+                for var x in stride(from: Int(minmaxXY[0][0]),to: Int(minmaxXY[1][0]), by: downSample)
+                {
+                    for var y in stride(from: Int(minmaxXY[0][1]),to: Int(minmaxXY[1][1]), by: downSample)
+                    {
+                        let whiteValue = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
+                        //depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
+                        if(whiteValue != 0)
+                        {
+                            let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x),CGFloat(y),whiteValue))
+                            depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
+                            //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 1.0, g: 0, b: 0))
+                            //depthPointCloud.append(unprojectPointVector)
+                        }
+                    }
+                }
+            }
+            
         }
     }
     public func refresh()
     {
         
             getNode()
-        print(self.geometry?.firstMaterial?.diffuse)
+        //print(self.geometry?.firstMaterial?.diffuse)
         
     }
     public func getNode() -> SCNNode
     {
-        let points = self.depthPointCloud
+        //let points = self.depthPointCloud
         //var vertices = Array(repeating: PointCloudVertex(x: 0,y: 0,z: 0,r: 0,g: 0,b: 0), count: points.count)
         var vertices = depthVertexArray
         
@@ -79,7 +139,6 @@ class DepthMask2D : SCNNode
 //        node.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
 //        node.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
         node.renderingOrder = -1
-        node.opacity = 0
         
         node.name = "pcNode"
         return node
@@ -118,15 +177,14 @@ class DepthMask2D : SCNNode
         let pointsGeometry = SCNGeometry(sources: [positionSource,colorSource], elements: [elements])
         //pointsGeometry.firstMaterial?.isDoubleSided = true
 //        pointsGeometry.firstMaterial?.transparency = 1
-//        pointsGeometry.firstMaterial?.lightingModel = .constant
-//        pointsGeometry.firstMaterial?.readsFromDepthBuffer = true
-//        pointsGeometry.firstMaterial?.writesToDepthBuffer = true
-        //pointsGeometry.firstMaterial?.diffuse.contents = NSColor.green
-        
-//        pointsGeometry.firstMaterial?.lightingModel = .constant
-//        pointsGeometry.firstMaterial?.writesToDepthBuffer = true
+
+        //pointsGeometry.firstMaterial?.diffuse.contents = NSColor.white.withAlphaComponent(1)//NSImage(named: "MKY.jpg")
+        //pointsGeometry.firstMaterial?.lightingModel = .lambert
+        //pointsGeometry.firstMaterial?.shaderModifiers = [SCNShaderModifierEntryPoint.geometry : "PointSize = 1.0;"]
+        //pointsGeometry.firstMaterial?.shaderModifiers = [SCNShaderModifierEntryPoint.fragment : "_output.color.rgb = vec3(1.0) - _output.color.rgb;"]
+
         if #available(OSX 10.13, *) {
-            pointsGeometry.firstMaterial?.blendMode = .replace
+            
             if !coloredMask
             {
                 pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
@@ -136,5 +194,115 @@ class DepthMask2D : SCNNode
         }
         self.geometry = pointsGeometry
         return SCNNode(geometry: pointsGeometry)
+    }
+    private func maskAroundMarker()
+    {
+        
+    }
+}
+extension DepthMask2D
+{
+    func createLineNode(fromPos origin: SCNVector3, toPos destination: SCNVector3, color: NSColor) -> SCNNode {
+        let line = lineFrom(vector: origin, toVector: destination)
+        let lineNode = SCNNode(geometry: line)
+        let planeMaterial = SCNMaterial()
+        planeMaterial.diffuse.contents = color
+        line.materials = [planeMaterial]
+        
+        return lineNode
+    }
+    
+    func lineFrom(vector vector1: SCNVector3, toVector vector2: SCNVector3) -> SCNGeometry {
+        let indices: [Int32] = [0, 1]
+        
+        let source = SCNGeometrySource(vertices: [vector1, vector2])
+        let element = SCNGeometryElement(indices: indices, primitiveType: .line)
+        
+        return SCNGeometry(sources: [source], elements: [element])
+    }
+    
+    
+    func highlightNode(_ node: SCNNode) -> [[CGFloat]] {
+        let (min, max) = node.boundingBox
+        let boundingArray = [min,max]
+        var pointArray = Array<SCNVector3>()
+        var minmaxXY : [[CGFloat]] = [[640,480],[0,0]]
+        for var i in 0..<2
+        {
+            for var j in 0..<2
+            {
+                for var k in 0..<2
+                {
+                    pointArray.append(SCNVector3(boundingArray[i].x,boundingArray[j].y,boundingArray[k].z))
+                }
+            }
+        }
+        
+        for var point in pointArray
+        {
+            
+            let TwoDpoint = scnView.projectPoint(point)
+            if TwoDpoint.x < minmaxXY[0][0]
+            {
+                minmaxXY[0][0] = TwoDpoint.x
+            }
+            if TwoDpoint.x > minmaxXY[1][0]
+            {
+                minmaxXY[1][0] = TwoDpoint.x
+            }
+            if TwoDpoint.y < minmaxXY[0][1]
+            {
+                minmaxXY[0][1] = TwoDpoint.y
+            }
+            if TwoDpoint.y > minmaxXY[1][1]
+            {
+                minmaxXY[1][1] = TwoDpoint.y
+            }
+        }
+        if minmaxXY[0][0] < 0
+        {
+           minmaxXY[0][0] = 0
+        }
+        if minmaxXY[0][1] < 0
+        {
+            minmaxXY[0][1] = 0
+        }
+        if minmaxXY[1][0] > 639
+        {
+            minmaxXY[1][0] = 639
+        }
+        if minmaxXY[1][1] > 479
+        {
+            minmaxXY[1][1] = 479
+        }
+        print(pointArray)
+        print(minmaxXY)
+        let zCoord = node.position.z
+        
+        let topLeft = SCNVector3Make(min.x, max.y, max.z)
+        let bottomLeft = SCNVector3Make(min.x, min.y, min.z)
+        let topRight = SCNVector3Make(max.x, max.y, max.z)
+        let bottomRight = SCNVector3Make(max.x, min.y, min.z)
+        
+        
+        let bottomSide = createLineNode(fromPos: bottomLeft, toPos: bottomRight, color: .red)
+        let leftSide = createLineNode(fromPos: bottomLeft, toPos: topLeft, color: .orange )
+        let rightSide = createLineNode(fromPos: bottomRight, toPos: topRight, color: .yellow)
+        let topSide = createLineNode(fromPos: topLeft, toPos: topRight, color: .green)
+        
+        [bottomSide, leftSide, rightSide, topSide].forEach {
+            $0.name = "123" // Whatever name you want so you can unhighlight later if needed
+            node.addChildNode($0)
+        }
+        return minmaxXY
+    }
+    
+    func unhighlightNode(_ node: SCNNode) {
+        let highlightningNodes = node.childNodes { (child, stop) -> Bool in
+            child.name == "123"
+        }
+        highlightningNodes.forEach {
+            $0.removeFromParentNode()
+        }
     }
 }

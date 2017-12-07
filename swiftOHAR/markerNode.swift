@@ -19,6 +19,7 @@ struct Marker : Codable
 
 class markerSystem : SCNNode
 {
+    static let sharedInstance = markerSystem()
     var view : SCNView = SCNView()
     var depthArray = DepthMask2D()
     var scnScene : SCNScene = SCNScene()
@@ -52,7 +53,7 @@ class markerSystem : SCNNode
 //        planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
         planeNode.physicsBody?.categoryBitMask = CollisionTypes.object.rawValue
         planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue|CollisionTypes.realDepth.rawValue
-        self.addChildNode(planeNode)
+        //self.addChildNode(planeNode)
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
         
@@ -87,6 +88,10 @@ class markerSystem : SCNNode
             self.markers = filterMarker
             idCalculating()
             setVirtualObject()
+        if self.childNodes.count > 0
+        {
+            print(self.childNodes[0].boundingBox)
+        }
         //}
         previousIdDictionary = idDictionary
         //print(view.unprojectPoint(SCNVector3(0,0,0)))
@@ -179,9 +184,11 @@ class markerSystem : SCNNode
                 self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
                 self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
-//                var boundingBoxArray = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox
-//                print("Max: \(view.projectPoint((boundingBoxArray?.max)!))")
-//                print("Min: \(view.projectPoint((boundingBoxArray?.min)!))")
+                //print(view.projectPoint((self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox.min)!))
+                //print(view.projectPoint((self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox.max)!))
+                //var boundingBoxArray = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox
+                
+                
             }
         }
     }
