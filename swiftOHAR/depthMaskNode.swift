@@ -110,7 +110,8 @@ class DepthMask2D : SCNNode
                     var y = test.minY
                     while y < test.maxY
                     {
-                        let whiteValue = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
+                        var convertY = 479-y
+                        let whiteValue = bitmapImageRep.colorAt(x: x, y: convertY)!.whiteComponent
                                                 //depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
                         if(whiteValue != 0)
                         {
@@ -206,7 +207,7 @@ class DepthMask2D : SCNNode
             primitiveCount: points.count,
             bytesPerIndex: MemoryLayout<Int>.size
         )
-        let pointsGeometry = SCNGeometry(sources: [positionSource,colorSource], elements: [elements])
+        let pointsGeometry = SCNGeometry(sources: [positionSource], elements: [elements])
         //pointsGeometry.firstMaterial?.isDoubleSided = true
 //        pointsGeometry.firstMaterial?.transparency = 1
 
@@ -224,6 +225,9 @@ class DepthMask2D : SCNNode
         } else {
             // Fallback on earlier versions
         }
+        var mat = SCNMaterial()
+        mat.diffuse.contents = NSColor.white
+        pointsGeometry.firstMaterial = mat
         self.geometry = pointsGeometry
         return SCNNode(geometry: pointsGeometry)
     }
