@@ -8,7 +8,12 @@
 
 import Foundation
 import SceneKit
-
+struct nodePos {
+    var minX: Int
+    var minY: Int
+    var maxX: Int
+    var maxY: Int
+}
 class DepthMask2D : SCNNode
 {
     static let sharedInstance = DepthMask2D()
@@ -78,11 +83,17 @@ class DepthMask2D : SCNNode
             {
                 //print(view.scene?.rootNode.childNode(withName:"markerObjectNode", recursively: true)?.childNodes[i].name)
                 //let boundingBoxRange = view.scene?.rootNode.childNode(withName: "planeFromView", recursively: false)?.boundingBox
-                print(view.projectPoint(node.boundingBox.max))
-                print(view.projectPoint(node.boundingBox.min))
-                var minmaxXY = highlightNode(node)
-                createLineNode(fromPos: node.boundingBox.min, toPos: node.boundingBox.max, color: .yellow)
-                let boundingSRange = node.boundingSphere
+                print("MaxIn3D:\(node.boundingBox.max)")
+                print("MinIn3D:\(node.boundingBox.min)")
+                let nodeMax2D = view.projectPoint(node.boundingBox.max)
+                let nodeMin2D = view.projectPoint(node.boundingBox.min)
+                print("MaxIn2D:\(nodeMax2D)")
+                print("MInIn2D:\(nodeMin2D)")
+                print("unPorjectMax:\(view.unprojectPoint(nodeMax2D))")
+                print("unPorjectMin:\(view.unprojectPoint(nodeMin2D))")
+                //var minmaxXY = highlightNode(node)
+                var test = calNodeSize(node: node, view: view)
+                //createLineNode(fromPos: node.boundingBox.min, toPos: node.boundingBox.max, color: .yellow)
 //                var projectPointBBRmax = view.projectPoint((boundingBoxRange?.max)!)
 //                var projectPointBBRmin = view.projectPoint((boundingBoxRange?.min)!)
 //                if projectPointBBRmax.x > 640
@@ -93,21 +104,41 @@ class DepthMask2D : SCNNode
 //                {
 //                    projectPointBBRmax.y = 480
 //                }
-                for var x in stride(from: Int(minmaxXY[0][0]),to: Int(minmaxXY[1][0]), by: downSample)
+                var x = test.minX
+                while x < test.maxX
                 {
-                    for var y in stride(from: Int(minmaxXY[0][1]),to: Int(minmaxXY[1][1]), by: downSample)
+                    var y = test.minY
+                    while y < test.maxY
                     {
                         let whiteValue = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
-                        //depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
+                                                //depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
                         if(whiteValue != 0)
                         {
                             let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x),CGFloat(y),whiteValue))
-                            depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
-                            //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 1.0, g: 0, b: 0))
+                            //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
+                            depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 1.0, g: 0, b: 0))
                             //depthPointCloud.append(unprojectPointVector)
                         }
+                        y += downSample
                     }
+                    x += downSample
                 }
+//                for var x in stride(from: test.minX,to: test.maxX, by: downSample)
+//                {
+//                    for var y in stride(from: test.minY,to: test.maxY, by: downSample)
+//                    {
+//                        let whiteValue = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
+//                        //depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
+//                        if(whiteValue != 0)
+//                        {
+//                            let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x),CGFloat(y),whiteValue))
+//                            depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
+//                            //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 1.0, g: 0, b: 0))
+//                            //depthPointCloud.append(unprojectPointVector)
+//                        }
+//                    }
+//                }
+                
             }
             
         }
@@ -221,8 +252,7 @@ extension DepthMask2D
         
         return SCNGeometry(sources: [source], elements: [element])
     }
-    
-    
+
     func highlightNode(_ node: SCNNode) -> [[CGFloat]] {
         let (min, max) = node.boundingBox
         let boundingArray = [min,max]
@@ -305,5 +335,51 @@ extension DepthMask2D
         highlightningNodes.forEach {
             $0.removeFromParentNode()
         }
+    }
+    func calNodeSize(node:SCNNode,view:SCNView) -> nodePos
+    {
+        let (localMin,localMax) = node.boundingBox
+        let min = node.convertPosition(localMin, to: nil)
+        let max = node.convertPosition(localMax, to: nil)
+        let vertices = [
+            SCNVector3(min.x, min.y, min.z),
+            SCNVector3(max.x, min.y, min.z),
+            SCNVector3(min.x, max.y, min.z),
+            SCNVector3(max.x, max.y, min.z),
+            SCNVector3(min.x, min.y, max.z),
+            SCNVector3(max.x, min.y, max.z),
+            SCNVector3(min.x, max.y, max.z),
+            SCNVector3(max.x, max.y, max.z)
+        ]
+        let arr = vertices.map { view.projectPoint($0) }
+        
+        var minX: CGFloat = arr.reduce(CGFloat.infinity, { $0 > $1.x ? $1.x : $0 })
+        var minY: CGFloat = arr.reduce(CGFloat.infinity, { $0 > $1.y ? $1.y : $0 })
+        //let minZ: CGFloat = arr.reduce(CGFloat.infinity, { $0 > $1.z ? $1.z : $0 })
+        var maxX: CGFloat = arr.reduce(-CGFloat.infinity, { $0 < $1.x ? $1.x : $0 })
+        var maxY: CGFloat = arr.reduce(-CGFloat.infinity, { $0 < $1.y ? $1.y : $0 })
+        //let maxZ: CGFloat = arr.reduce(-CGFloat.infinity, { $0 < $1.z ? $1.z : $0 })
+        
+        let width = maxX - minX
+        let height = maxY - minY
+        
+        if minX < 0
+        {
+            minX = 0
+        }
+        if minY < 0
+        {
+            minY = 0
+        }
+        if maxX > 640
+        {
+            maxX = 640
+        }
+        if maxY > 480
+        {
+            maxY = 480
+        }
+        return nodePos(minX: Int(minX), minY: Int(minY), maxX: Int(maxX), maxY: Int(maxY))
+        //let depth = maxZ - minZ
     }
 }
