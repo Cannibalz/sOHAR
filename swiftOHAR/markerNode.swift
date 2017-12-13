@@ -205,12 +205,10 @@ class markerSystem : SCNNode
         let stageObject = asset.object(at: 0)
         let objNode = SCNNode(mdlObject: stageObject)
         let texture = SCNMaterial()
-        texture.readsFromDepthBuffer = true
-        texture.writesToDepthBuffer = true
         texture.diffuse.contents = NSImage(named: textureName)
         objNode.name = nodeName
-        objNode.geometry?.firstMaterial = texture
-        objNode.renderingOrder = 1
+        //objNode.geometry?.firstMaterial = texture
+        objNode.renderingOrder = -1
 //        objNode.physicsBody = SCNPhysicsBody(type : .static,shape : nil)
 //        objNode.physicsBody?.categoryBitMask = CollisionTypes.object.rawValue
 //        objNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue|CollisionTypes.realDepth.rawValue
@@ -223,7 +221,6 @@ class markerSystem : SCNNode
         cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
         cameraNode.position = SCNVector3(x:x, y:y, z:z)
-        cameraNode.camera?.usesOrthographicProjection = false
         cameraNode.name = "camera"
         //cameraNode.camera?.zNear = 7.3
         return cameraNode

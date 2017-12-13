@@ -71,7 +71,7 @@ class ViewController: NSViewController {
         planeNode.renderingOrder = -3
         planeNode.name = "planeFromView"
         planeNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
-        //scnARView.scene?.rootNode.addChildNode(planeNode)
+        scnARView.scene?.rootNode.addChildNode(planeNode)
         DM.scnView = self.scnARView
         DM.downSample = 2
         DM.aroundMarkerOnly = true

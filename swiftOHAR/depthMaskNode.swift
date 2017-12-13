@@ -32,7 +32,7 @@ class DepthMask2D : SCNNode
     override init() {
         super.init()
         self.name = "depthMask"
-        self.renderingOrder = -10
+        self.renderingOrder = -2
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -208,14 +208,7 @@ class DepthMask2D : SCNNode
             bytesPerIndex: MemoryLayout<Int>.size
         )
         let pointsGeometry = SCNGeometry(sources: [positionSource], elements: [elements])
-        //pointsGeometry.firstMaterial?.isDoubleSided = true
-//        pointsGeometry.firstMaterial?.transparency = 1
-
-        //pointsGeometry.firstMaterial?.diffuse.contents = NSColor.white.withAlphaComponent(1)//NSImage(named: "MKY.jpg")
-        //pointsGeometry.firstMaterial?.lightingModel = .lambert
-        //pointsGeometry.firstMaterial?.shaderModifiers = [SCNShaderModifierEntryPoint.geometry : "PointSize = 1.0;"]
-        //pointsGeometry.firstMaterial?.shaderModifiers = [SCNShaderModifierEntryPoint.fragment : "_output.color.rgb = vec3(1.0) - _output.color.rgb;"]
-
+        pointsGeometry.firstMaterial?.diffuse.contents = NSColor.yellow
         if #available(OSX 10.13, *) {
             
             if !coloredMask
@@ -225,9 +218,6 @@ class DepthMask2D : SCNNode
         } else {
             // Fallback on earlier versions
         }
-        var mat = SCNMaterial()
-        mat.diffuse.contents = NSColor.white
-        pointsGeometry.firstMaterial = mat
         self.geometry = pointsGeometry
         return SCNNode(geometry: pointsGeometry)
     }
