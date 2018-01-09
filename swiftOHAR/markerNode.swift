@@ -206,8 +206,9 @@ class markerSystem : SCNNode
         let objNode = SCNNode(mdlObject: stageObject)
         let texture = SCNMaterial()
         texture.diffuse.contents = NSImage(named: textureName)
+        texture.blendMode = .replace
         objNode.name = nodeName
-        //objNode.geometry?.firstMaterial = texture
+        objNode.geometry?.firstMaterial = texture
         objNode.renderingOrder = -1
 //        objNode.physicsBody = SCNPhysicsBody(type : .static,shape : nil)
 //        objNode.physicsBody?.categoryBitMask = CollisionTypes.object.rawValue
@@ -264,7 +265,7 @@ class markerSystem : SCNNode
         print(view.projectPoint(position3D))
         position3D.y *= -1
         print(view.projectPoint(position3D))
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.3),CGFloat(0.3),CGFloat(0.3))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.2),CGFloat(0.2),CGFloat(0.2))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {

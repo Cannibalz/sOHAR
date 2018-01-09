@@ -14,6 +14,7 @@ struct nodePos {
     var maxX: Int
     var maxY: Int
 }
+
 class DepthMask2D : SCNNode
 {
     static let sharedInstance = DepthMask2D()
@@ -32,7 +33,7 @@ class DepthMask2D : SCNNode
     override init() {
         super.init()
         self.name = "depthMask"
-        self.renderingOrder = -2
+        self.renderingOrder = -100
     }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -58,8 +59,8 @@ class DepthMask2D : SCNNode
                     if(depthValueArray[x][y] != 0)
                     {
                         let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x),CGFloat(y),depthValueArray[x][y]))
-                        depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
-                        //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 1.0, g: 0, b: 0))
+                        //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
+                        depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: 1.0, g: 0, b: 0))
                         depthPointCloud.append(unprojectPointVector)
                     }
                 }
@@ -206,11 +207,17 @@ class DepthMask2D : SCNNode
             primitiveType: .point,
             primitiveCount: points.count,
             bytesPerIndex: MemoryLayout<Int>.size
+            //pPointSize : 5
         )
-        let pointsGeometry = SCNGeometry(sources: [positionSource], elements: [elements])
-        pointsGeometry.firstMaterial?.diffuse.contents = NSColor.yellow
+        let pointsGeometry = SCNGeometry(sources: [positionSource,colorSource], elements: [elements])
+        //pointsGeometry.firstMaterial?.diffuse.contents = NSColor.yellow
+        //pointsGeometry.firstMaterial?.emission.contents = NSColor.yellow
         if #available(OSX 10.13, *) {
-            
+            pointsGeometry.firstMaterial?.transparencyMode = .dualLayer
+            pointsGeometry.firstMaterial?.blendMode = .replace
+            let dict: [SCNShaderModifierEntryPoint:String] = [.fragment :
+                "_output.color = vec4( 0.0, 1.0, 1.0, 1.0 );"]
+            pointsGeometry.shaderModifiers = dict
             if !coloredMask
             {
                 pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)

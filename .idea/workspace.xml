@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2de6a562-3ae9-42d4-8218-cfae59481111" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swiftOHAR/Model/football.scn" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swiftOHAR/micky.scn" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swiftOHAR/Mickey_Mouse.obj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swiftOHAR/deer.obj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swiftOHAR/lowpolytree.obj" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/swiftOHAR/markerSystem.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swiftOHAR.xcodeproj/project.pbxproj" afterPath="$PROJECT_DIR$/swiftOHAR.xcodeproj/project.pbxproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swiftOHAR.xcodeproj/xcuserdata/TomCruise.xcuserdatad/xcschemes/xcschememanagement.plist" afterPath="$PROJECT_DIR$/swiftOHAR.xcodeproj/xcuserdata/TomCruise.xcuserdatad/xcschemes/xcschememanagement.plist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swiftOHAR.xcodeproj/xcuserdata/kaofan.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" afterPath="$PROJECT_DIR$/swiftOHAR.xcodeproj/xcuserdata/kaofan.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swiftOHAR/Base.lproj/Main.storyboard" afterPath="$PROJECT_DIR$/swiftOHAR/Base.lproj/Main.storyboard" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swiftOHAR/ViewController.swift" afterPath="$PROJECT_DIR$/swiftOHAR/ViewController.swift" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swiftOHAR/cImageProcess.cpp" afterPath="$PROJECT_DIR$/swiftOHAR/cImageProcess.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swiftOHAR/cRealsense.cpp" afterPath="$PROJECT_DIR$/swiftOHAR/cRealsense.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/swiftOHAR/scnView.swift" afterPath="$PROJECT_DIR$/swiftOHAR/scnView.swift" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/swiftOHAR/Base.lproj/Main.storyboard" afterPath="$PROJECT_DIR$/swiftOHAR/Base.lproj/Main.storyboard" />
+      <change beforePath="$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift" afterPath="$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift" />
+      <change beforePath="$PROJECT_DIR$/swiftOHAR/markerNode.swift" afterPath="$PROJECT_DIR$/swiftOHAR/markerNode.swift" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,23 +20,28 @@
       <file leaf-file-name="ViewController.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/swiftOHAR/ViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="108" column="12" lean-forward="false" selection-start-line="108" selection-start-column="12" selection-end-line="111" selection-end-column="32" />
-              <folding>
-                <marker date="1506673299761" expanded="true" signature="266:6611" ph="{...}" />
-                <marker date="1506673299761" expanded="true" signature="3612:6371" ph="{...}" />
-                <marker date="1506673299761" expanded="true" signature="6432:6609" ph="{...}" />
-                <marker date="1506673299761" expanded="true" signature="6629:6770" ph="{...}" />
-              </folding>
+            <state relative-caret-position="364">
+              <caret line="37" column="40" lean-forward="false" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="markerSystem.swift" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/swiftOHAR/markerSystem.swift">
+      <file leaf-file-name="SceneKit.SCNSceneRenderer.swift" pinned="false" current-in-tab="false">
+        <entry file="mock:///SceneKit.SCNSceneRenderer.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+            <state relative-caret-position="2">
+              <caret line="371" column="25" lean-forward="false" selection-start-line="371" selection-start-column="25" selection-end-line="371" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="depthMaskNode.swift" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="127" column="84" lean-forward="true" selection-start-line="127" selection-start-column="84" selection-end-line="127" selection-end-column="84" />
               <folding />
             </state>
           </provider>
@@ -59,6 +54,8 @@
       <find>renderImg</find>
       <find>setupScene</find>
       <find>markers</find>
+      <find>trans</find>
+      <find>RENDER</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -70,6 +67,8 @@
         <option value="$PROJECT_DIR$/swiftOHAR/cImageProcess.cpp" />
         <option value="$PROJECT_DIR$/swiftOHAR/ViewController.swift" />
         <option value="$PROJECT_DIR$/swiftOHAR/markerSystem.swift" />
+        <option value="$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift" />
+        <option value="$PROJECT_DIR$/swiftOHAR/markerNode.swift" />
       </list>
     </option>
   </component>
@@ -79,9 +78,9 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="1440" />
-    <option name="height" value="900" />
+  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+    <option name="width" value="1920" />
+    <option name="height" value="1080" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -132,6 +131,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="OBJC.PRESERVED_TARGET_SELECTION" value="swiftOHAR" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/swiftOHAR.xcodeproj" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -145,7 +145,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Application.swiftOHAR">
+  <component name="RunManager">
     <configuration name="swiftOHAR" type="AppleRunConfiguration" factoryName="Application" PASS_PARENT_ENVS_2="true" PROJECT_NAME="swiftOHAR" TARGET_NAME="swiftOHAR" CONFIG_NAME="Debug" SCHEME_NAME="swiftOHAR" RUN_TARGET_PROJECT_NAME="swiftOHAR" RUN_TARGET_NAME="swiftOHAR" MAKE_ACTIVE="TRUE">
       <envs />
       <EXTENSION ID="org.jetbrains.appcode.reveal.RevealRunConfigurationExtension">
@@ -155,6 +155,9 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false">
     <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -167,6 +170,7 @@
       <workItem from="1506429434088" duration="224000" />
       <workItem from="1506430475136" duration="2642000" />
       <workItem from="1506670792521" duration="2294000" />
+      <workItem from="1515047935089" duration="5415000" />
     </task>
     <task id="LOCAL-00001" summary="jerk">
       <created>1506670895060</created>
@@ -179,19 +183,19 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="5227000" />
+    <option name="totallyTimeSpent" value="10642000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1440" height="900" extended-state="0" />
+    <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17777778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17760417" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3291262" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19647059" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.1961165" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32941177" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -225,12 +229,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1506673299761" expanded="true" signature="266:6611" ph="{...}" />
-            <marker date="1506673299761" expanded="true" signature="3612:6371" ph="{...}" />
-            <marker date="1506673299761" expanded="true" signature="6432:6609" ph="{...}" />
-            <marker date="1506673299761" expanded="true" signature="6629:6770" ph="{...}" />
-          </folding>
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/swiftOHAR/ViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -259,7 +266,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1936">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -267,27 +273,30 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="74" lean-forward="false" selection-start-line="14" selection-start-column="74" selection-end-line="14" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/swiftOHAR/markerSystem.swift" />
+    <entry file="file://$PROJECT_DIR$/swiftOHAR/ViewController.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="37" column="40" lean-forward="false" selection-start-line="37" selection-start-column="40" selection-end-line="37" selection-end-column="40" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/swiftOHAR/ViewController.swift">
+    <entry file="file://$PROJECT_DIR$/swiftOHAR/markerNode.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="108" column="12" lean-forward="false" selection-start-line="108" selection-start-column="12" selection-end-line="111" selection-end-column="32" />
-          <folding>
-            <marker date="1506673299761" expanded="true" signature="266:6611" ph="{...}" />
-            <marker date="1506673299761" expanded="true" signature="3612:6371" ph="{...}" />
-            <marker date="1506673299761" expanded="true" signature="6432:6609" ph="{...}" />
-            <marker date="1506673299761" expanded="true" signature="6629:6770" ph="{...}" />
-          </folding>
+        <state relative-caret-position="368">
+          <caret line="251" column="27" lean-forward="true" selection-start-line="251" selection-start-column="27" selection-end-line="251" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/swiftOHAR/markerSystem.swift">
+    <entry file="file://$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="31" lean-forward="true" selection-start-line="15" selection-start-column="31" selection-end-line="15" selection-end-column="31" />
+        <state relative-caret-position="332">
+          <caret line="127" column="84" lean-forward="true" selection-start-line="127" selection-start-column="84" selection-end-line="127" selection-end-column="84" />
           <folding />
         </state>
       </provider>
