@@ -38,6 +38,8 @@
 		4CC29FE51EA4A85800298246 /* librealsense.1.12.1.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CC29FE41EA4A85800298246 /* librealsense.1.12.1.dylib */; };
 		4CD5F0991F7CDE9700F3A931 /* football.scn in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0981F7CDE9700F3A931 /* football.scn */; };
 		4CD5F09B1F7CDEFA00F3A931 /* micky.scn in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F09A1F7CDEFA00F3A931 /* micky.scn */; };
+		4CEE61A7200CA07400914B2D /* PointCloud.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4CEE61A6200CA07300914B2D /* PointCloud.swift */; };
+		4CEE61A9200CA09200914B2D /* bun_zipper_points.ply.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4CEE61A8200CA09200914B2D /* bun_zipper_points.ply.txt */; };
 		AA1165FA1F7E32D800C56A15 /* deer.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0A51F7CF20000F3A931 /* deer.obj */; };
 		AA1165FB1F7E32DA00C56A15 /* lowpolytree.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0A61F7CF20000F3A931 /* lowpolytree.obj */; };
 		AA1165FC1F7E32DC00C56A15 /* Mickey_Mouse.obj in Resources */ = {isa = PBXBuildFile; fileRef = 4CD5F0A71F7CF20000F3A931 /* Mickey_Mouse.obj */; };
@@ -114,6 +116,8 @@
 		4CD5F0A51F7CF20000F3A931 /* deer.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = deer.obj; sourceTree = "<group>"; };
 		4CD5F0A61F7CF20000F3A931 /* lowpolytree.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = lowpolytree.obj; sourceTree = "<group>"; };
 		4CD5F0A71F7CF20000F3A931 /* Mickey_Mouse.obj */ = {isa = PBXFileReference; lastKnownFileType = text; path = Mickey_Mouse.obj; sourceTree = "<group>"; };
+		4CEE61A6200CA07300914B2D /* PointCloud.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointCloud.swift; sourceTree = "<group>"; };
+		4CEE61A8200CA09200914B2D /* bun_zipper_points.ply.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = bun_zipper_points.ply.txt; sourceTree = "<group>"; };
 		AA606AA61EF2C39F0001DDEA /* Mesh.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Mesh.swift; path = ../../../Downloads/AdoptingMetalIApracticalapproachtoyourfirstMetalapp/MetalTexturedMesh/Mesh.swift; sourceTree = "<group>"; };
 		AA606AA71EF2C39F0001DDEA /* AAPLMathUtilities.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLMathUtilities.h; path = ../../../Downloads/AdoptingMetalIApracticalapproachtoyourfirstMetalapp/MetalTexturedMesh/AAPLMathUtilities.h; sourceTree = "<group>"; };
 		AA606AA81EF2C39F0001DDEA /* Shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = Shaders.metal; path = ../../../Downloads/AdoptingMetalIApracticalapproachtoyourfirstMetalapp/MetalTexturedMesh/Shaders.metal; sourceTree = "<group>"; };
@@ -199,6 +203,7 @@
 				4CD5F0A61F7CF20000F3A931 /* lowpolytree.obj */,
 				4CD5F0A71F7CF20000F3A931 /* Mickey_Mouse.obj */,
 				4CBFAF821F29BF18002E8F8B /* MKY.obj */,
+				4CEE61A8200CA09200914B2D /* bun_zipper_points.ply.txt */,
 				AAA3F2D31F271D7E004E561B /* Model */,
 				4CC29FCE1EA493E400298246 /* C  */,
 				4C09148E1EA5F5B90007A351 /* ObjC */,
@@ -207,6 +212,7 @@
 				AA606AA61EF2C39F0001DDEA /* Mesh.swift */,
 				AA606AA81EF2C39F0001DDEA /* Shaders.metal */,
 				4C31E79B1FCE8B9200A02718 /* depthMaskNode.swift */,
+				4CEE61A6200CA07300914B2D /* PointCloud.swift */,
 				4C31E79D1FD1540E00A02718 /* PointCloudVertex.swift */,
 				4CC29FA31EA4867200298246 /* AppDelegate.swift */,
 				4CC29FA51EA4867200298246 /* ViewController.swift */,
@@ -402,6 +408,7 @@
 				AA1165FA1F7E32D800C56A15 /* deer.obj in Resources */,
 				AA1165FB1F7E32DA00C56A15 /* lowpolytree.obj in Resources */,
 				4CBFAF861F29BFBE002E8F8B /* MKY.mtl in Resources */,
+				4CEE61A9200CA09200914B2D /* bun_zipper_points.ply.txt in Resources */,
 				4CBFAF871F29BFC1002E8F8B /* MKY.obj in Resources */,
 				4CBFAF851F29BFBB002E8F8B /* MKY.jpg in Resources */,
 			);
@@ -440,6 +447,7 @@
 				4C09149B1EAF43540007A351 /* MTKViewController.swift in Sources */,
 				4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */,
 				4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */,
+				4CEE61A7200CA07400914B2D /* PointCloud.swift in Sources */,
 				4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */,
 				4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */,
 				BC217843D3D3658EF715E76C /* markerNode.swift in Sources */,

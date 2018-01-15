@@ -216,7 +216,7 @@ class DepthMask2D : SCNNode
             pointsGeometry.firstMaterial?.transparencyMode = .dualLayer
             pointsGeometry.firstMaterial?.blendMode = .replace
             let dict: [SCNShaderModifierEntryPoint:String] = [.fragment :
-                "_output.color = vec4( 0.0, 1.0, 1.0, 1.0 );"]
+                "_output.color = vec4( 0.5, 0.0, 0.5, 1.0 );"]
             pointsGeometry.shaderModifiers = dict
             if !coloredMask
             {
