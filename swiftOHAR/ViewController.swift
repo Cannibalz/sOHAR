@@ -63,8 +63,9 @@ class ViewController: NSViewController {
         scnARView.antialiasingMode = .multisampling4X
         let pc = PointCloud()
         let pcNode = pc.getNode()
-        pcNode.position = SCNVector3(x: 0, y: -0.1, z: 0)
-        pcNode.scale = SCNVector3(5,5,5)
+        pcNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
+        pcNode.scale = SCNVector3(4,4,4)
+        pcNode.renderingOrder = -100
         let plane = SCNPlane(width: 0.3, height: 0.3)
         plane.firstMaterial?.diffuse.contents = NSColor.black.withAlphaComponent(0.5)
         plane.firstMaterial?.isDoubleSided = true

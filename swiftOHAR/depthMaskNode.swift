@@ -125,6 +125,7 @@ class DepthMask2D : SCNNode
                     }
                     x += downSample
                 }
+                print("depth node point count is : \(depthValueArray.count)")
 //                for var x in stride(from: test.minX,to: test.maxX, by: downSample)
 //                {
 //                    for var y in stride(from: test.minY,to: test.maxY, by: downSample)
