@@ -90,7 +90,7 @@ class markerSystem : SCNNode
             setVirtualObject()
         if self.childNodes.count > 0
         {
-            print(self.childNodes[0].boundingBox)
+            //print(self.childNodes[0].boundingBox)
         }
         //}
         previousIdDictionary = idDictionary
@@ -258,14 +258,13 @@ class markerSystem : SCNNode
         //node.eulerAngles = makeEularAngles(rvec : markers[0].Rvec)
         //node.position = SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3)
 //        node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
-        let position2D = SCNVector3(middleX,middleY,1-(avgLength/200))
-        print(position2D)
+        var position2D = SCNVector3(middleX,middleY,1-(avgLength/200))
+        //print(position2D)
+        position2D.y += -20 //拉高
         //return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
         var position3D = view.unprojectPoint(position2D)
-        print(view.projectPoint(position3D))
         position3D.y *= -1
-        print(view.projectPoint(position3D))
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.1),CGFloat(0.1),CGFloat(0.1))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.3),CGFloat(0.3),CGFloat(0.3))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {
