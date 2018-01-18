@@ -11,7 +11,7 @@
 cImageProcess::cImageProcess()
 {
     markerLength = 0.1f;
-    dictionary = cv::aruco::getPredefinedDictionary(aruco::DICT_ARUCO_ORIGINAL);
+    dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_ARUCO_ORIGINAL);
     //cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
     //cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
     cv::String filename = "/Users/TomCruise/Desktop/out_camera_calibration.yml";// <- new param from aruco calibration
@@ -59,10 +59,10 @@ void cImageProcess::DetectAndDrawMarkers()
         }
     }
 }
-Mat cImageProcess::getDetectAndDrawMarkers(Mat Image)
+cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
 {
     cv::aruco::detectMarkers(Image, dictionary, corners, ids);
-    Mat arImage;
+    cv::Mat arImage;
     Image.copyTo(arImage);
     if(ids.size()>0)
     {
@@ -87,50 +87,50 @@ Mat cImageProcess::getDetectAndDrawMarkers(Mat Image)
     }
     return arImage;
 }
-Mat cImageProcess::SobelEdgeDetect(Mat inputImage)
+cv::Mat cImageProcess::SobelEdgeDetect(cv::Mat inputImage)
 {
-    Mat SobelImage; //test
+    cv::Mat SobelImage; //test
     if(inputImage.type() == CV_8UC3)
     {
         cvtColor(inputImage, inputImage, CV_BGR2GRAY);
     }
-    GaussianBlur(inputImage, inputImage, Size(3, 3), 0, 0);
-    Mat grad_x, grad_y;
-    Mat abs_grad_x, abs_grad_y;
-    Sobel(inputImage, grad_x, CV_16S, 1, 0, 3, 1, 0, BORDER_DEFAULT);
+    GaussianBlur(inputImage, inputImage, cv::Size(3, 3), 0, 0);
+    cv::Mat grad_x, grad_y;
+    cv::Mat abs_grad_x, abs_grad_y;
+    Sobel(inputImage, grad_x, CV_16S, 1, 0, 3, 1, 0, cv::BORDER_DEFAULT);
     convertScaleAbs(grad_x, abs_grad_x);  //轉成CV_8U
-    Sobel(inputImage, grad_y, CV_16S, 0, 1, 3, 1, 0, BORDER_DEFAULT);
+    Sobel(inputImage, grad_y, CV_16S, 0, 1, 3, 1, 0, cv::BORDER_DEFAULT);
     convertScaleAbs(grad_y, abs_grad_y);
-    Mat dst;
+    cv::Mat dst;
     addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst);
-    threshold(dst, SobelImage, 80, 255, THRESH_BINARY | THRESH_OTSU);
+    threshold(dst, SobelImage, 80, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
     return SobelImage;
 }
 vector<int> cImageProcess::getIDs()
 {
     return ids;
 }
-Vec3d cImageProcess::getRvec(int index)
+cv::Vec3d cImageProcess::getRvec(int index)
 {
     return rvecs[index];
 }
-Vec3d cImageProcess::getTvec(int index)
+cv::Vec3d cImageProcess::getTvec(int index)
 {
     return tvecs[index];
 }
-vector<Vec3d> cImageProcess::getRvecs()
+vector<cv::Vec3d> cImageProcess::getRvecs()
 {
     return  rvecs;
 }
-vector<Vec3d> cImageProcess::getTvecs()
+vector<cv::Vec3d> cImageProcess::getTvecs()
 {
     return  tvecs;
 }
-vector<vector<Point2f>> cImageProcess::getCorners()
+vector<vector<cv::Point2f>> cImageProcess::getCorners()
 {
     return corners;
 }
-Mat cImageProcess::getImage()
+cv::Mat cImageProcess::getImage()
 {
     return ARImage;
 }

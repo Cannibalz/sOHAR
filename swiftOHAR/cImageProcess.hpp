@@ -14,32 +14,31 @@
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
 #endif /* cImageProcess_hpp */
-using namespace cv;
 using namespace std;
 class cImageProcess
 {
 public:
     cImageProcess();
-    cImageProcess(Mat);
+    cImageProcess(cv::Mat);
     void DetectAndDrawMarkers();
-    Mat getDetectAndDrawMarkers(Mat);
-    void RefreshFrame(Mat);
+    cv::Mat getDetectAndDrawMarkers(cv::Mat);
+    void RefreshFrame(cv::Mat);
     vector<int> getIDs();
-    Mat getImage();
-    vector<Vec3d> getRvecs();
-    vector<Vec3d> getTvecs();
-    Vec3d getRvec(int);
-    Vec3d getTvec(int);
-    vector<vector<Point2f>> getCorners();
-    Mat SobelEdgeDetect(Mat); 
+    cv::Mat getImage();
+    vector<cv::Vec3d> getRvecs();
+    vector<cv::Vec3d> getTvecs();
+    cv::Vec3d getRvec(int);
+    cv::Vec3d getTvec(int);
+    vector<vector<cv::Point2f>> getCorners();
+    cv::Mat SobelEdgeDetect(cv::Mat); 
 private:
-    Mat ARImage;
-    Mat inputImage;
-    Mat cameraMatrix, distCoeffs; //相機參數
+    cv::Mat ARImage;
+    cv::Mat inputImage;
+    cv::Mat cameraMatrix, distCoeffs; //相機參數
     float markerLength;
-    vector< Vec3d > rvecs, tvecs;
+    vector< cv::Vec3d > rvecs, tvecs;
     vector<int>ids;
-    vector<vector<Point2f>>corners, rejected;
-    Ptr<cv::aruco::Dictionary> dictionary;
+    vector<vector<cv::Point2f>>corners, rejected;
+    cv::Ptr<cv::aruco::Dictionary> dictionary;
 };
 

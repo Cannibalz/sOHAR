@@ -53,7 +53,7 @@ cv::Mat cRealsense:: D2CImage()
 }
 cv::Mat cRealsense:: detectedImage()
 {
-    Mat returnDetectedImage;
+    cv::Mat returnDetectedImage;
     cv::Mat color(cv::Size(640, 480), CV_8UC3, (void*)dev->get_frame_data(rs::stream::color), cv::Mat::AUTO_STEP);
     cImageProcess cIP;
     returnDetectedImage = cIP.getDetectAndDrawMarkers(color);
@@ -115,8 +115,8 @@ string cRealsense::getPoseInformation()
             cv::Mat oneTvec(3,1,CV_64FC1);
             cv::Mat oneRvec(3,1,CV_64FC1);
             cv::Mat oneRMat(4,4,CV_64F);
-            vector<Point2f> oneCorners = corners[i];
-            Vec3d eulerAngles;
+            vector<cv::Point2f> oneCorners = corners[i];
+            cv::Vec3d eulerAngles;
             for(int j=0;j<3;j++)
             {
                 oneTvec.at<double>(j,0) = tvecs.at(i)[j];
@@ -124,8 +124,8 @@ string cRealsense::getPoseInformation()
             }
             Rodrigues(rvecs[i], oneRMat);
             getEulerAngles(oneRMat, eulerAngles);
-            Mat RotX = oneRMat.t();
-            Mat tvecConverted = -RotX * oneTvec;
+            cv::Mat RotX = oneRMat.t();
+            cv::Mat tvecConverted = -RotX * oneTvec;
             //print(eulerAngles); //數值為角度
             
             singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
@@ -156,15 +156,15 @@ void cRealsense::helloWorld()
 {
     std::cout<<"HELLO WORLD";
 }
-void cRealsense::getEulerAngles(Mat &rotCamerMatrix,Vec3d &eulerAngles)
+void cRealsense::getEulerAngles(cv::Mat &rotCamerMatrix,cv::Vec3d &eulerAngles)
 {
-    Mat cameraMatrix,rotMatrix,transVect,rotMatrixX,rotMatrixY,rotMatrixZ;
+    cv::Mat cameraMatrix,rotMatrix,transVect,rotMatrixX,rotMatrixY,rotMatrixZ;
     double* _r = rotCamerMatrix.ptr<double>();
     double projMatrix[12] = {_r[0],_r[1],_r[2],0,
         _r[3],_r[4],_r[5],0,
         _r[6],_r[7],_r[8],0};
     //yaw=[1] pitch=[0] roll=[2]
-    decomposeProjectionMatrix( Mat(3,4,CV_64FC1,projMatrix),
+    decomposeProjectionMatrix( cv::Mat(3,4,CV_64FC1,projMatrix),
                               cameraMatrix,
                               rotMatrix,
                               transVect,

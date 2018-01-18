@@ -11,7 +11,6 @@
 #include <iostream>
 #include <librealsense/rs.hpp>
 using namespace std;
-using namespace cv;
 class cRealsense
 {
 public:
@@ -33,8 +32,8 @@ private:
     rs::context ctx;
     rs::device *dev;
     vector<cv::Vec3d> rvecs,tvecs;
-    vector<vector<Point2f>> corners;
+    vector<vector<cv::Point2f>> corners;
     vector<int> ids;
-    void getEulerAngles(Mat&,Vec3d&);
+    void getEulerAngles(cv::Mat&,cv::Vec3d&);
 };
 
