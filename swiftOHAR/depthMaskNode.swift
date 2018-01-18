@@ -105,7 +105,7 @@ class DepthMask2D : SCNNode
                                 for stepY in 0..<downSample
                                 {
                                     let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x+stepX),CGFloat(y+stepY),whiteValue))
-                                    depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float.randColor(), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
+                                    depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float.randColor(), g: Float.randColor(), b: Float.randColor()))
                                     //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(depthValueArray[x][y]), g: Float(depthValueArray[x][y]), b: Float(depthValueArray[x][y])))
                                     //depthPointCloud.append(unprojectPointVector)
                                 }
