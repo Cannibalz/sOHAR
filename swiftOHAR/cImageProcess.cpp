@@ -13,11 +13,13 @@ cImageProcess::cImageProcess()
     markerLength = 0.1f;
     dictionary = cv::aruco::getPredefinedDictionary(aruco::DICT_ARUCO_ORIGINAL);
     //cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
-    cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
+    //cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
+    cv::String filename = "/Users/TomCruise/Desktop/out_camera_calibration.yml";// <- new param from aruco calibration
     cv::FileStorage fs;
     fs.open(filename, cv::FileStorage::READ);
-    fs["Camera_Matrix"] >> cameraMatrix;
-    fs["Distortion_Coefficients"] >> distCoeffs;
+    fs["camera_matrix"] >> cameraMatrix;
+    fs["distortion_coefficients"] >> distCoeffs;
+    //if using new yml file,first letter of param name is lower case
 }
 cImageProcess::cImageProcess(cv::Mat Image)
 {

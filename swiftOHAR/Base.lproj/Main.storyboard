@@ -682,7 +682,7 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="swiftOHAR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" autoresizesSubviews="NO" wantsLayer="YES" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
+                        <rect key="frame" x="0.0" y="0.0" width="908" height="481"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <customView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tOB-tf-zb3" customClass="MTKView">
@@ -794,6 +794,14 @@
                                     <action selector="fdsfdsfsd:" target="XfG-lQ-9wD" id="ZM7-D9-cOi"/>
                                 </connections>
                             </button>
+                            <button verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JKo-xF-51z">
+                                <rect key="frame" x="722" y="312" width="111" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <buttonCell key="cell" type="push" title="ScreenShot" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bpH-2I-jSg">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                            </button>
                         </subviews>
                     </view>
                     <connections>
@@ -815,7 +823,7 @@
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="40" y="943"/>
+            <point key="canvasLocation" x="174" y="943.5"/>
         </scene>
     </scenes>
 </document>

@@ -53,6 +53,8 @@ class ViewController: NSViewController {
     var planePositionIn2D = SCNVector3(480,360,0.4)
     var countt = 0
     
+    var ssCount = 12;
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
@@ -106,22 +108,32 @@ class ViewController: NSViewController {
         exit(0)
     }
     @IBAction func fdsfdsfsd(_ sender: Any) {
-        if cbUsingMask.state == NSOnState
-        {
-            DM.enable = true
-        }
-        else
-        {
-            DM.enable = false
-        }
-        if cbMaskColor.state == NSOnState
-        {
-            DM.coloredMask = true
-        }
-        else
-        {
-            DM.coloredMask = false
-        }
+        let screenshot = scnARView.snapshot()
+        let documentURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
+        let fileName = "ss\(ssCount).png"
+        let folderUrl = documentURL?.appendingPathComponent("ssImage")
+        let url = folderUrl?.appendingPathComponent(fileName)
+        screenshot.pngWrite(to: url!)
+        ssCount += 1
+        
+//        let urlPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!).URLByAppendingPathComponent("SS\(ssCount).png")
+//        try! UIImagePNGRepresentationUIImagePNGRepresentation(screenshot)!.writeToURL(urlPath, options: .AtomicWrite)
+//        if cbUsingMask.state == NSOnState
+//        {
+//            DM.enable = true
+//        }
+//        else
+//        {
+//            DM.enable = false
+//        }
+//        if cbMaskColor.state == NSOnState
+//        {
+//            DM.coloredMask = true
+//        }
+//        else
+//        {
+//            DM.coloredMask = false
+//        }
     }
     func renderImg()
     {
@@ -182,4 +194,18 @@ extension Double
         //用法： Radians = degree.toCGFloatRadius()
     }
 }
-
+extension NSImage {
+    var pngData: Data? {
+        guard let tiffRepresentation = tiffRepresentation, let bitmapImage = NSBitmapImageRep(data: tiffRepresentation) else { return nil }
+        return bitmapImage.representation(using: .PNG, properties: [:])
+    }
+    func pngWrite(to url: URL, options: Data.WritingOptions = .atomic) -> Bool {
+        do {
+            try pngData?.write(to: url, options: options)
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+}
