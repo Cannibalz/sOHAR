@@ -43,10 +43,13 @@ class DepthMask2D : SCNNode
 //        self.init()
 //        scnView = view
 //    }
+    
+
     func setDepthValue(bitmapImageRep:NSBitmapImageRep,view:SCNView,idDictionary:Dictionary<Int, Int>)
     {
         depthPointCloud = []
         depthVertexArray = []
+        var maxminXY : [String:Float] = ["maxX": -100,"minX": 100,"maxY": -100,"minY": 100]
         if aroundMarkerOnly == false
         {
             for var x in stride(from: 0, to: depthValueArray.count, by: downSample)
@@ -57,6 +60,7 @@ class DepthMask2D : SCNNode
                 {
                     depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
                     if(depthValueArray[x][y] != 0)
+                    //if(true)
                     {
                         for var stepX in 0..<downSample
                         {
@@ -66,11 +70,28 @@ class DepthMask2D : SCNNode
                                 //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
                                 depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(depthValueArray[x][y]), g: Float(depthValueArray[x][y]), b: Float(depthValueArray[x][y])))
                                 depthPointCloud.append(unprojectPointVector)
+                                if Float(unprojectPointVector.x) > maxminXY["maxX"]!
+                                {
+                                    maxminXY["maxX"] = Float(unprojectPointVector.x)
+                                }
+                                else if Float(unprojectPointVector.x) < maxminXY["minX"]!
+                                {
+                                    maxminXY["minX"] = Float(unprojectPointVector.x)
+                                }
+                                if Float(unprojectPointVector.y) > maxminXY["maxY"]!
+                                {
+                                    maxminXY["maxY"] = Float(unprojectPointVector.y)
+                                }
+                                else if Float(unprojectPointVector.y) < maxminXY["minY"]!
+                                {
+                                    maxminXY["minY"] = Float(unprojectPointVector.y)
+                                }
                             }
                         }
                     }
                 }
             }
+            
         }
         else if aroundMarkerOnly
         {
@@ -90,6 +111,7 @@ class DepthMask2D : SCNNode
             {
                 var nodeBoundingSize = calNodeSize(node: node, view: view)
                 var x = nodeBoundingSize.minX
+                var maxminXY : [String:Float] = ["maxX": -100,"minX": 100,"maxY": -100,"minY": 100]
                 while x < nodeBoundingSize.maxX
                 {
                     var y = nodeBoundingSize.minY
@@ -106,6 +128,22 @@ class DepthMask2D : SCNNode
                                 {
                                     let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x+stepX),CGFloat(y+stepY),whiteValue))
                                     depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float.randColor(), g: Float.randColor(), b: Float.randColor()))
+                                    if Float(unprojectPointVector.x) > maxminXY["maxX"]!
+                                    {
+                                        maxminXY["maxX"] = Float(unprojectPointVector.x)
+                                    }
+                                    else if Float(unprojectPointVector.x) < maxminXY["minX"]!
+                                    {
+                                        maxminXY["minX"] = Float(unprojectPointVector.y)
+                                    }
+                                    if Float(unprojectPointVector.y) > maxminXY["maxY"]!
+                                    {
+                                        maxminXY["maxY"] = Float(unprojectPointVector.y)
+                                    }
+                                    else if Float(unprojectPointVector.y) < maxminXY["minY"]!
+                                    {
+                                        maxminXY["minY"] = Float(unprojectPointVector.y)
+                                    }
                                     //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(depthValueArray[x][y]), g: Float(depthValueArray[x][y]), b: Float(depthValueArray[x][y])))
                                     //depthPointCloud.append(unprojectPointVector)
                                 }
@@ -115,6 +153,7 @@ class DepthMask2D : SCNNode
                         y += downSample
                     }
                     x += downSample
+                    //print(maxminXY)
                 }
                 //print("depth node point count is : \(depthValueArray.count)")
 //                for var x in stride(from: test.minX,to: test.maxX, by: downSample)
@@ -160,9 +199,6 @@ class DepthMask2D : SCNNode
 //        }
         
         let node = buildNode(points: vertices)
-        //node.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-//        node.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
-//        node.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
         node.renderingOrder = -1
         
         node.name = "pcNode"
@@ -204,14 +240,14 @@ class DepthMask2D : SCNNode
         //pointsGeometry.firstMaterial?.diffuse.contents = NSColor.yellow
         //pointsGeometry.firstMaterial?.emission.contents = NSColor.yellow
         if #available(OSX 10.13, *) {
-            pointsGeometry.firstMaterial?.transparencyMode = .dualLayer
-            pointsGeometry.firstMaterial?.blendMode = .replace
+//            pointsGeometry.firstMaterial?.transparencyMode = .dualLayer
+//            pointsGeometry.firstMaterial?.blendMode = .replace
 //            let dict: [SCNShaderModifierEntryPoint:String] = [.fragment : //改變顏色
 //                "_output.color = vec4( 0.5, 0.0, 0.5, 1.0 );"]
 //            pointsGeometry.shaderModifiers = dict
             if coloredMask
             {
-                pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+                //pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             }
         } else {
             // Fallback on earlier versions
@@ -231,8 +267,9 @@ extension DepthMask2D
         let (localMin,localMax) = node.boundingBox
         let min = node.convertPosition(localMin, to: nil)
         let max = node.convertPosition(localMax, to: nil)
+        let midZ = (min.z + max.z) / 2
         let vertices = [
-            SCNVector3(min.x, min.y, min.z),
+            SCNVector3(min.x, min.y, min.z), //4min 4max
             SCNVector3(max.x, min.y, min.z),
             SCNVector3(min.x, max.y, min.z),
             SCNVector3(max.x, max.y, min.z),

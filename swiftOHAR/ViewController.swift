@@ -155,15 +155,15 @@ class ViewController: NSViewController {
 //            scnARView.scene?.rootNode.addChildNode(DM.getNode())
         }
         rs.nsDetectedColorImage()
-        if cbMarkerDetection.state == NSOnState
-        {
-            MS.scnScene.background.contents = rs.nsDetectedColorImage()
-        }
-        else
-        {
-            MS.scnScene.background.contents = NSColor.black
-        }
-        //MS.scnScene.background.contents = rs.nsDetectedColorImage()
+//        if cbMarkerDetection.state == NSOnState
+//        {
+//            MS.scnScene.background.contents = rs.nsDetectedColorImage()
+//        }
+//        else
+//        {
+//            MS.scnScene.background.contents = NSColor.black
+//        }
+        MS.scnScene.background.contents = rs.nsDetectedColorImage()
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
