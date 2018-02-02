@@ -63,7 +63,7 @@ class ViewController: NSViewController {
         scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
-//        scnARView.debugOptions = .showBoundingBoxes
+        scnARView.debugOptions = .showBoundingBoxes
         //let pc = PointCloud()
 //        let pcNode = pc.getNode()
 //        pcNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
@@ -104,6 +104,7 @@ class ViewController: NSViewController {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         timer.invalidate()
+        scnARView.isPlaying = false
         rs.stop()
         print("viewDidDisappear")
         exit(0)
