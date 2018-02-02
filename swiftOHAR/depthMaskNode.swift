@@ -110,6 +110,8 @@ class DepthMask2D : SCNNode
             for node in (view.scene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
             {
                 var nodeBoundingSize = calNodeSize(node: node, view: view)
+//                var PFVnode = view.scene?.rootNode.childNode(withName: "planeFromView", recursively: false)
+//                PFVnode?.position = view.unprojectPoint(SCNVector3(Double(nodeBoundingSize.minX),Double(nodeBoundingSize.minY),0.23838415145874))
                 var x = nodeBoundingSize.minX
                 var maxminXY : [String:Float] = ["maxX": -100,"minX": 100,"maxY": -100,"minY": 100]
                 while x < nodeBoundingSize.maxX
@@ -201,7 +203,7 @@ class DepthMask2D : SCNNode
         let node = buildNode(points: vertices)
         node.renderingOrder = -1
         
-        node.name = "pcNode"
+        node.name = "pcNode" 
         return node
     }
     private func buildNode(points: [PointCloudVertex]) -> SCNNode {

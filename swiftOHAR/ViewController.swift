@@ -63,11 +63,12 @@ class ViewController: NSViewController {
         scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
-        let pc = PointCloud()
-        let pcNode = pc.getNode()
-        pcNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
-        pcNode.scale = SCNVector3(4,4,4)
-        pcNode.renderingOrder = -100
+        scnARView.debugOptions = .showBoundingBoxes
+        //let pc = PointCloud()
+//        let pcNode = pc.getNode()
+//        pcNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
+//        pcNode.scale = SCNVector3(4,4,4)
+//        pcNode.renderingOrder = -100
         let plane = SCNPlane(width: 0.3, height: 0.3)
         plane.firstMaterial?.diffuse.contents = NSColor.black.withAlphaComponent(0.5)
         plane.firstMaterial?.isDoubleSided = true
@@ -78,7 +79,7 @@ class ViewController: NSViewController {
         planeNode.renderingOrder = -3
         planeNode.name = "planeFromView"
         planeNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
-        //scnARView.scene?.rootNode.addChildNode(planeNode)
+        scnARView.scene?.rootNode.addChildNode(planeNode)
         //scnARView.scene?.rootNode.addChildNode(pcNode)
         DM.scnView = self.scnARView
         DM.downSample = 2

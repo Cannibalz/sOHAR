@@ -101,6 +101,7 @@ import SceneKit
             semantic: SCNGeometrySource.Semantic.color,
             vectorCount: points.count,
             usesFloatComponents: true,
+            
             componentsPerVector: 3,
             bytesPerComponent: MemoryLayout<Float>.size,
             dataOffset: MemoryLayout<Float>.size * 3,

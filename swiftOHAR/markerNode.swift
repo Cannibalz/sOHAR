@@ -184,6 +184,7 @@ class markerSystem : SCNNode
                 self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
                 self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
+                print(arrID[i].Rvec)
                 //print(view.projectPoint((self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox.min)!))
                 //print(view.projectPoint((self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox.max)!))
                 //var boundingBoxArray = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox
