@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2de6a562-3ae9-42d4-8218-cfae59481111" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swiftOHAR/PointCloud.swift" beforeDir="false" afterPath="$PROJECT_DIR$/swiftOHAR/PointCloud.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift" beforeDir="false" afterPath="$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/swiftOHAR/markerNode.swift" beforeDir="false" afterPath="$PROJECT_DIR$/swiftOHAR/markerNode.swift" afterDir="false" />
-    </list>
+    <list default="true" id="2de6a562-3ae9-42d4-8218-cfae59481111" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,8 +15,8 @@
       <file leaf-file-name="ViewController.swift" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/swiftOHAR/ViewController.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1031">
-              <caret line="106" column="20" selection-start-line="106" selection-start-column="19" selection-end-line="106" selection-end-column="20" />
+            <state relative-caret-position="105">
+              <caret line="52" column="51" lean-forward="true" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
             </state>
           </provider>
         </entry>
@@ -29,7 +24,7 @@
       <file leaf-file-name="depthMaskNode.swift" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-914">
+            <state relative-caret-position="135">
               <caret line="10" selection-start-line="10" selection-end-line="15" selection-end-column="1" />
             </state>
           </provider>
@@ -79,7 +74,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6" fullScreen="true">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="width" value="1920" />
     <option name="height" value="1080" />
   </component>
@@ -89,7 +84,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Cidr.FilesView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -118,6 +112,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Cidr.FilesView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -167,6 +162,7 @@
       <workItem from="1517552813360" duration="2618000" />
       <workItem from="1517556466185" duration="10000" />
       <workItem from="1517557337929" duration="1851000" />
+      <workItem from="1517565871370" duration="81000" />
     </task>
     <task id="LOCAL-00001" summary="jerk">
       <created>1506670895060</created>
@@ -179,10 +175,11 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="22545000" />
+    <option name="totallyTimeSpent" value="22626000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1080" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Designer" order="2" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17760417" />
@@ -221,6 +218,23 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/swiftOHAR/ViewController.swift">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="10" selection-start-line="10" selection-end-line="15" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/swiftOHAR/markerNode.swift">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2730">
+          <caret line="186" column="36" selection-start-line="186" selection-start-column="36" selection-end-line="186" selection-end-column="36" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/swiftOHAR/ViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2235">
@@ -362,15 +376,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/swiftOHAR/depthMaskNode.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-914">
+        <state relative-caret-position="135">
           <caret line="10" selection-start-line="10" selection-end-line="15" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/swiftOHAR/ViewController.swift">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1031">
-          <caret line="106" column="20" selection-start-line="106" selection-start-column="19" selection-end-line="106" selection-end-column="20" />
+        <state relative-caret-position="105">
+          <caret line="52" column="51" lean-forward="true" selection-start-line="52" selection-start-column="51" selection-end-line="52" selection-end-column="51" />
         </state>
       </provider>
     </entry>
