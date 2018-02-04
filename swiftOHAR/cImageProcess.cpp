@@ -12,14 +12,16 @@ cImageProcess::cImageProcess()
 {
     markerLength = 0.1f;
     dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_ARUCO_ORIGINAL);
-    //cv::String filename = "/Users/kaofan/Desktop/CameraParas.yml";   //Pro
+    cv::String filename = "/Users/kaofan/Desktop/out_camera_calibrationWith20img.yml";   //Pro
     //cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
-    cv::String filename = "/Users/TomCruise/Desktop/out_camera_calibration.yml";// <- new param from aruco calibration
+    //cv::String filename = "/Users/TomCruise/Desktop/out_camera_calibration.yml";// <- new param from aruco calibration
     cv::FileStorage fs;
     fs.open(filename, cv::FileStorage::READ);
     fs["camera_matrix"] >> cameraMatrix;
     fs["distortion_coefficients"] >> distCoeffs;
     //if using new yml file,first letter of param name is lower case
+    cameraParameters.readFromXMLFile("/Users/kaofan/Desktop/out_camera_calibrationWith20img.yml");
+    markerDetector.setDictionary("ARUCO_MIP_36h12");
 }
 cImageProcess::cImageProcess(cv::Mat Image)
 {
@@ -35,36 +37,82 @@ void cImageProcess::RefreshFrame(cv::Mat Image)
 void cImageProcess::DetectAndDrawMarkers()
 {
     cv::aruco::detectMarkers(inputImage, dictionary, corners, ids);
-
+    markers = markerDetector.detect(inputImage);
     inputImage.copyTo(ARImage);
-    if(ids.size()>0)
+    for(size_t i=0;i<markers.size();i++)
     {
-        cv::Mat oneRvecs(3,1,CV_64FC1);
-        cv::Mat rotMat(4, 4, CV_64F);
-        cv::Mat oneTvecs(3,1,CV_64FC1);
-        cv::aruco::drawDetectedMarkers(ARImage, corners, ids);
-        float markerLength = 0.05;
-        cv::aruco::estimatePoseSingleMarkers(corners, markerLength, cameraMatrix, distCoeffs, rvecs, tvecs);
-        for (int a = 0;a<3;a++)
+        markers[i].draw(ARImage);
+        //cout << "not estimatePose yet Tvec: " << markers[i].Tvec << endl;
+        markerPoseTracker.estimatePose(markers[i], cameraParameters, 0.05);
+        //cout << "after estimatePose Tvec: " << markers[i].Tvec << endl;
+        CvDraw.draw3dAxis(ARImage, markers[i], cameraParameters);
+        CvDraw.draw3dCube(ARImage, markers[i], cameraParameters);
+        cout << "3Dpoints:" <<markers[i].get3DPoints() << endl;
+        cout << "center:" << markers[i].getCenter() << endl;
+        cout << "corner 0:" << markers[i][0] << ",corner 1:" << markers[i][1] << ",corner 2:" << markers[i][2] << ",corner 3:" << markers[i][3] << endl;
+        cv::Point2f centerV(0,0);
+        for(int j = 0;j<4;j++)
         {
-            oneRvecs.row(a).col(0) = rvecs[0][a];
-            oneTvecs = tvecs[0];
-            //cout << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(0,1) << "," << oneTvecs.at<double>(0,2);
+            centerV.x += markers[i][j].x;
+            centerV.y += markers[i][j].y;
         }
-        Rodrigues(oneRvecs, rotMat);
-        
-        for(int j = 0;j<ids.size();j++)
-        {
-            cv::aruco::drawAxis(ARImage, cameraMatrix, distCoeffs, rvecs[j], tvecs[j], 0.1);
-        }
+        centerV.x /= 4;
+        centerV.y /= 4;
+        cout << "calculate center:" << centerV << endl;
     }
+//    if(ids.size()>0)
+//    {
+//        cv::Mat oneRvecs(3,1,CV_64FC1);
+//        cv::Mat rotMat(4, 4, CV_64F);
+//        cv::Mat oneTvecs(3,1,CV_64FC1);
+//        cv::aruco::drawDetectedMarkers(ARImage, corners, ids);
+//        float markerLength = 0.05;
+//        cv::aruco::estimatePoseSingleMarkers(corners, markerLength, cameraMatrix, distCoeffs, rvecs, tvecs);
+//        for (int a = 0;a<3;a++)
+//        {
+//            oneRvecs.row(a).col(0) = rvecs[0][a];
+//            oneTvecs = tvecs[0];
+//            //cout << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(0,1) << "," << oneTvecs.at<double>(0,2);
+//        }
+//        Rodrigues(oneRvecs, rotMat);
+//
+//        for(int j = 0;j<ids.size();j++)
+//        {
+//            cv::aruco::drawAxis(ARImage, cameraMatrix, distCoeffs, rvecs[j], tvecs[j], 0.1);
+//        }
+//    }
 }
 cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
 {
     cv::aruco::detectMarkers(Image, dictionary, corners, ids);
+    markers = markerDetector.detect(Image);
+    
     cv::Mat arImage;
     Image.copyTo(arImage);
-    if(ids.size()>0)
+    
+    for(size_t i=0;i<markers.size();i++) //new aruco
+    {
+        markers[i].draw(ARImage);
+        //cout << "not estimatePose yet Tvec: " << markers[i].Tvec << endl;
+        markerPoseTracker.estimatePose(markers[i], cameraParameters, 0.05);
+        //cout << "after estimatePose Tvec: " << markers[i].Tvec << endl;
+        CvDraw.draw3dAxis(arImage, markers[i], cameraParameters);
+        CvDraw.draw3dCube(arImage, markers[i], cameraParameters);
+        cout << "3Dpoints:" <<markers[i].get3DPoints() << endl;
+        cout << "center:" << markers[i].getCenter() << endl;
+        cout << "corner 0:" << markers[i][0] << ",corner 1:" << markers[i][1] << ",corner 2:" << markers[i][2] << ",corner 3:" << markers[i][3] << endl;
+        cv::Point2f centerV(0,0);
+        for(int j = 0;j<4;j++)
+        {
+            centerV.x += markers[i][j].x;
+            centerV.y += markers[i][j].y;
+        }
+        centerV.x /= 4;
+        centerV.y /= 4;
+        cout << "calculate center:" << centerV << endl;
+    }
+    
+    if(ids.size()>0) //legacy aruco
     {
         cv::Mat oneRvecs(3,1,CV_64FC1);
         cv::Mat rotMat(4, 4, CV_64F);
@@ -79,7 +127,7 @@ cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
             //cout << oneTvecs.at<double>(0,0) << "," << oneTvecs.at<double>(1,0) << "," << oneTvecs.at<double>(2,0);
         }
         Rodrigues(oneRvecs, rotMat);
-        
+
         for(int j = 0;j<ids.size();j++)
         {
             cv::aruco::drawAxis(arImage, cameraMatrix, distCoeffs, rvecs[j], tvecs[j], 0.1);

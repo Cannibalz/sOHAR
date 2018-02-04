@@ -13,6 +13,7 @@
 #include <opencv2/core.hpp>
 #include <opencv2/opencv.hpp>
 #include <opencv2/aruco.hpp>
+#include <aruco/aruco.h>
 #endif /* cImageProcess_hpp */
 using namespace std;
 class cImageProcess
@@ -35,6 +36,11 @@ private:
     cv::Mat ARImage;
     cv::Mat inputImage;
     cv::Mat cameraMatrix, distCoeffs; //相機參數
+    aruco::MarkerDetector markerDetector;
+    aruco::MarkerPoseTracker markerPoseTracker;
+    aruco::CameraParameters cameraParameters;
+    aruco::CvDrawingUtils CvDraw;
+    vector<aruco::Marker> markers;
     float markerLength;
     vector< cv::Vec3d > rvecs, tvecs;
     vector<int>ids;

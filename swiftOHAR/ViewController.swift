@@ -44,7 +44,7 @@ class ViewController: NSViewController {
     var timer : Timer = Timer()
     var rs : objCRealsense = objCRealsense()
     var nsImg : NSImage? = nil
-    var renderer: Renderer!
+    //var renderer: Renderer!
     var time = TimeInterval(0.0)
     let timestep = 1.0 / 30
     var markers : [Marker] = []
@@ -63,7 +63,7 @@ class ViewController: NSViewController {
         scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
-        scnARView.debugOptions = .showBoundingBoxes
+        scnARView.debugOptions = [.showBoundingBoxes]
         //let pc = PointCloud()
 //        let pcNode = pc.getNode()
 //        pcNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
@@ -79,7 +79,7 @@ class ViewController: NSViewController {
         planeNode.renderingOrder = -3
         planeNode.name = "planeFromView"
         planeNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
-        scnARView.scene?.rootNode.addChildNode(planeNode)
+        //scnARView.scene?.rootNode.addChildNode(planeNode)
         //scnARView.scene?.rootNode.addChildNode(pcNode)
         DM.scnView = self.scnARView
         DM.downSample = 2
