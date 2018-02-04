@@ -245,9 +245,9 @@ class DepthMask2D : SCNNode
         if #available(OSX 10.13, *) {
 //            pointsGeometry.firstMaterial?.transparencyMode = .dualLayer
 //            pointsGeometry.firstMaterial?.blendMode = .replace
-//            let dict: [SCNShaderModifierEntryPoint:String] = [.fragment : //改變顏色
-//                "_output.color = vec4( 0.5, 0.0, 0.5, 1.0 );"]
-//            pointsGeometry.shaderModifiers = dict
+            let dict: [SCNShaderModifierEntryPoint:String] = [.fragment : //改變顏色
+                "_output.color = vec4( 0.5, 0.0, 0.5, 1.0 );"]
+            pointsGeometry.shaderModifiers = dict
             if coloredMask
             {
                 //pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
