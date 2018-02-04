@@ -98,10 +98,11 @@ cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
         //cout << "after estimatePose Tvec: " << markers[i].Tvec << endl;
         CvDraw.draw3dAxis(arImage, markers[i], cameraParameters);
         CvDraw.draw3dCube(arImage, markers[i], cameraParameters);
-        cout << "3Dpoints:" <<markers[i].get3DPoints() << endl;
+        //cout << "3Dpoints:" <<markers[i].get3DPoints() << endl;
         cout << "center:" << markers[i].getCenter() << endl;
         cout << "corner 0:" << markers[i][0] << ",corner 1:" << markers[i][1] << ",corner 2:" << markers[i][2] << ",corner 3:" << markers[i][3] << endl;
         cv::Point2f centerV(0,0);
+        cout << "Tvec: " << markers[i].Tvec << " Rvec: " << markers[i].Rvec << endl;
         for(int j = 0;j<4;j++)
         {
             centerV.x += markers[i][j].x;

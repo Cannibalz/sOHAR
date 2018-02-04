@@ -141,7 +141,6 @@ class ViewController: NSViewController {
     {
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
-        rs.getPoseInformation()
         //nsView只能在mainThread處理
         //colorView.image = rs.nsDetectedColorImage()
         //depthView.image = rs.nsD2CImage()
@@ -168,6 +167,7 @@ class ViewController: NSViewController {
         MS.scnScene.background.contents = rs.nsDetectedColorImage()
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
+        print(markerPoseJsonString)
         MS.setMarkers(byJsonString: markerPoseJsonString!)
         planePositionIn2D = SCNVector3(338.706115722656,258.706146240234,0.883838415145874)
         //print(scnARView.unprojectPoint(planePositionIn2D))
