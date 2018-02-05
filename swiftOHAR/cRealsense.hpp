@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <iostream>
 #include <librealsense/rs.hpp>
+#include <aruco/aruco.h>
 using namespace std;
 class cRealsense
 {
@@ -23,6 +24,7 @@ public:
     cv::Mat detectedImage();
     vector<cv::Vec3d> Tvecs();
     vector<cv::Vec3d> Rvecs();
+    vector<aruco::Marker> markers;
     string getPoseInformation();
     void init();
     void waitForNextFrame();

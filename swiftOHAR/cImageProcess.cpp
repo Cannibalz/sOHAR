@@ -12,15 +12,16 @@ cImageProcess::cImageProcess()
 {
     markerLength = 0.1f;
     dictionary = cv::aruco::getPredefinedDictionary(cv::aruco::DICT_ARUCO_ORIGINAL);
-    cv::String filename = "/Users/kaofan/Desktop/out_camera_calibrationWith20img.yml";   //Pro
+//    cv::String filename = "/Users/kaofan/Desktop/out_camera_calibrationWith20img.yml";   //Pro
     //cv::String filename = "/Users/TomCruise/Desktop/CameraParas.yml";   //iMac
-    //cv::String filename = "/Users/TomCruise/Desktop/out_camera_calibration.yml";// <- new param from aruco calibration
+    cv::String filename = "/Users/TomCruise/Desktop/out_camera_calibration.yml";// <- new param from aruco calibration
     cv::FileStorage fs;
     fs.open(filename, cv::FileStorage::READ);
     fs["camera_matrix"] >> cameraMatrix;
     fs["distortion_coefficients"] >> distCoeffs;
     //if using new yml file,first letter of param name is lower case
-    cameraParameters.readFromXMLFile("/Users/kaofan/Desktop/out_camera_calibrationWith20img.yml");
+    //cameraParameters.readFromXMLFile("/Users/kaofan/Desktop/out_camera_calibrationWith20img.yml");
+    cameraParameters.readFromXMLFile("/Users/TomCruise/Desktop/out_camera_calibrationWith20img.yml");
     markerDetector.setDictionary("ARUCO_MIP_36h12");
 }
 cImageProcess::cImageProcess(cv::Mat Image)
@@ -93,7 +94,7 @@ cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
     for(size_t i=0;i<markers.size();i++) //new aruco
     {
         markers[i].draw(ARImage);
-        //cout << "not estimatePose yet Tvec: " << markers[i].Tvec << endl;
+        //  << "not estimatePose yet Tvec: " << markers[i].Tvec << endl;
         markerPoseTracker.estimatePose(markers[i], cameraParameters, 0.05);
         //cout << "after estimatePose Tvec: " << markers[i].Tvec << endl;
         CvDraw.draw3dAxis(arImage, markers[i], cameraParameters);
@@ -154,6 +155,10 @@ cv::Mat cImageProcess::SobelEdgeDetect(cv::Mat inputImage)
     addWeighted(abs_grad_x, 0.5, abs_grad_y, 0.5, 0, dst);
     threshold(dst, SobelImage, 80, 255, cv::THRESH_BINARY | cv::THRESH_OTSU);
     return SobelImage;
+}
+vector<aruco::Marker> cImageProcess::getMarkers()
+{
+    return markers;
 }
 vector<int> cImageProcess::getIDs()
 {

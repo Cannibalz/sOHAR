@@ -62,6 +62,7 @@ cv::Mat cRealsense:: detectedImage()
     rvecs = cIP.getRvecs();
     ids = cIP.getIDs();
     corners = cIP.getCorners();
+    markers = cIP.getMarkers();
     return returnDetectedImage;
 }
 vector<cv::Vec3d> cRealsense::Tvecs()
@@ -105,6 +106,37 @@ catch(const rs::error & e)
 string cRealsense::getPoseInformation()
 {
     string jsonString = "[";
+    for(int i = 0;i<markers.size();i++)
+    {
+        string singleRow = "{";
+        singleRow = singleRow + "\"id\":" + to_string(markers[i].id) + ",";
+        cv::Mat oneTvec(3,1,CV_64FC1);
+        cv::Mat oneRvec(3,1,CV_64FC1);
+        cv::Mat oneRMat(4,4,CV_64F);
+        cv::Vec3d eulerAngles;
+        for(int j=0;j<3;j++)
+        {
+            oneTvec.at<double>(j,0) = markers[i].Tvec.at<double>(j);
+            oneRvec.row(j).col(0) = markers[i].Rvec.at<double>(j);
+        }
+        Rodrigues(markers[i].Rvec, oneRMat);
+        getEulerAngles(oneRMat, eulerAngles);
+        cv::Mat RotX = oneRMat.t();
+        cout << "ROTX : " << RotX << endl <<"Tvec: " << oneTvec << endl;
+        cv::Mat tvecConverted = -RotX * oneTvec;
+        //print(eulerAngles); //數值為角度
+        
+        singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
+        //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
+        singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "],";
+        singleRow = singleRow + "\"Corners\":[[" + to_string(markers[i][0].x) + "," + to_string(markers[i][0].y) + "],[" + to_string(markers[i][1].x) + "," + to_string(markers[i][1].y) + "],[" + to_string(markers[i][2].x) + "," + to_string(markers[i][2].y) + "],[" + to_string(markers[i][3].x) + "," + to_string(markers[i][3].y) + "]]}";
+        if(i != (ids.size()-1))
+        {
+            singleRow += ",";
+        }
+        
+        jsonString += singleRow;
+    }
     //cout << tvecs.size() << "||fuck you||" << tvecs[0];
     for(int i = 0;i<ids.size();i++)
     {

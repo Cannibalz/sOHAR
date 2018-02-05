@@ -30,6 +30,7 @@ public:
     vector<cv::Vec3d> getTvecs();
     cv::Vec3d getRvec(int);
     cv::Vec3d getTvec(int);
+    vector<aruco::Marker> getMarkers();
     vector<vector<cv::Point2f>> getCorners();
     cv::Mat SobelEdgeDetect(cv::Mat); 
 private:

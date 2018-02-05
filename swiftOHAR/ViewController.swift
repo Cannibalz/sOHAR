@@ -167,7 +167,7 @@ class ViewController: NSViewController {
         MS.scnScene.background.contents = rs.nsDetectedColorImage()
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
-        print(markerPoseJsonString)
+        //print(markerPoseJsonString)
         MS.setMarkers(byJsonString: markerPoseJsonString!)
         planePositionIn2D = SCNVector3(338.706115722656,258.706146240234,0.883838415145874)
         //print(scnARView.unprojectPoint(planePositionIn2D))
