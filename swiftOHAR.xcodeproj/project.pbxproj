@@ -41,6 +41,7 @@
 		AA8377A12026F568008B8378 /* libopencv_highgui.3.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8377562026D1AC008B8378 /* libopencv_highgui.3.4.0.dylib */; };
 		AA8377A22026F568008B8378 /* libopencv_imgcodecs.3.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8377572026D1AC008B8378 /* libopencv_imgcodecs.3.4.0.dylib */; };
 		AA8377A32026F568008B8378 /* libopencv_imgproc.3.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA83775A2026D1AC008B8378 /* libopencv_imgproc.3.4.0.dylib */; };
+		AA8377ED202AE1F1008B8378 /* out_camera_calibrationWith20img.yml in Resources */ = {isa = PBXBuildFile; fileRef = AA8377EC202AE1F1008B8378 /* out_camera_calibrationWith20img.yml */; };
 		BC217843D3D3658EF715E76C /* markerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2179AAF737ED74CD4232D9 /* markerNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +160,7 @@
 		AA8377C52026F56A008B8378 /* libopencv_bgsegm.3.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_bgsegm.3.4.0.dylib; path = ../../../../../usr/local/Cellar/opencv/3.4.0_1/lib/libopencv_bgsegm.3.4.0.dylib; sourceTree = "<group>"; };
 		AA8377C62026F56A008B8378 /* libopencv_structured_light.3.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_structured_light.3.4.0.dylib; path = ../../../../../usr/local/Cellar/opencv/3.4.0_1/lib/libopencv_structured_light.3.4.0.dylib; sourceTree = "<group>"; };
 		AA8377C72026F56B008B8378 /* libopencv_surface_matching.3.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_surface_matching.3.4.0.dylib; path = ../../../../../usr/local/Cellar/opencv/3.4.0_1/lib/libopencv_surface_matching.3.4.0.dylib; sourceTree = "<group>"; };
+		AA8377EC202AE1F1008B8378 /* out_camera_calibrationWith20img.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = out_camera_calibrationWith20img.yml; sourceTree = "<group>"; };
 		AAA3F2D11F271CA1004E561B /* model.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = model.scnassets; sourceTree = "<group>"; };
 		BC2179AAF737ED74CD4232D9 /* markerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = markerNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -257,6 +259,7 @@
 				4CC29FA91EA4867200298246 /* Main.storyboard */,
 				4CC29FAC1EA4867200298246 /* Info.plist */,
 				4C0914951EA6034A0007A351 /* Bridging-Header.h */,
+				AA8377EC202AE1F1008B8378 /* out_camera_calibrationWith20img.yml */,
 			);
 			path = swiftOHAR;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				AA1165FB1F7E32DA00C56A15 /* lowpolytree.obj in Resources */,
 				4CBFAF861F29BFBE002E8F8B /* MKY.mtl in Resources */,
 				4CEE61A9200CA09200914B2D /* bun_zipper_points.ply.txt in Resources */,
+				AA8377ED202AE1F1008B8378 /* out_camera_calibrationWith20img.yml in Resources */,
 				4CBFAF871F29BFC1002E8F8B /* MKY.obj in Resources */,
 				4CBFAF851F29BFBB002E8F8B /* MKY.jpg in Resources */,
 			);
