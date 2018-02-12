@@ -140,7 +140,7 @@ string cRealsense::getPoseInformation()
             //        //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
             singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "],";
             singleRow = singleRow + "\"Corners\":[[" + to_string(markers[i][0].x) + "," + to_string(markers[i][0].y) + "],[" + to_string(markers[i][1].x) + "," + to_string(markers[i][1].y) + "],[" + to_string(markers[i][2].x) + "," + to_string(markers[i][2].y) + "],[" + to_string(markers[i][3].x) + "," + to_string(markers[i][3].y) + "]]}";
-            if(i != (ids.size()-1))
+            if(i != (markers.size()-1))
             {
                 singleRow += ",";
             }
@@ -151,6 +151,10 @@ string cRealsense::getPoseInformation()
     //cout << tvecs.size() << "||fuck you||" << tvecs[0];
     for(int i = 0;i<ids.size();i++)
     {
+        if(markers.size() > 0)
+        {
+            jsonString += ",";
+        }
         if(ids[i] != 0)
         {
             string singleRow = "{";

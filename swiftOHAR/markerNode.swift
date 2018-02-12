@@ -57,6 +57,7 @@ class markerSystem : SCNNode
         //self.addChildNode(planeNode)
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
+        virtualModelDictionary[0] = ("Mickey_Mouse","MKY.jpg")
         
     }
     convenience init(scnView:SCNView) {
@@ -180,11 +181,25 @@ class markerSystem : SCNNode
             {
                 var positionAndScale = objPositionCalculating(Corners: arrID[i].Corners)
                 //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
-                self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
-                
-                print(self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform)
+                if(arrID[i].Rmat.count == 1)
+                {
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
+                }
+                else if (arrID[i].Rmat.count == 9)
+                {
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m11 = CGFloat(arrID[i].Rmat[0])
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m12 = CGFloat(-arrID[i].Rmat[1])
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m13 = CGFloat(-arrID[i].Rmat[2])
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m21 = CGFloat(arrID[i].Rmat[6])
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m22 = CGFloat(-arrID[i].Rmat[7])
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m23 = CGFloat(-arrID[i].Rmat[8])
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m31 = CGFloat(-arrID[i].Rmat[3])
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m32 = CGFloat(arrID[i].Rmat[4])
+                    self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform.m33 = CGFloat(arrID[i].Rmat[5])
+                }
+                //print(self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform)
                 self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
-                print(self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform)
+                //print(self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform)
                 //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
@@ -269,7 +284,7 @@ class markerSystem : SCNNode
         //return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
         var position3D = view.unprojectPoint(position2D)
         position3D.y *= -1
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(1),CGFloat(1),CGFloat(1))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.1),CGFloat(0.1),CGFloat(0.1))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {
