@@ -15,6 +15,7 @@ struct Marker : Codable
     var Tvec: [Double]
     var Rvec: [Double]
     var Corners : [[Double]]
+    var Rmat: [Double]
 }
 
 class markerSystem : SCNNode
@@ -179,12 +180,15 @@ class markerSystem : SCNNode
             {
                 var positionAndScale = objPositionCalculating(Corners: arrID[i].Corners)
                 //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
+                self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
+                
+                print(self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform)
                 self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.position = positionAndScale["position"]!
+                print(self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.transform)
                 //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.scale = positionAndScale["scale"]!
                 //scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
-                self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.eulerAngles = makeEularAngles(rvec: arrID[i].Rvec)
-                print(arrID[i].Rvec)
+                //print(arrID[i].Rvec)
                 //print(view.projectPoint((self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox.min)!))
                 //print(view.projectPoint((self.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox.max)!))
                 //var boundingBoxArray = scnScene.rootNode.childNode(withName: "\(IDKey)-\(i)", recursively: false)?.boundingBox
@@ -265,7 +269,7 @@ class markerSystem : SCNNode
         //return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
         var position3D = view.unprojectPoint(position2D)
         position3D.y *= -1
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.1),CGFloat(0.1),CGFloat(0.1))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(1),CGFloat(1),CGFloat(1))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {

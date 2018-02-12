@@ -108,43 +108,45 @@ string cRealsense::getPoseInformation()
     string jsonString = "[";
     for(int i = 0;i<markers.size();i++)
     {
-        if(markers[i].isValid() && markers[i].isPoseValid() && markers[i].Tvec.at<float>(0,0) != -999999)
+        if(markers[i].isValid() && markers[i].Tvec.at<int>(0,0) != -999999)
         {
             cout << markers[i] << endl;
             string singleRow = "{";
             singleRow = singleRow + "\"id\":" + to_string(markers[i].id) + ",";
-    //        cv::Mat oneTvec(3,1,CV_64FC1);
+            cv::Mat oneTvec(3,1,CV_64FC1);
     //        cv::Mat oneRvec(3,1,CV_64FC1);
-            cv::Mat oneRMat(4,4,CV_64F);
+            cv::Mat oneRMat(3,3,CV_32F);
             cv::Vec3d eulerAngles;
-    //        for(int j=0;j<3;j++)
-    //        {
-    //            oneTvec.at<double>(j,0) = markers[i].Tvec.at<double>(j);
-    //            oneRvec.row(j).col(0) = markers[i].Rvec.at<double>(j);
-    //        }
+            for(int j=0;j<3;j++)
+            {
+                oneTvec.at<double>(j,0) = markers[i].Tvec.at<double>(j);
+                //oneRvec.row(j).col(0) = markers[i].Rvec.at<double>(j);
+            }
             cout << "Rvec" << markers[i].Rvec << endl;
             Rodrigues(markers[i].Rvec, oneRMat);
-            getEulerAngles(oneRMat, eulerAngles);
-            cv::Mat RotX = oneRMat.t();
-            cout << "ROTX : " << RotX << endl <<"Tvec: " << markers[i].Tvec << endl;
-            //cout << "Tvec[0]" << markers[i].Tvec.at<float>(0) << endl;;
-        
-            cv::Mat tvecConverted = -RotX * markers[i].Tvec.t();
-            cout << "New Tvec Converted " << tvecConverted << endl;
-            cout << "tvec00 : " << markers[i].Tvec.at<float>(0,0) << endl;
+            singleRow = singleRow + "\"Rmat\":[" + to_string(oneRMat.at<float>(0,0)) + "," + to_string(oneRMat.at<float>(0,1)) + "," + to_string(oneRMat.at<float>(0,2)) + "," + to_string(oneRMat.at<float>(1,0)) + "," + to_string(oneRMat.at<float>(1,1)) + "," + to_string(oneRMat.at<float>(1,2)) + "," + to_string(oneRMat.at<float>(2,0)) + "," + to_string(oneRMat.at<float>(2,1)) + "," + to_string(oneRMat.at<float>(2,2)) + "" + "],";
+            cout << "RmatSingle" << to_string(oneRMat.at<float>(0,1)) << endl;
+            cout << "rMat: " << oneRMat << endl;
+            //getEulerAngles(oneRMat, eulerAngles);
+            //cout << "EA: " << eulerAngles << endl;
+//            cv::Mat RotX = oneRMat.t();
+//            cout << "ROTX : " << RotX << endl <<"Tvec: " << markers[i].Tvec << endl;
+//            //cout << "Tvec[0]" << markers[i].Tvec.at<float>(0) << endl;;
+//        
+//            cv::Mat tvecConverted = -RotX * markers[i].Tvec.t();
+//            cout << "New Tvec Converted " << tvecConverted << endl;
+//            cout << "tvec00 : " << markers[i].Tvec.at<float>(0,0) << endl;
+            singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
+            //        //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
+            singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "],";
+            singleRow = singleRow + "\"Corners\":[[" + to_string(markers[i][0].x) + "," + to_string(markers[i][0].y) + "],[" + to_string(markers[i][1].x) + "," + to_string(markers[i][1].y) + "],[" + to_string(markers[i][2].x) + "," + to_string(markers[i][2].y) + "],[" + to_string(markers[i][3].x) + "," + to_string(markers[i][3].y) + "]]}";
+            if(i != (ids.size()-1))
+            {
+                singleRow += ",";
+            }
+            
+            jsonString += singleRow;
         }
-//        //print(eulerAngles); //數值為角度
-//
-//        singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
-//        //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
-//        singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "],";
-//        singleRow = singleRow + "\"Corners\":[[" + to_string(markers[i][0].x) + "," + to_string(markers[i][0].y) + "],[" + to_string(markers[i][1].x) + "," + to_string(markers[i][1].y) + "],[" + to_string(markers[i][2].x) + "," + to_string(markers[i][2].y) + "],[" + to_string(markers[i][3].x) + "," + to_string(markers[i][3].y) + "]]}";
-//        if(i != (ids.size()-1))
-//        {
-//            singleRow += ",";
-//        }
-//
-//        jsonString += singleRow;
     }
     //cout << tvecs.size() << "||fuck you||" << tvecs[0];
     for(int i = 0;i<ids.size();i++)
@@ -153,6 +155,7 @@ string cRealsense::getPoseInformation()
         {
             string singleRow = "{";
             singleRow = singleRow + "\"id\":" + to_string(ids[i]) + ",";
+            singleRow = singleRow + "\"Rmat\":[0],";
             cv::Mat oneTvec(3,1,CV_64FC1);
             cv::Mat oneRvec(3,1,CV_64FC1);
             cv::Mat oneRMat(4,4,CV_64F);
@@ -170,7 +173,8 @@ string cRealsense::getPoseInformation()
             //print(eulerAngles); //數值為角度
             cout << "Rvec: " << oneRvec << endl;
             cout << "ROTX : " << RotX << endl <<"Tvec: " << oneTvec << endl;
-            cout << "old tvecConverted" << tvecConverted << endl;
+//            cout << "old tvecConverted" << tvecConverted << endl;
+            cout << "eulerAngle" << eulerAngles << endl;
             singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
             //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
             singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "],";
@@ -184,7 +188,7 @@ string cRealsense::getPoseInformation()
         }
     }
     jsonString += "]";
-    //cout<<jsonString;
+    cout<<jsonString;
     return jsonString;
 }
 void cRealsense::waitForNextFrame()
