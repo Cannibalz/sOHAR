@@ -187,19 +187,7 @@ class DepthMask2D : SCNNode
     }
     public func getNode() -> SCNNode
     {
-        //let points = self.depthPointCloud
-        //var vertices = Array(repeating: PointCloudVertex(x: 0,y: 0,z: 0,r: 0,g: 0,b: 0), count: points.count)
         var vertices = depthVertexArray
-        
-//        for i in 0..<(points.count) {
-//            let p = points[i]
-//            vertices[i].x = Float(p.x)
-//            vertices[i].y = -Float(p.y)
-//            vertices[i].z = Float(p.z)
-//            vertices[i].r = Float(0)
-//            vertices[i].g = Float(p.z)
-//            vertices[i].b = Float(0)
-//        }
         
         let node = buildNode(points: vertices)
         node.renderingOrder = -1
@@ -268,23 +256,9 @@ extension DepthMask2D
     func calNodeSize(node:SCNNode,view:SCNView) -> nodePos
     {
         let (localMin,localMax) = node.boundingBox
-        var (center,radius) = node.boundingSphere
-        print(view.projectPoint(center))
-        print("center:\(center) \n radius:\(radius)")
-        center = node.convertPosition(center, to: nil)
-        print("|||||")
-        print(view.projectPoint(center))
-        print("center:\(center) \n radius:\(radius)")
-        var leftTop = center
-        leftTop.x -= CGFloat(radius)
-        leftTop.y -= CGFloat(radius)
-        var rightBottom = center
-        rightBottom.x += CGFloat(radius)
-        rightBottom.y += CGFloat(radius)
-        var leftTop2D = view.projectPoint(leftTop)
-        var rightBottom2D = view.projectPoint(rightBottom)
         let min = node.convertPosition(localMin, to: nil)
         let max = node.convertPosition(localMax, to: nil)
+        print("boundingBox : \(min) , \(max)")
         let midZ = (min.z + max.z) / 2
         let vertices = [
             SCNVector3(min.x, min.y, min.z), //4min 4max
@@ -307,41 +281,30 @@ extension DepthMask2D
         
         let width = maxX - minX
         let height = maxY - minY
-        
-//        if minX < 0
-//        {
-//            minX = 0
-//        }
-//        if minY < 0
-//        {
-//            minY = 0
-//        }
-//        if maxX > 640
-//        {
-//            maxX = 640
-//        }
-//        if maxY > 480
-//        {
-//            maxY = 480
-//        }
-        if leftTop2D.x < 0
+        let meanX = (maxX+minX)/2
+        let meanY = (maxY+minY)/2
+        let length = ([width,height].max())!/2
+        minX = meanX-length
+        maxX = meanX+length
+        minY = meanY-length
+        maxY = meanY+length
+        if minX < 0
         {
-            leftTop2D.x = 0
+            minX = 0
         }
-        if leftTop2D.y < 0
+        if minY < 0
         {
-            leftTop2D.y = 0
+            minY = 0
         }
-        if rightBottom2D.x > 640
+        if maxX > 640
         {
-            rightBottom2D.x = 640
+            maxX = 640
         }
-        if rightBottom2D.y > 480
+        if maxY > 480
         {
-            rightBottom2D.y = 480
+            maxY = 480
         }
-        return nodePos(minX: Int(leftTop2D.x), minY: Int(leftTop2D.y), maxX: Int(rightBottom2D.x), maxY: Int(rightBottom2D.y))
-        //let depth = maxZ - minZ
+        return nodePos(minX : Int(minX), minY : Int(minY), maxX: Int(maxX), maxY: Int(maxY))
     }
     
     func createLineNode(fromPos origin: SCNVector3, toPos destination: SCNVector3, color: NSColor) -> SCNNode {
@@ -417,8 +380,8 @@ extension DepthMask2D
         {
             minmaxXY[1][1] = 479
         }
-        print(pointArray)
-        print(minmaxXY)
+//        print("pointArray : \(pointArray)")
+//        print("minaxXY : \(minmaxXY)")
         let zCoord = node.position.z
         
         let topLeft = SCNVector3Make(min.x, max.y, max.z)
