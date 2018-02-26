@@ -238,7 +238,7 @@ class DepthMask2D : SCNNode
             pointsGeometry.shaderModifiers = dict
             if coloredMask
             {
-                //pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+                pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             }
         } else {
             // Fallback on earlier versions
