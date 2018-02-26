@@ -42,6 +42,7 @@
 		AA8377A22026F568008B8378 /* libopencv_imgcodecs.3.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA8377572026D1AC008B8378 /* libopencv_imgcodecs.3.4.0.dylib */; };
 		AA8377A32026F568008B8378 /* libopencv_imgproc.3.4.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AA83775A2026D1AC008B8378 /* libopencv_imgproc.3.4.0.dylib */; };
 		AA8377ED202AE1F1008B8378 /* out_camera_calibrationWith20img.yml in Resources */ = {isa = PBXBuildFile; fileRef = AA8377EC202AE1F1008B8378 /* out_camera_calibrationWith20img.yml */; };
+		AAF737F82032D6E9001B09E3 /* CalculateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF737F72032D6E9001B09E3 /* CalculateTime.swift */; };
 		BC217843D3D3658EF715E76C /* markerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2179AAF737ED74CD4232D9 /* markerNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -162,6 +163,7 @@
 		AA8377C72026F56B008B8378 /* libopencv_surface_matching.3.4.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_surface_matching.3.4.0.dylib; path = ../../../../../usr/local/Cellar/opencv/3.4.0_1/lib/libopencv_surface_matching.3.4.0.dylib; sourceTree = "<group>"; };
 		AA8377EC202AE1F1008B8378 /* out_camera_calibrationWith20img.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = out_camera_calibrationWith20img.yml; sourceTree = "<group>"; };
 		AAA3F2D11F271CA1004E561B /* model.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = model.scnassets; sourceTree = "<group>"; };
+		AAF737F72032D6E9001B09E3 /* CalculateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateTime.swift; sourceTree = "<group>"; };
 		BC2179AAF737ED74CD4232D9 /* markerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = markerNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -249,6 +251,7 @@
 				4C31E79D1FD1540E00A02718 /* PointCloudVertex.swift */,
 				4CC29FA31EA4867200298246 /* AppDelegate.swift */,
 				4CC29FA51EA4867200298246 /* ViewController.swift */,
+				AAF737F72032D6E9001B09E3 /* CalculateTime.swift */,
 				BC2179AAF737ED74CD4232D9 /* markerNode.swift */,
 				4C4538F81F02412100131156 /* ARViewController.swift */,
 				4C8D35181FCBEF5F00D3EC4F /* CollisionTypes.swift */,
@@ -515,6 +518,7 @@
 				4C31E79C1FCE8B9200A02718 /* depthMaskNode.swift in Sources */,
 				4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */,
 				4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */,
+				AAF737F82032D6E9001B09E3 /* CalculateTime.swift in Sources */,
 				4CEE61A7200CA07400914B2D /* PointCloud.swift in Sources */,
 				4C0914901EA5F6800007A351 /* objcRealsense.mm in Sources */,
 				4CC29FA41EA4867200298246 /* AppDelegate.swift in Sources */,

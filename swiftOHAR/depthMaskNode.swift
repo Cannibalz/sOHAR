@@ -268,6 +268,21 @@ extension DepthMask2D
     func calNodeSize(node:SCNNode,view:SCNView) -> nodePos
     {
         let (localMin,localMax) = node.boundingBox
+        var (center,radius) = node.boundingSphere
+        print(view.projectPoint(center))
+        print("center:\(center) \n radius:\(radius)")
+        center = node.convertPosition(center, to: nil)
+        print("|||||")
+        print(view.projectPoint(center))
+        print("center:\(center) \n radius:\(radius)")
+        var leftTop = center
+        leftTop.x -= CGFloat(radius)
+        leftTop.y -= CGFloat(radius)
+        var rightBottom = center
+        rightBottom.x += CGFloat(radius)
+        rightBottom.y += CGFloat(radius)
+        var leftTop2D = view.projectPoint(leftTop)
+        var rightBottom2D = view.projectPoint(rightBottom)
         let min = node.convertPosition(localMin, to: nil)
         let max = node.convertPosition(localMax, to: nil)
         let midZ = (min.z + max.z) / 2
@@ -293,23 +308,39 @@ extension DepthMask2D
         let width = maxX - minX
         let height = maxY - minY
         
-        if minX < 0
+//        if minX < 0
+//        {
+//            minX = 0
+//        }
+//        if minY < 0
+//        {
+//            minY = 0
+//        }
+//        if maxX > 640
+//        {
+//            maxX = 640
+//        }
+//        if maxY > 480
+//        {
+//            maxY = 480
+//        }
+        if leftTop2D.x < 0
         {
-            minX = 0
+            leftTop2D.x = 0
         }
-        if minY < 0
+        if leftTop2D.y < 0
         {
-            minY = 0
+            leftTop2D.y = 0
         }
-        if maxX > 640
+        if rightBottom2D.x > 640
         {
-            maxX = 640
+            rightBottom2D.x = 640
         }
-        if maxY > 480
+        if rightBottom2D.y > 480
         {
-            maxY = 480
+            rightBottom2D.y = 480
         }
-        return nodePos(minX: Int(minX), minY: Int(minY), maxX: Int(maxX), maxY: Int(maxY))
+        return nodePos(minX: Int(leftTop2D.x), minY: Int(leftTop2D.y), maxX: Int(rightBottom2D.x), maxY: Int(rightBottom2D.y))
         //let depth = maxZ - minZ
     }
     

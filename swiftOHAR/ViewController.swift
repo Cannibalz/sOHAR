@@ -75,10 +75,12 @@ class ViewController: NSViewController {
         if #available(OSX 10.13, *) {
             //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
         }
+        
         let planeNode = SCNNode(geometry: plane)
         planeNode.renderingOrder = -3
         planeNode.name = "planeFromView"
         planeNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
+    
         //scnARView.scene?.rootNode.addChildNode(planeNode)
         //scnARView.scene?.rootNode.addChildNode(pcNode)
         DM.scnView = self.scnARView
@@ -104,8 +106,8 @@ class ViewController: NSViewController {
     override func viewDidDisappear() {
         super.viewDidDisappear()
         timer.invalidate()
-        scnARView.isPlaying = false
         rs.stop()
+        scnARView.isPlaying = false
         print("viewDidDisappear")
         exit(0)
     }
