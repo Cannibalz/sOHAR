@@ -192,7 +192,7 @@ string cRealsense::getPoseInformation()
         }
     }
     jsonString += "]";
-    cout<<jsonString;
+    //cout<<jsonString;
     return jsonString;
 }
 void cRealsense::waitForNextFrame()

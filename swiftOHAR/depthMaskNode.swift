@@ -258,7 +258,6 @@ extension DepthMask2D
         let (localMin,localMax) = node.boundingBox
         let min = node.convertPosition(localMin, to: nil)
         let max = node.convertPosition(localMax, to: nil)
-        print("boundingBox : \(min) , \(max)")
         let midZ = (min.z + max.z) / 2
         let vertices = [
             SCNVector3(min.x, min.y, min.z), //4min 4max
