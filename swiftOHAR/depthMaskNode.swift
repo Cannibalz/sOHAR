@@ -35,6 +35,15 @@ class DepthMask2D : SCNNode
         self.name = "depthMask"
         self.renderingOrder = -100
     }
+    init(scnView: SCNView,downSample:Int,aroundMarkerOnly:Bool)
+    {
+        super.init()
+        self.name = "depthMask"
+        self.renderingOrder = -100
+        self.scnView = scnView
+        self.downSample = downSample
+        self.aroundMarkerOnly = aroundMarkerOnly
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -109,7 +118,7 @@ class DepthMask2D : SCNNode
             
             for node in (view.scene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
             {
-                highlightNode(node)
+                //highlightNode(node)
                 var nodeBoundingSize = calNodeSize(node: node, view: view)
 //                var PFVnode = view.scene?.rootNode.childNode(withName: "planeFromView", recursively: false)
 //                PFVnode?.position = view.unprojectPoint(SCNVector3(Double(nodeBoundingSize.minX),Double(nodeBoundingSize.minY),0.23838415145874))
@@ -246,10 +255,7 @@ class DepthMask2D : SCNNode
         self.geometry = pointsGeometry
         return SCNNode(geometry: pointsGeometry)
     }
-    private func maskAroundMarker()
-    {
-        
-    }
+
 }
 extension DepthMask2D
 {
