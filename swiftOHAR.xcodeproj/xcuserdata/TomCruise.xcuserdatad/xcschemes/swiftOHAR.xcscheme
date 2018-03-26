@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -29,36 +28,7 @@
       language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4CC29FB01EA4867200298246"
-               BuildableName = "swiftOHARTests.xctest"
-               BlueprintName = "swiftOHARTests"
-               ReferencedContainer = "container:swiftOHAR.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4CC29FBB1EA4867200298246"
-               BuildableName = "swiftOHARUITests.xctest"
-               BlueprintName = "swiftOHARUITests"
-               ReferencedContainer = "container:swiftOHAR.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4CC29F9F1EA4867200298246"
-            BuildableName = "swiftOHAR.app"
-            BlueprintName = "swiftOHAR"
-            ReferencedContainer = "container:swiftOHAR.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -93,16 +63,6 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "4CC29F9F1EA4867200298246"
-            BuildableName = "swiftOHAR.app"
-            BlueprintName = "swiftOHAR"
-            ReferencedContainer = "container:swiftOHAR.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
