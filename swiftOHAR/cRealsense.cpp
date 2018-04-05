@@ -110,7 +110,7 @@ string cRealsense::getPoseInformation()
     {
         if(markers[i].isValid() && markers[i].Tvec.at<int>(0,0) != -999999)
         {
-            cout << markers[i] << endl;
+//            cout << markers[i] << endl;
             string singleRow = "{";
             singleRow = singleRow + "\"id\":" + to_string(markers[i].id) + ",";
             cv::Mat oneTvec(3,1,CV_64FC1);
@@ -175,10 +175,10 @@ string cRealsense::getPoseInformation()
             cv::Mat RotX = oneRMat.t();
             cv::Mat tvecConverted = -RotX * oneTvec;
             //print(eulerAngles); //數值為角度
-            cout << "Rvec: " << oneRvec << endl;
-            cout << "ROTX : " << RotX << endl <<"Tvec: " << oneTvec << endl;
+//            cout << "Rvec: " << oneRvec << endl;
+//            cout << "ROTX : " << RotX << endl <<"Tvec: " << oneTvec << endl;
 //            cout << "old tvecConverted" << tvecConverted << endl;
-            cout << "eulerAngle" << eulerAngles << endl;
+//            cout << "eulerAngle" << eulerAngles << endl;
             singleRow = singleRow + "\"Tvec\":[" + to_string(oneTvec.at<double>(0,0)) + "," + to_string(oneTvec.at<double>(0,1)) + "," + to_string(oneTvec.at<double>(0,2)) + "],";
             //singleRow = singleRow + "\"Rvec\":[" + to_string(oneRvec.at<double>(0,0)) + "," + to_string(oneRvec.at<double>(0,1)) + "," + to_string(oneRvec.at<double>(0,2)) + "]}";
             singleRow = singleRow + "\"Rvec\":[" + to_string(eulerAngles[0]) + "," + to_string(eulerAngles[1]) + "," + to_string(eulerAngles[2]) + "],";

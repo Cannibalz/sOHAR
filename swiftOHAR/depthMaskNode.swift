@@ -24,7 +24,7 @@ class DepthMask2D : SCNNode
     var depthVertexArray : [PointCloudVertex] = Array()
 //    var pcNode : SCNNode = SCNNode()
     var downSample = 2
-    var aroundMarkerOnly = false
+    var aroundMarkerOnly = true
     var enable = true
     var performEvery_Times = 2
     var coloredMask = true
@@ -165,7 +165,7 @@ class DepthMask2D : SCNNode
                         y += downSample
                     }
                     x += downSample
-                    //print(maxminXY)
+                    print(maxminXY)
                 }
                 //print("depth node point count is : \(depthValueArray.count)")
 //                for var x in stride(from: test.minX,to: test.maxX, by: downSample)

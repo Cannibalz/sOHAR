@@ -54,7 +54,6 @@ class ViewController: NSViewController {
     var countt = 0
     
     var ssCount = 12;
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
@@ -63,37 +62,9 @@ class ViewController: NSViewController {
         scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
-        //scnARView.debugOptions = [.showBoundingBoxes]
-        //let pc = PointCloud()
-//        let pcNode = pc.getNode()
-//        pcNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
-//        pcNode.scale = SCNVector3(4,4,4)
-//        pcNode.renderingOrder = -100
-        let plane = SCNPlane(width: 0.3, height: 0.3)
-        plane.firstMaterial?.diffuse.contents = NSColor.black.withAlphaComponent(0.5)
-        plane.firstMaterial?.isDoubleSided = true
-        if #available(OSX 10.13, *) {
-            //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
-        }
-        
-        let planeNode = SCNNode(geometry: plane)
-        planeNode.renderingOrder = -3
-        planeNode.name = "planeFromView"
-        planeNode.position = scnARView.unprojectPoint(SCNVector3(338.706115722656,258.706146240234,0.23838415145874))
-    
-        //scnARView.scene?.rootNode.addChildNode(planeNode)
-        //scnARView.scene?.rootNode.addChildNode(pcNode)
-        
-//        var pcNode = SCNNode()
-//        pcNode.name = "pcNode"
-//        pcNode.renderingOrder = -2
-//        scnARView.scene?.rootNode.addChildNode(pcNode)
-        
         scnARView.delegate = self
         scnARView.isPlaying = true
         scnARView.preferredFramesPerSecond = 60
-        //timer = Timer.scheduledTimer(timeInterval: 0.03, target: self, selector: #selector(renderImg), userInfo: nil, repeats: true)
-        
     }
     override var representedObject: Any? {
         didSet {
@@ -116,43 +87,20 @@ class ViewController: NSViewController {
         let url = folderUrl?.appendingPathComponent(fileName)
         screenshot.pngWrite(to: url!)
         ssCount += 1
-        
-//        let urlPath = NSURL(fileURLWithPath: NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true).first!).URLByAppendingPathComponent("SS\(ssCount).png")
-//        try! UIImagePNGRepresentationUIImagePNGRepresentation(screenshot)!.writeToURL(urlPath, options: .AtomicWrite)
-//        if cbUsingMask.state == NSOnState
-//        {
-//            DM.enable = true
-//        }
-//        else
-//        {
-//            DM.enable = false
-//        }
-//        if cbMaskColor.state == NSOnState
-//        {
-//            DM.coloredMask = true
-//        }
-//        else
-//        {
-//            DM.coloredMask = false
-//        }
     }
     func renderImg()
     {
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
-        //nsView只能在mainThread處理
-        //colorView.image = rs.nsDetectedColorImage()
-        //depthView.image = rs.nsD2CImage()
-        //C2DView.image = rs.nsC2DImage()
         if doDepthMap && countt < 10 && DM.enable == true
         {
             //countt += 1
             var imageData = rs.nsD2CImage().tiffRepresentation
             var bitmapRep = NSBitmapImageRep.init(data: imageData!) //深度
-            DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView,idDictionary: MS.idDictionary)
+            CalculateExecuteTime(title: "Set Depth Value", call: {
+                DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView,idDictionary: MS.idDictionary)
+            })
             DM.refresh()
-//            scnARView.scene?.rootNode.childNode(withName: "pcNode", recursively: true)?.removeFromParentNode()
-//            scnARView.scene?.rootNode.addChildNode(DM.getNode())
         }
         rs.nsDetectedColorImage()
 //        if cbMarkerDetection.state == NSOnState
@@ -166,25 +114,18 @@ class ViewController: NSViewController {
         MS.scnScene.background.contents = rs.nsDetectedColorImage()
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
-        //print(markerPoseJsonString)
         MS.setMarkers(byJsonString: markerPoseJsonString!)
-        planePositionIn2D = SCNVector3(338.706115722656,258.706146240234,0.883838415145874)
-        //print(scnARView.unprojectPoint(planePositionIn2D))
-        var planePosition = SCNVector3(320,240,0.1)
-        //planePosition.x = CGFloat(silderTvec0.floatValue)
-        //planePosition.y = CGFloat(silderTvec1.floatValue)
-        //planePosition.z = CGFloat(silderTvec2.floatValue)
-        
-        let projectPoint = scnARView.projectPoint(planePosition)
-        //print(projectPoint)
-        previousXY = [projectPoint.x,projectPoint.y] //2D的xy
+        //previousXY = [projectPoint.x,projectPoint.y] //2D的xy
     }
     
 }
 extension ViewController : SCNSceneRendererDelegate
 {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        renderImg()
+        CalculateExecuteTime(title: "All render time", call: {
+            renderImg()
+        })
+
     }
 }
 extension Double
