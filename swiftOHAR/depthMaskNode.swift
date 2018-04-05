@@ -118,12 +118,8 @@ class DepthMask2D : SCNNode
             
             for node in (view.scene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
             {
-                //highlightNode(node)
                 var nodeBoundingSize = calNodeSize(node: node, view: view)
-//                var PFVnode = view.scene?.rootNode.childNode(withName: "planeFromView", recursively: false)
-//                PFVnode?.position = view.unprojectPoint(SCNVector3(Double(nodeBoundingSize.minX),Double(nodeBoundingSize.minY),0.23838415145874))
                 var x = nodeBoundingSize.minX
-                var maxminXY : [String:Float] = ["maxX": -100,"minX": 100,"maxY": -100,"minY": 100]
                 while x < nodeBoundingSize.maxX
                 {
                     var y = nodeBoundingSize.minY
@@ -140,24 +136,6 @@ class DepthMask2D : SCNNode
                                 {
                                     let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x+stepX),CGFloat(y+stepY),whiteValue))
                                     depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float.randColor(), g: Float.randColor(), b: Float.randColor()))
-                                    if Float(unprojectPointVector.x) > maxminXY["maxX"]!
-                                    {
-                                        maxminXY["maxX"] = Float(unprojectPointVector.x)
-                                    }
-                                    else if Float(unprojectPointVector.x) < maxminXY["minX"]!
-                                    {
-                                        maxminXY["minX"] = Float(unprojectPointVector.y)
-                                    }
-                                    if Float(unprojectPointVector.y) > maxminXY["maxY"]!
-                                    {
-                                        maxminXY["maxY"] = Float(unprojectPointVector.y)
-                                    }
-                                    else if Float(unprojectPointVector.y) < maxminXY["minY"]!
-                                    {
-                                        maxminXY["minY"] = Float(unprojectPointVector.y)
-                                    }
-                                    //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(depthValueArray[x][y]), g: Float(depthValueArray[x][y]), b: Float(depthValueArray[x][y])))
-                                    //depthPointCloud.append(unprojectPointVector)
                                 }
                             }
                             
@@ -165,7 +143,7 @@ class DepthMask2D : SCNNode
                         y += downSample
                     }
                     x += downSample
-                    print(maxminXY)
+                    //print(maxminXY)
                 }
                 //print("depth node point count is : \(depthValueArray.count)")
 //                for var x in stride(from: test.minX,to: test.maxX, by: downSample)

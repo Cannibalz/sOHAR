@@ -97,8 +97,8 @@ cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
         //  << "not estimatePose yet Tvec: " << markers[i].Tvec << endl;
         markerPoseTracker.estimatePose(markers[i], cameraParameters, 0.05);
         //cout << "after estimatePose Tvec: " << markers[i].Tvec << endl;
-        CvDraw.draw3dAxis(arImage, markers[i], cameraParameters);
-        CvDraw.draw3dCube(arImage, markers[i], cameraParameters);
+        //CvDraw.draw3dAxis(arImage, markers[i], cameraParameters); //draw axie & cube
+        //CvDraw.draw3dCube(arImage, markers[i], cameraParameters);
         //cout << "3Dpoints:" <<markers[i].get3DPoints() << endl;
         cout << "center:" << markers[i].getCenter() << endl;
         cout << "corner 0:" << markers[i][0] << ",corner 1:" << markers[i][1] << ",corner 2:" << markers[i][2] << ",corner 3:" << markers[i][3] << endl;
@@ -119,7 +119,7 @@ cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
         cv::Mat oneRvecs(3,1,CV_64FC1);
         cv::Mat rotMat(4, 4, CV_64F);
         cv::Mat oneTvecs(3,1,CV_64FC1);
-        cv::aruco::drawDetectedMarkers(arImage, corners, ids);
+        //cv::aruco::drawDetectedMarkers(arImage, corners, ids);
         float markerLength = 0.05;
         cv::aruco::estimatePoseSingleMarkers(corners, markerLength, cameraMatrix, distCoeffs, rvecs, tvecs);
         for (int a = 0;a<3;a++)
@@ -130,10 +130,10 @@ cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
         }
         Rodrigues(oneRvecs, rotMat);
 
-        for(int j = 0;j<ids.size();j++)
-        {
-            cv::aruco::drawAxis(arImage, cameraMatrix, distCoeffs, rvecs[j], tvecs[j], 0.1);
-        }
+//        for(int j = 0;j<ids.size();j++)
+//        {
+//            cv::aruco::drawAxis(arImage, cameraMatrix, distCoeffs, rvecs[j], tvecs[j], 0.1);
+//        }
     }
     return arImage;
 }
