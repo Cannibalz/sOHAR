@@ -72,27 +72,6 @@ class DepthMask2D : SCNNode
         if aroundMarkerOnly == false
         {
             measureRangeArray.append(depthWindow(minX: 0, minY: 0, maxX: depthValueArray.count, maxY: depthValueArray[0].count, needsConvert: false))
-            for var x in stride(from: 0, to: depthValueArray.count, by: downSample)
-            {
-                for var y in stride(from: 0, to: depthValueArray[x].count, by: downSample)
-                {
-                    depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
-                    if(depthValueArray[x][y] != 0)
-                    {
-                        for var stepX in 0..<downSample
-                        {
-                            for var stepY in 0..<downSample
-                            {
-                                let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x+stepX),CGFloat(y+stepY),depthValueArray[x][y]))
-                                //depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(arc4random()) / Float(UINT32_MAX), g: Float(arc4random()) / Float(UINT32_MAX), b: Float(arc4random()) / Float(UINT32_MAX)))
-                                depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: -Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float(depthValueArray[x][y]), g: Float(depthValueArray[x][y]), b: Float(depthValueArray[x][y])))
-                                depthPointCloud.append(unprojectPointVector)
-                            }
-                        }
-                    }
-                }
-            }
-            
         }
         else if aroundMarkerOnly
         {
@@ -100,31 +79,6 @@ class DepthMask2D : SCNNode
             {
                 let nodeBoundingSize = calNodeSize(node: node, view: view)
                 measureRangeArray.append(depthWindow(minX: nodeBoundingSize.minX, minY: nodeBoundingSize.minY, maxX: nodeBoundingSize.maxX, maxY: nodeBoundingSize.maxY, needsConvert: true))
-                var x = nodeBoundingSize.minX
-                while x < nodeBoundingSize.maxX
-                {
-                    var y = nodeBoundingSize.minY
-                    while y < nodeBoundingSize.maxY
-                    {
-                        let convertY = 479-y
-                        let whiteValue = bitmapImageRep.colorAt(x: x, y: convertY)!.whiteComponent
-                                                //depthValueArray[x][y] = bitmapImageRep.colorAt(x: x, y: y)!.whiteComponent
-                        if(whiteValue != 0)
-                        {
-                            for stepX in 0..<downSample
-                            {
-                                for stepY in 0..<downSample
-                                {
-                                    let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x+stepX),CGFloat(y+stepY),whiteValue))
-                                    depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float.randColor(), g: Float.randColor(), b: Float.randColor()))
-                                }
-                            }
-                            
-                        }
-                        y += downSample
-                    }
-                    x += downSample
-                }
             }
         }
         for measureRange in measureRangeArray
