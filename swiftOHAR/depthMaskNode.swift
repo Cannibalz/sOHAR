@@ -71,10 +71,12 @@ class DepthMask2D : SCNNode
         var measureRangeArray = Array<depthWindow>()
         if aroundMarkerOnly == false
         {
+            //all pixel in image
             measureRangeArray.append(depthWindow(minX: 0, minY: 0, maxX: depthValueArray.count, maxY: depthValueArray[0].count, needsConvert: false))
         }
         else if aroundMarkerOnly
         {
+            //lony pixel around object
             for node in (view.scene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
             {
                 let nodeBoundingSize = calNodeSize(node: node, view: view)
@@ -83,7 +85,7 @@ class DepthMask2D : SCNNode
         }
         for measureRange in measureRangeArray
         {
-            for var x in stride(from: measureRange.minX, to: measureRange.maxY, by: downSample)
+            for var x in stride(from: measureRange.minX, to: measureRange.maxX, by: downSample)
             {
                 for var y in stride(from: measureRange.minY, to: measureRange.maxY, by: downSample)
                 {
