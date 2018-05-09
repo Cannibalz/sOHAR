@@ -273,11 +273,11 @@ class markerSystem : SCNNode
 //        node.scale = SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))
         var position2D = SCNVector3(middleX,middleY,1-(avgLength/200))
         //print(position2D)
-        position2D.y += -20 //拉高
+        //position2D.y += -20 //拉高
         //return ["position" :SCNVector3Make(CGFloat(middleX),CGFloat(middleY),-3),"scale":SCNVector3Make(CGFloat(avgLength/200),CGFloat(avgLength/200),CGFloat(avgLength/200))]
         var position3D = view.unprojectPoint(position2D)
         position3D.y *= -1
-        position3D.z += 0.7
+        //position3D.z += 0.7
         return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.3),CGFloat(0.3),CGFloat(0.3))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3

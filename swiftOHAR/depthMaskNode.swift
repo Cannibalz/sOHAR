@@ -34,6 +34,7 @@ struct applyDepthWindow {
 }
 class DepthMask2D : SCNNode
 {
+    let normalizationDistance:CGFloat = 1/256
     static let sharedInstance = DepthMask2D()
     
     var depthValueArray : [[CGFloat]] = Array(repeating: Array(repeating: 0, count: 480), count: 640)
@@ -93,11 +94,12 @@ class DepthMask2D : SCNNode
                     let whiteValue = bitmapImageRep.colorAt(x: x, y: cvrtY)!.whiteComponent
                     if whiteValue != 0
                     {
+                        let whiteValueoffset = whiteValue + (45*normalizationDistance)
                         for stepX in 0..<downSample
                         {
                             for stepY in 0..<downSample
                             {
-                                let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x+stepX),CGFloat(y+stepY),whiteValue))
+                                let unprojectPointVector = view.unprojectPoint(SCNVector3(CGFloat(x+stepX),CGFloat(y+stepY),whiteValueoffset))
                                 depthVertexArray.append(PointCloudVertex(x: Float(unprojectPointVector.x), y: Float(unprojectPointVector.y), z: Float(unprojectPointVector.z), r: Float.randColor(), g: Float.randColor(), b: Float.randColor()))
                             }
                         }
@@ -166,7 +168,7 @@ class DepthMask2D : SCNNode
             pointsGeometry.shaderModifiers = dict
             if coloredMask
             {
-                //pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
+                pointsGeometry.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
             }
         } else {
             // Fallback on earlier versions
