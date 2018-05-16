@@ -81,6 +81,15 @@ class DepthMask2D : SCNNode
             for node in (view.scene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
             {
                 let nodeBoundingSize = calNodeSize(node: node, view: view)
+                for var i in nodeBoundingSize.minX..<nodeBoundingSize.maxX
+                {
+                    for var j in nodeBoundingSize.minY..<nodeBoundingSize.maxY
+                    {
+                        let point = SCNVector3(i,j,0)
+                        let unpp = view.unprojectPoint(point)
+                        print("\(unpp) in (\(i),\(j))")
+                    }
+                }
                 measureRangeArray.append(applyDepthWindow(minX: nodeBoundingSize.minX, minY: nodeBoundingSize.minY, maxX: nodeBoundingSize.maxX, maxY: nodeBoundingSize.maxY, needsConvert: true))
             }
         }

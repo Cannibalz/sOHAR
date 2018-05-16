@@ -44,7 +44,7 @@ class ViewController: NSViewController {
     var timer : Timer = Timer()
     var rs : objCRealsense = objCRealsense()
     var nsImg : NSImage? = nil
-    //var renderer: Renderer!
+    var scnRenderer: SCNRenderer!
     var time = TimeInterval(0.0)
     let timestep = 1.0 / 30
     var markers : [Marker] = []
@@ -54,17 +54,23 @@ class ViewController: NSViewController {
     var countt = 0
     
     var ssCount = 12;
+    
+    let device = MTLCreateSystemDefaultDevice()
+    var commandQueue: MTLCommandQueue!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
         DM = DepthMask2D(scnView: self.scnARView, downSample: 2, aroundMarkerOnly: true)
         MS = markerSystem(scnView: scnARView)
-        scnARView.scene?.rootNode.addChildNode(DM)
+        //scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
         scnARView.delegate = self
         scnARView.isPlaying = true
         scnARView.preferredFramesPerSecond = 60
+        //commandQueue = device?.makeCommandQueue()
+        
     }
     override var representedObject: Any? {
         didSet {
@@ -115,6 +121,7 @@ class ViewController: NSViewController {
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
+        
         //previousXY = [projectPoint.x,projectPoint.y] //2D的xy
     }
     
@@ -124,6 +131,36 @@ extension ViewController : SCNSceneRendererDelegate
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         CalculateExecuteTime(title: "All render time", call: {
             renderImg()
+//            let viewport: CGRect = CGRect(x: 0, y: 0, width: 640, height: 480)
+//            let renderPassDescriptor = MTLRenderPassDescriptor()
+//            let depthDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .depth32Float , width: 640, height: 480, mipmapped: false)
+//            depthDescriptor.storageMode = .private
+//            let device = MTLCreateSystemDefaultDevice()
+//            //let depthTex = device?.makeTexture(descriptor: depthDescriptor)
+//            let depthTex = self.scnARView.device!.makeTexture(descriptor: depthDescriptor)
+//            depthTex.label = "Depth Texturyeeeeeeeeee"
+//            renderPassDescriptor.depthAttachment.texture = depthTex
+//            renderPassDescriptor.depthAttachment.loadAction = .clear
+//            renderPassDescriptor.depthAttachment.clearDepth = 1.0
+//            renderPassDescriptor.depthAttachment.storeAction = .store
+//            commandQueue = device?.makeCommandQueue()
+//            let commandBuffer = commandQueue.makeCommandBuffer()
+//            var scene1 = SCNScene()
+//            scene1 = scnARView.scene!
+//            scnRenderer.scene = scene1
+//            scnRenderer!.render(atTime: 0, viewport: viewport, commandBuffer: commandBuffer, passDescriptor: renderPassDescriptor)
+//            
+//            let depthImageBuffer:MTLBuffer = scnARView!.device!.makeBuffer(length: depthTex.width*depthTex.height*4, options: .storageModeShared)
+//            depthImageBuffer.label = "Depth Bufferrrrr"
+//            let blitCommandEncoder : MTLBlitCommandEncoder = commandBuffer.makeBlitCommandEncoder()
+//            blitCommandEncoder.copy(from: renderPassDescriptor.depthAttachment.texture!,
+//                                    sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOriginMake(0, 0, 0), sourceSize: MTLSizeMake(640, 480, 1),
+//                                    to: depthImageBuffer,
+//                                    destinationOffset: 0, destinationBytesPerRow: 4*640, destinationBytesPerImage: 4*640*480)
+//            blitCommandEncoder.endEncoding()
+//            commandBuffer.commit()
+//            print("DONE")
+            
         })
 
     }
