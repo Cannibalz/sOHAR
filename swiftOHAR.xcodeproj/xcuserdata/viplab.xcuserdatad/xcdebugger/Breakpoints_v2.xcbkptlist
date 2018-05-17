@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/depthMaskNode.swift"
-            timestampString = "548146612.688501"
+            timestampString = "548237833.098119"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
+            startingLineNumber = "113"
+            endingLineNumber = "113"
             landmarkName = "setDepthValue(bitmapImageRep:view:idDictionary:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,7 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/ViewController.swift"
-            timestampString = "548156535.072598"
+            timestampString = "548237833.098586"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "125"
@@ -42,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/depthMaskNode.swift"
-            timestampString = "548146612.689623"
+            timestampString = "548237833.098924"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "93"
@@ -58,12 +58,76 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/ViewController.swift"
-            timestampString = "548156535.07356"
+            timestampString = "548237833.0991991"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "164"
             endingLineNumber = "164"
             landmarkName = "renderer(_:updateAtTime:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "swiftOHAR/depthMaskNode.swift"
+            timestampString = "548237833.099466"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "setDepthValue(bitmapImageRep:view:idDictionary:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "swiftOHAR.DepthMask2D.setDepthValue(bitmapImageRep: __ObjC.NSBitmapImageRep, view: __ObjC.SCNView, idDictionary: Swift.Dictionary&lt;Swift.Int, Swift.Int&gt;) -&gt; ()"
+                  moduleName = "swiftOHAR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/viplab/Documents/sOHAR/swiftOHAR/depthMaskNode.swift"
+                  timestampString = "548236888.4743299"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "5100">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "swiftOHAR.DepthMask2D.setDepthValue(bitmapImageRep: __ObjC.NSBitmapImageRep, view: __ObjC.SCNView, idDictionary: Swift.Dictionary&lt;Swift.Int, Swift.Int&gt;) -&gt; ()"
+                  moduleName = "swiftOHAR"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/viplab/Documents/sOHAR/swiftOHAR/depthMaskNode.swift"
+                  timestampString = "548236888.476946"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "104"
+                  endingLineNumber = "104"
+                  offsetFromSymbolStart = "10027">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "swiftOHAR/depthMaskNode.swift"
+            timestampString = "548237833.099725"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "108"
+            endingLineNumber = "108"
+            landmarkName = "setDepthValue(bitmapImageRep:view:idDictionary:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
