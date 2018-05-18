@@ -69,6 +69,10 @@ class ViewController: NSViewController {
         scnARView.delegate = self
         scnARView.isPlaying = true
         scnARView.preferredFramesPerSecond = 60
+        if let metalLayer = scnARView.layer as? CAMetalLayer
+        {
+            metalLayer.framebufferOnly = false
+        }
         //commandQueue = device?.makeCommandQueue()
         
     }
@@ -107,6 +111,7 @@ class ViewController: NSViewController {
                 DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView,idDictionary: MS.idDictionary)
             })
             DM.refresh()
+            
         }
         rs.nsDetectedColorImage()
 //        if cbMarkerDetection.state == NSOnState
@@ -129,6 +134,11 @@ class ViewController: NSViewController {
 extension ViewController : SCNSceneRendererDelegate
 {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        if let layer = scnARView.layer as? CAMetalLayer
+        {
+            //var texture = layer.currentSceneDrawable?.texture
+            //print(texture)
+        }
         CalculateExecuteTime(title: "All render time", call: {
             renderImg()
 //            let viewport: CGRect = CGRect(x: 0, y: 0, width: 640, height: 480)

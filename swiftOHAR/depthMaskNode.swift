@@ -85,8 +85,9 @@ class DepthMask2D : SCNNode
                 {
                     for var j in nodeBoundingSize.minY..<nodeBoundingSize.maxY
                     {
-                        let point = SCNVector3(i,j,0)
-                        let unpp = view.unprojectPoint(point)
+//                        let point = SCNVector3(i,j,0)
+//                        let unpp = view.unprojectPoint(point)
+                        
                         //print("\(unpp) in (\(i),\(j))")
                     }
                 }
@@ -99,12 +100,12 @@ class DepthMask2D : SCNNode
             {
                 for var y in stride(from: measureRange.minY, to: measureRange.maxY, by: downSample)
                 {
-                    let location: CGPoint = CGPoint(x: x, y: y)
-                    let hits = self.scnView.hitTest(location, options: [SCNHitTestOption.firstFoundOnly:true])
-                    if hits.count > 0
-                    {
-                        print("x:\(x)  y:\(y)  d:\(scnView.projectPoint((hits.first?.worldCoordinates)!))")
-                    }
+//                    let location: CGPoint = CGPoint(x: x, y: y)
+//                    let hits = self.scnView.hitTest(location, options: [SCNHitTestOption.firstFoundOnly:true])
+//                    if hits.count > 0
+//                    {
+//                        print("x:\(x)  y:\(y)  d:\(scnView.projectPoint((hits.first?.worldCoordinates)!))")
+//                    }
                     let cvrtY = measureRange.getY(Y: y)
                     let whiteValue = bitmapImageRep.colorAt(x: x, y: cvrtY)!.whiteComponent
                     if whiteValue != 0
