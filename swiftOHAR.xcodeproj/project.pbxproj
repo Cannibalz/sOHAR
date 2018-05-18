@@ -43,6 +43,7 @@
 		AACBEBAA2075EF9100D41BF7 /* libopencv_imgproc.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBEBA42075EF9100D41BF7 /* libopencv_imgproc.dylib */; };
 		AACBEBAB2075EF9100D41BF7 /* libopencv_calib3d.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBEBA52075EF9100D41BF7 /* libopencv_calib3d.dylib */; };
 		AAF737F82032D6E9001B09E3 /* CalculateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF737F72032D6E9001B09E3 /* CalculateTime.swift */; };
+		AF0CF79820AECA3A008E148E /* OcclusionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0CF79720AECA3A008E148E /* OcclusionHandler.swift */; };
 		AF3B59A220AD748800C906CF /* CAMetalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B59A120AD748800C906CF /* CAMetalExtension.swift */; };
 		BC217843D3D3658EF715E76C /* markerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2179AAF737ED74CD4232D9 /* markerNode.swift */; };
 /* End PBXBuildFile section */
@@ -173,6 +174,7 @@
 		AACBEBA42075EF9100D41BF7 /* libopencv_imgproc.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_imgproc.dylib; path = ../../../../../usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_imgproc.dylib; sourceTree = "<group>"; };
 		AACBEBA52075EF9100D41BF7 /* libopencv_calib3d.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libopencv_calib3d.dylib; path = ../../../../../usr/local/Cellar/opencv/3.4.1_2/lib/libopencv_calib3d.dylib; sourceTree = "<group>"; };
 		AAF737F72032D6E9001B09E3 /* CalculateTime.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalculateTime.swift; sourceTree = "<group>"; };
+		AF0CF79720AECA3A008E148E /* OcclusionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OcclusionHandler.swift; sourceTree = "<group>"; };
 		AF3B59A120AD748800C906CF /* CAMetalExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CAMetalExtension.swift; sourceTree = "<group>"; };
 		BC2179AAF737ED74CD4232D9 /* markerNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = markerNode.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -261,6 +263,7 @@
 				4C31E79D1FD1540E00A02718 /* PointCloudVertex.swift */,
 				4CC29FA31EA4867200298246 /* AppDelegate.swift */,
 				4CC29FA51EA4867200298246 /* ViewController.swift */,
+				AF0CF79720AECA3A008E148E /* OcclusionHandler.swift */,
 				AF3B59A120AD748800C906CF /* CAMetalExtension.swift */,
 				AAF737F72032D6E9001B09E3 /* CalculateTime.swift */,
 				BC2179AAF737ED74CD4232D9 /* markerNode.swift */,
@@ -535,6 +538,7 @@
 				AF3B59A220AD748800C906CF /* CAMetalExtension.swift in Sources */,
 				4C4538F91F02412100131156 /* ARViewController.swift in Sources */,
 				4CC29FA61EA4867200298246 /* ViewController.swift in Sources */,
+				AF0CF79820AECA3A008E148E /* OcclusionHandler.swift in Sources */,
 				4C31E79C1FCE8B9200A02718 /* depthMaskNode.swift in Sources */,
 				4CB2B2A31EF1286C00FF14E0 /* cImageProcess.cpp in Sources */,
 				4C77B3D21EF7C4F6002A1B20 /* objImageProcess.mm in Sources */,

@@ -50,6 +50,7 @@ class ViewController: NSViewController {
     var markers : [Marker] = []
     var MS = markerSystem()
     var DM = DepthMask2D()
+    var occlusionHandler = OcclusionHandler()
     var planePositionIn2D = SCNVector3(480,360,0.4)
     var countt = 0
     
@@ -63,6 +64,7 @@ class ViewController: NSViewController {
         rs.initRealsense()
         DM = DepthMask2D(scnView: self.scnARView, downSample: 2, aroundMarkerOnly: true)
         MS = markerSystem(scnView: scnARView)
+        occlusionHandler = OcclusionHandler(scnView: self.scnARView)
         //scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
@@ -139,6 +141,7 @@ extension ViewController : SCNSceneRendererDelegate
             //var texture = layer.currentSceneDrawable?.texture
             //print(texture)
         }
+        occlusionHandler.getFrame()
         CalculateExecuteTime(title: "All render time", call: {
             renderImg()
 //            let viewport: CGRect = CGRect(x: 0, y: 0, width: 640, height: 480)
