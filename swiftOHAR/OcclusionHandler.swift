@@ -79,7 +79,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         context.fill(CGRect(x: 0, y: 0, width: CGFloat(50), height: CGFloat(50)))
         
         let region = MTLRegionMake2D(0, 0, 50, 50)
-        self.colorTexture.replace(region: region, mipmapLevel: 0, withBytes: &rawData0, bytesPerRow: 4*viewWidth)
+        //self.colorTexture.replace(region: region, mipmapLevel: 0, withBytes: &rawData0, bytesPerRow: 4*viewWidth)
         let fk = self.colorTexture.toImage()
         print(fk?.colorSpace)
         let MTKLoad = MTKTextureLoader(device: device)
@@ -98,13 +98,13 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
     }
     func setupRenderer()
     {
-        let colorDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: viewWidth, height: viewheight, mipmapped: false)
+        let colorDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm_srgb, width: viewWidth, height: viewheight, mipmapped: false)
         colorDescriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
         let colorTexture = device.makeTexture(descriptor: colorDescriptor)
         self.colorTexture = colorTexture
         self.colorTexture.label = "colorTexturee"
         
-        let depthDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .depth32Float, width: viewWidth, height: viewheight, mipmapped: false)
+        let depthDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .depth32Float , width: viewWidth, height: viewheight, mipmapped: false)
         depthDescriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
         depthDescriptor.resourceOptions = .storageModePrivate
         let depthTexture = device.makeTexture(descriptor: depthDescriptor)
