@@ -142,9 +142,9 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         
         let region = MTLRegionMake2D(startX, startY, needsWidth, needsHeight)
         texture.replace(region: region, mipmapLevel: 0, withBytes: &rawData, bytesPerRow: 4*needsWidth)
-        let replacedTexture = texture
-        replacedTexture.label = "rep"
-        plane.firstMaterial?.diffuse.contents = replacedTexture //getTexNow
+        self.replacedTexture = texture
+        self.replacedTexture.label = "rep"
+        //plane.firstMaterial?.diffuse.contents = replacedTexture //getTexNow
         
         return replacedTexture
     }

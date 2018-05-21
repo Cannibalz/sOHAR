@@ -22,6 +22,7 @@ class ViewController: NSViewController {
     @IBOutlet weak var depthView: NSImageView!
     @IBOutlet weak var C2DView: NSImageView!
     
+    @IBOutlet weak var replacedView: SCNView!
     @IBOutlet weak var arView: MTKView!
     @IBOutlet weak var scnARView: SCNView!
     @IBOutlet weak var tvec0: NSTextField!
@@ -136,6 +137,7 @@ class ViewController: NSViewController {
 extension ViewController : SCNSceneRendererDelegate
 {
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
+        //replacedView.backgroundColo
         if let layer = scnARView.layer as? CAMetalLayer
         {
             //var texture = layer.currentSceneDrawable?.texture
