@@ -17,6 +17,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
     var depthImageBuffer : MTLBuffer!
     var colorTexture : MTLTexture!
     var depthTexture : MTLTexture!
+    var replacedTexture : MTLTexture!
     let rgbColorSpace = CGColorSpaceCreateDeviceRGB()
     let bytesPerPixel = Int(4)
     let bitsPerComponent = Int(8)
@@ -24,6 +25,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
     let viewheight = Int(480)
     var depthValueArray = Array<Float>()
     var scnView:SCNView!
+    var plane : SCNPlane!
     override init()
     {
         super.init()
@@ -33,6 +35,8 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         self.scnView = scnView
         setupMetal()
         setupRenderer()
+        plane = SCNPlane(width: 1, height: 1)
+        self.scnView.scene?.rootNode.addChildNode(SCNNode(geometry: plane))
     }
     func getFrame()
     {
@@ -70,21 +74,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             }
         }
         commandBuffer.commit()
-        let bytesPerRow = 4 * Int(50)
-        let bitmapInfo = CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
-        
-        var rawData0 = [UInt8](repeating: 0, count: Int(50) * Int(50) * 4)
-        let context = CGContext(data: &rawData0, width: Int(50), height: Int(50), bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: rgbColorSpace, bitmapInfo: bitmapInfo)!
-        context.setFillColor(NSColor.green.cgColor)
-        context.fill(CGRect(x: 0, y: 0, width: CGFloat(50), height: CGFloat(50)))
-        
-        let region = MTLRegionMake2D(0, 0, 50, 50)
-        //self.colorTexture.replace(region: region, mipmapLevel: 0, withBytes: &rawData0, bytesPerRow: 4*viewWidth)
-        let fk = self.colorTexture.toImage()
-        print(fk?.colorSpace)
-        let MTKLoad = MTKTextureLoader(device: device)
-        let wtf = try! MTKLoad.newTexture(with: fk!, options: nil)
-        print("replace")
+        replaceTexture(texture: colorTexture, needsWidth: 50, needsHeight: 50, startX: 50, startY: 50)
     }
     func setupMetal() {
         if self.scnView.renderingAPI == SCNRenderingAPI.metal {
@@ -98,7 +88,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
     }
     func setupRenderer()
     {
-        let colorDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm_srgb, width: viewWidth, height: viewheight, mipmapped: false)
+        let colorDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm, width: viewWidth, height: viewheight, mipmapped: false)
         colorDescriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
         let colorTexture = device.makeTexture(descriptor: colorDescriptor)
         self.colorTexture = colorTexture
@@ -136,6 +126,27 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         }
         
         return (pixelValues, width, height)
+    }
+    func replaceTexture(texture:MTLTexture,needsWidth:Int,needsHeight:Int,startX:Int,startY:Int)->MTLTexture
+    {
+        texture.label = "inputTexture"
+        print(texture.pixelFormat.rawValue)
+        var rawData = [UInt8](repeating: 0, count: 4*needsWidth*needsHeight)
+        let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
+        let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
+        context.setFillColor(NSColor.brown.cgColor)
+        context.fill(CGRect(x: 0, y: 0, width: needsWidth, height: needsHeight))
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm , width: viewWidth, height: viewheight, mipmapped: false)
+        textureDescriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
+        let textureA = device.makeTexture(descriptor: textureDescriptor)
+        
+        let region = MTLRegionMake2D(startX, startY, needsWidth, needsHeight)
+        texture.replace(region: region, mipmapLevel: 0, withBytes: &rawData, bytesPerRow: 4*needsWidth)
+        let replacedTexture = texture
+        replacedTexture.label = "rep"
+        plane.firstMaterial?.diffuse.contents = replacedTexture //getTexNow
+        
+        return replacedTexture
     }
 }
 
