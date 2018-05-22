@@ -12,7 +12,7 @@ import MetalKit
 import SceneKit
 import SceneKit.ModelIO
 
-class ViewController: NSViewController {
+class ViewController: NSViewController,SCNSceneRendererDelegate {
     @IBOutlet weak var silderTvec0: NSSlider!
     @IBOutlet weak var silderTvec1: NSSlider!
     
@@ -22,7 +22,9 @@ class ViewController: NSViewController {
     @IBOutlet weak var depthView: NSImageView!
     @IBOutlet weak var C2DView: NSImageView!
     
-    @IBOutlet weak var replacedView: SCNView!
+    
+    @IBOutlet weak var mergeView: SCNView!
+    
     @IBOutlet weak var arView: MTKView!
     @IBOutlet weak var scnARView: SCNView!
     @IBOutlet weak var tvec0: NSTextField!
@@ -59,25 +61,40 @@ class ViewController: NSViewController {
     
     let device = MTLCreateSystemDefaultDevice()
     var commandQueue: MTLCommandQueue!
-    
+    var replacedScene = SCNScene()
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
         DM = DepthMask2D(scnView: self.scnARView, downSample: 2, aroundMarkerOnly: true)
         MS = markerSystem(scnView: scnARView)
-        occlusionHandler = OcclusionHandler(scnView: self.scnARView)
         //scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
         scnARView.delegate = self
         scnARView.isPlaying = true
+        
+        
+        var cameraNode : SCNNode!
+        cameraNode = SCNNode()
+        cameraNode.camera = SCNCamera()
+        cameraNode.position = SCNVector3(0, 0, 0)
+        cameraNode.name = "camera"
+        replacedScene.background.contents = NSColor.black
+        mergeView.scene = replacedScene
+        replacedScene.rootNode.addChildNode(cameraNode)
+        mergeView.delegate = self
+        mergeView.isPlaying = true
+        mergeView.antialiasingMode = .multisampling4X
+        mergeView.showsStatistics = true
+        //replacedView.scene?.rootNode.addChildNode(planeNode)
         scnARView.preferredFramesPerSecond = 60
+        
         if let metalLayer = scnARView.layer as? CAMetalLayer
         {
             metalLayer.framebufferOnly = false
         }
+        occlusionHandler = OcclusionHandler(augmentedView: self.scnARView,mergeScene:replacedScene)
         //commandQueue = device?.makeCommandQueue()
-        
     }
     override var representedObject: Any? {
         didSet {
@@ -89,6 +106,7 @@ class ViewController: NSViewController {
         timer.invalidate()
         rs.stop()
         scnARView.isPlaying = false
+        //replacedView.isPlaying = false
         print("viewDidDisappear")
         exit(0)
     }
@@ -105,15 +123,17 @@ class ViewController: NSViewController {
     {
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
+        var imageData = rs.nsD2CImage().tiffRepresentation
+        var bitmapRep = NSBitmapImageRep.init(data: imageData!)
         if doDepthMap && countt < 10 && DM.enable == true
         {
             //countt += 1
             var imageData = rs.nsD2CImage().tiffRepresentation
             var bitmapRep = NSBitmapImageRep.init(data: imageData!) //深度
-            CalculateExecuteTime(title: "Set Depth Value", call: {
-                DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView,idDictionary: MS.idDictionary)
-            })
-            DM.refresh()
+//            CalculateExecuteTime(title: "Set Depth Value", call: {
+//                DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView,idDictionary: MS.idDictionary)
+//            })
+//            DM.refresh()
             
         }
         rs.nsDetectedColorImage()
@@ -125,59 +145,27 @@ class ViewController: NSViewController {
 //        {
 //            MS.scnScene.background.contents = NSColor.black
 //        }
-        MS.scnScene.background.contents = rs.nsDetectedColorImage()
+        scnARView.scene?.background.contents = rs.nsDetectedColorImage()
+        //mergeView.scene?.background.contents = NSColor.black
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
-        
+        occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!)
         //previousXY = [projectPoint.x,projectPoint.y] //2D的xy
     }
-    
-}
-extension ViewController : SCNSceneRendererDelegate
-{
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
         //replacedView.backgroundColo
         if let layer = scnARView.layer as? CAMetalLayer
         {
             //var texture = layer.currentSceneDrawable?.texture
             //print(texture)
+            //print(texture?.pixelFormat.rawValue)
         }
         occlusionHandler.getFrame()
-        CalculateExecuteTime(title: "All render time", call: {
+        //CalculateExecuteTime(title: "All render time", call: {
             renderImg()
-//            let viewport: CGRect = CGRect(x: 0, y: 0, width: 640, height: 480)
-//            let renderPassDescriptor = MTLRenderPassDescriptor()
-//            let depthDescriptor : MTLTextureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .depth32Float , width: 640, height: 480, mipmapped: false)
-//            depthDescriptor.storageMode = .private
-//            let device = MTLCreateSystemDefaultDevice()
-//            //let depthTex = device?.makeTexture(descriptor: depthDescriptor)
-//            let depthTex = self.scnARView.device!.makeTexture(descriptor: depthDescriptor)
-//            depthTex.label = "Depth Texturyeeeeeeeeee"
-//            renderPassDescriptor.depthAttachment.texture = depthTex
-//            renderPassDescriptor.depthAttachment.loadAction = .clear
-//            renderPassDescriptor.depthAttachment.clearDepth = 1.0
-//            renderPassDescriptor.depthAttachment.storeAction = .store
-//            commandQueue = device?.makeCommandQueue()
-//            let commandBuffer = commandQueue.makeCommandBuffer()
-//            var scene1 = SCNScene()
-//            scene1 = scnARView.scene!
-//            scnRenderer.scene = scene1
-//            scnRenderer!.render(atTime: 0, viewport: viewport, commandBuffer: commandBuffer, passDescriptor: renderPassDescriptor)
-//            
-//            let depthImageBuffer:MTLBuffer = scnARView!.device!.makeBuffer(length: depthTex.width*depthTex.height*4, options: .storageModeShared)
-//            depthImageBuffer.label = "Depth Bufferrrrr"
-//            let blitCommandEncoder : MTLBlitCommandEncoder = commandBuffer.makeBlitCommandEncoder()
-//            blitCommandEncoder.copy(from: renderPassDescriptor.depthAttachment.texture!,
-//                                    sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOriginMake(0, 0, 0), sourceSize: MTLSizeMake(640, 480, 1),
-//                                    to: depthImageBuffer,
-//                                    destinationOffset: 0, destinationBytesPerRow: 4*640, destinationBytesPerImage: 4*640*480)
-//            blitCommandEncoder.endEncoding()
-//            commandBuffer.commit()
-//            print("DONE")
-            
-        })
-
+        //})
+        
     }
 }
 extension Double

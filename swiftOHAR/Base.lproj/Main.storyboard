@@ -802,8 +802,8 @@
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
                             </button>
-                            <sceneView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pME-qd-OJn">
-                                <rect key="frame" x="638" y="240" width="320" height="240"/>
+                            <sceneView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVW-eS-wss">
+                                <rect key="frame" x="670" y="241" width="320" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </sceneView>
                         </subviews>
@@ -816,7 +816,7 @@
                         <outlet property="cbUsingMask" destination="wj1-XL-Ex3" id="9KM-4N-Yv5"/>
                         <outlet property="colorView" destination="zbQ-rh-cKV" id="o3B-uZ-qOR"/>
                         <outlet property="depthView" destination="c58-nI-WNY" id="EQK-cC-ArJ"/>
-                        <outlet property="replacedView" destination="pME-qd-OJn" id="ktI-El-UcS"/>
+                        <outlet property="mergeView" destination="XVW-eS-wss" id="Jya-He-tlT"/>
                         <outlet property="scnARView" destination="GMA-kb-aXZ" id="HAc-1E-FJi"/>
                         <outlet property="silderTvec0" destination="nIC-yJ-5kw" id="RdD-J6-p6g"/>
                         <outlet property="silderTvec1" destination="l8d-BJ-5wh" id="l9T-q0-FGw"/>

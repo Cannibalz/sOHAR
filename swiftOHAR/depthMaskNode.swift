@@ -24,7 +24,7 @@ struct applyDepthWindow {
     {
         if needsConvert
         {
-            return 479-Y
+            return 480-Y
         }
         else
         {

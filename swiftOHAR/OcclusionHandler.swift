@@ -24,19 +24,61 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
     let viewWidth = Int(640)
     let viewheight = Int(480)
     var depthValueArray = Array<Float>()
-    var scnView:SCNView!
+    var augmentedView:SCNView!
     var plane : SCNPlane!
+    var mergeView:SCNView!
+    var augmentedScene:SCNScene!
+    var mergeScene:SCNScene!
     override init()
     {
         super.init()
     }
     convenience init(scnView:SCNView) {
         self.init()
-        self.scnView = scnView
+        self.augmentedView = scnView
         setupMetal()
         setupRenderer()
-        plane = SCNPlane(width: 1, height: 1)
-        self.scnView.scene?.rootNode.addChildNode(SCNNode(geometry: plane))
+        //self.scnView.scene?.rootNode.addChildNode(SCNNode(geometry: plane))
+    }
+    convenience init(augmentedView:SCNView,mergeScene:SCNScene) {
+        self.init()
+        self.augmentedView = augmentedView
+        self.augmentedScene = augmentedView.scene
+        self.mergeScene = mergeScene
+        setupMetal()
+        setupRenderer()
+        buildBackgroundPlane()
+        //self.mergeView.scene?.rootNode.addChildNode(backgroundNode)
+    }
+    func buildBackgroundPlane()
+    {
+        plane = SCNPlane(width: 6, height: 4.5)
+        let bgNode = SCNNode(geometry: plane)
+        bgNode.position = SCNVector3Make(0, 0, -4)
+        mergeScene.rootNode.addChildNode(bgNode)
+    }
+    func findComparingNeededArea(rawDepthImage:NSBitmapImageRep)
+    {
+        var measureRangeArray = Array<applyDepthWindow>()
+        for node in (augmentedScene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
+        {
+            let nodeBoundingSize = calNodeSize(node: node, view: augmentedView)
+            for var i in nodeBoundingSize.minX..<nodeBoundingSize.maxX
+            {
+                for var j in nodeBoundingSize.minY..<nodeBoundingSize.maxY
+                {
+                    //                        let point = SCNVector3(i,j,0)
+                    //                        let unpp = view.unprojectPoint(point)
+                    
+                    //print("\(unpp) in (\(i),\(j))")
+                }
+            }
+            measureRangeArray.append(applyDepthWindow(minX: nodeBoundingSize.minX, minY: nodeBoundingSize.minY, maxX: nodeBoundingSize.maxX, maxY: nodeBoundingSize.maxY, needsConvert: true))
+        }
+        if measureRangeArray.count > 0
+        {
+            replaceTexture(texture: colorTexture, areas: measureRangeArray,rawDepthImage:rawDepthImage)
+        }
     }
     func getFrame()
     {
@@ -52,8 +94,8 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         renderPassDescriptor.depthAttachment.clearDepth = 1.0
         
         let commandBuffer = commandQueue.makeCommandBuffer()
-        renderer.scene = scnView.scene
-        renderer.pointOfView = scnView.pointOfView
+        renderer.scene = augmentedScene
+        //renderer.pointOfView = scnView.pointOfView
         renderer!.render(atTime: 0, viewport: viewPort, commandBuffer: commandBuffer, passDescriptor: renderPassDescriptor)
         
         let blitCommandEncoder: MTLBlitCommandEncoder = commandBuffer.makeBlitCommandEncoder()
@@ -66,18 +108,11 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             //self.currentMap = Array(UnsafeBufferPointer(start: typedPointer, count: Int(241)*Int(240)))
             self.depthValueArray = Array(UnsafeBufferPointer(start: typedPointer, count: self.viewWidth*self.viewheight))
         })
-        for var i in 0..<depthValueArray.count
-        {
-            if depthValueArray[i] != 1.0
-            {
-                print("in x:\(Int(i%viewWidth)) y:\(Int(i/viewWidth)) : \(depthValueArray[i])")
-            }
-        }
         commandBuffer.commit()
-        replaceTexture(texture: colorTexture, needsWidth: 50, needsHeight: 50, startX: 50, startY: 50)
     }
     func setupMetal() {
-        if self.scnView.renderingAPI == SCNRenderingAPI.metal {
+        //if self.scnView.renderingAPI == SCNRenderingAPI.metal {
+        if true{
             device = MTLCreateSystemDefaultDevice()
             commandQueue = device.makeCommandQueue()
             renderer = SCNRenderer(device: device, options: nil)
@@ -130,23 +165,126 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
     func replaceTexture(texture:MTLTexture,needsWidth:Int,needsHeight:Int,startX:Int,startY:Int)->MTLTexture
     {
         texture.label = "inputTexture"
-        print(texture.pixelFormat.rawValue)
+        //print(texture.pixelFormat.rawValue)
         var rawData = [UInt8](repeating: 0, count: 4*needsWidth*needsHeight)
         let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
         let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
         context.setFillColor(NSColor.brown.cgColor)
         context.fill(CGRect(x: 0, y: 0, width: needsWidth, height: needsHeight))
+        print(rawData)
         let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm , width: viewWidth, height: viewheight, mipmapped: false)
         textureDescriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
-        let textureA = device.makeTexture(descriptor: textureDescriptor)
+        //let textureA = device.makeTexture(descriptor: textureDescriptor)
         
         let region = MTLRegionMake2D(startX, startY, needsWidth, needsHeight)
         texture.replace(region: region, mipmapLevel: 0, withBytes: &rawData, bytesPerRow: 4*needsWidth)
         self.replacedTexture = texture
         self.replacedTexture.label = "rep"
-        //plane.firstMaterial?.diffuse.contents = replacedTexture //getTexNow
-        
+        plane.firstMaterial?.diffuse.contents = replacedTexture //getTexNow
+        //self.mergeView.scene?.background.contents = replacedTexture.toImage()
         return replacedTexture
+    }
+    func replaceTexture(texture:MTLTexture,areas:Array<applyDepthWindow>,rawDepthImage:NSBitmapImageRep)->MTLTexture
+    {
+        for area in areas
+        {
+            let needsWidth:Int = area.maxX-area.minX
+            let needsHeight:Int = area.maxY-area.minY
+            var rawData = [UInt8](repeating: 0, count: 4*needsWidth*needsHeight)
+            let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
+            let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
+            //context.setFillColor(NSColor.yellow.cgColor)
+            //context.fill(CGRect(x: 0, y: 0, width: needsWidth, height: needsHeight))
+            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm , width: viewWidth, height: viewheight, mipmapped: false)
+            textureDescriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
+            //let textureA = device.makeTexture(descriptor: textureDescriptor)
+            let region = MTLRegionMake2D(area.minX, area.getY(Y: area.maxY), needsWidth, needsHeight)
+            for i in stride(from: 0, to: rawData.count, by: 4)
+            {
+                
+                rawData[i] = UInt8(arc4random_uniform(255))
+                rawData[i+1] = UInt8(arc4random_uniform(255))
+                rawData[i+2] = UInt8(arc4random_uniform(255))
+                rawData[i+3] = 255
+                
+            }
+            var count = 0
+            for var i in area.minX..<area.maxX
+            {
+                for var j in area.getY(Y: area.maxY)..<area.getY(Y: area.minY)
+                {
+                    let offset = j*viewWidth+i
+                    count+=1
+                    if depthValueArray[offset] != 1.0 && rawDepthImage.colorAt(x: i, y: j)!.whiteComponent != 0.0//rawdata & buffer的深度都有值
+                    {
+                        print("depthValue\(i),\(j)  raw:\(rawDepthImage.colorAt(x: i, y: j)!.whiteComponent) & augmented:\(depthValueArray[offset])")
+                    }
+                    else
+                    {
+                        //把augmented圖貼上
+                    }
+                }
+            }
+            print("count:\(count)")
+            
+            texture.replace(region: region, mipmapLevel: 0, withBytes: &rawData, bytesPerRow: 4*needsWidth)
+        }
+        self.replacedTexture = texture
+        self.replacedTexture.label = "rep"
+        plane.firstMaterial?.diffuse.contents = replacedTexture //getTexNow
+        return texture
+    }
+    func calNodeSize(node:SCNNode,view:SCNView) -> nodePos
+    {
+        let (localMin,localMax) = node.boundingBox
+        let min = node.convertPosition(localMin, to: nil)
+        let max = node.convertPosition(localMax, to: nil)
+        let midZ = (min.z + max.z) / 2
+        let vertices = [
+            SCNVector3(min.x, min.y, min.z), //4min 4max
+            SCNVector3(max.x, min.y, min.z),
+            SCNVector3(min.x, max.y, min.z),
+            SCNVector3(max.x, max.y, min.z),
+            SCNVector3(min.x, min.y, max.z),
+            SCNVector3(max.x, min.y, max.z),
+            SCNVector3(min.x, max.y, max.z),
+            SCNVector3(max.x, max.y, max.z)
+        ]
+        let arr = vertices.map { view.projectPoint($0) }
+        
+        var minX: CGFloat = arr.reduce(CGFloat.infinity, { $0 > $1.x ? $1.x : $0 })
+        var minY: CGFloat = arr.reduce(CGFloat.infinity, { $0 > $1.y ? $1.y : $0 })
+        //let minZ: CGFloat = arr.reduce(CGFloat.infinity, { $0 > $1.z ? $1.z : $0 })
+        var maxX: CGFloat = arr.reduce(-CGFloat.infinity, { $0 < $1.x ? $1.x : $0 })
+        var maxY: CGFloat = arr.reduce(-CGFloat.infinity, { $0 < $1.y ? $1.y : $0 })
+        //let maxZ: CGFloat = arr.reduce(-CGFloat.infinity, { $0 < $1.z ? $1.z : $0 })
+        
+        let width = maxX - minX
+        let height = maxY - minY
+        let meanX = (maxX+minX)/2
+        let meanY = (maxY+minY)/2
+        let length = ([width,height].max())!/2
+        minX = meanX-length
+        maxX = meanX+length
+        minY = meanY-length
+        maxY = meanY+length
+        if minX < 0
+        {
+            minX = 0
+        }
+        if minY < 0
+        {
+            minY = 0
+        }
+        if maxX > 640
+        {
+            maxX = 640
+        }
+        if maxY > 480
+        {
+            maxY = 480
+        }
+        return nodePos(minX : Int(minX), minY : Int(minY), maxX: Int(maxX), maxY: Int(maxY))
     }
 }
 
@@ -167,7 +305,6 @@ extension MTLTexture {
         let p = bytes()
         
         let pColorSpace = CGColorSpaceCreateDeviceRGB()
-        
         let rawBitmapInfo = CGImageAlphaInfo.noneSkipFirst.rawValue | CGBitmapInfo.byteOrder32Little.rawValue
         let bitmapInfo:CGBitmapInfo = CGBitmapInfo(rawValue: rawBitmapInfo)
         
@@ -181,7 +318,15 @@ extension MTLTexture {
         }
         let provider = CGDataProvider.init(dataInfo: nil, data: p, size: selftureSize, releaseData: releaseMaskImagePixelData)
         let cgImageRef = CGImage(width: self.width, height: self.height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: rowBytes, space: pColorSpace, bitmapInfo: bitmapInfo, provider: provider!, decode: nil, shouldInterpolate: true, intent: .defaultIntent)!
-        
-        return cgImageRef
+        let ciInput = CIImage(cgImage: cgImageRef)
+        let ctx = CIContext(options:nil)
+        let swapKernel = CIColorKernel( string:
+            "kernel vec4 swapRedAndGreenAmount(__sample s) {" +
+                "return s.bgra;" +
+            "}"
+        )
+        let ciOutput = swapKernel?.apply(withExtent: (ciInput.extent), arguments: [ciInput as Any])
+        let cgConverted = ctx.createCGImage(ciOutput!, from: ciInput.extent)
+        return cgConverted
     }
 }
