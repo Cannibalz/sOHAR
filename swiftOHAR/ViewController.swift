@@ -146,11 +146,23 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
 //            MS.scnScene.background.contents = NSColor.black
 //        }
         scnARView.scene?.background.contents = rs.nsDetectedColorImage()
+        
+        
+        
         //mergeView.scene?.background.contents = NSColor.black
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
-        occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!)
+        
+        if let nsImage = rs.nsDetectedColorImage()
+        {
+            var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
+            var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+            occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!)
+            //print(imageRef)
+            
+        }
+        
         //previousXY = [projectPoint.x,projectPoint.y] //2D的xy
     }
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {

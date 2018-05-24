@@ -134,4 +134,37 @@
 {
     return [[NSImage alloc]initWithCVMat:crs.detectedImage()];
 }
+- (CGImageRef)cgColorImage:(const cv::Mat&)cvMat //disable
+{
+    NSData *data = [NSData dataWithBytes:cvMat.data length:cvMat.elemSize() * cvMat.total()];
+    
+    CGColorSpaceRef colorSpace;
+    int BPC = 8;
+    int BPP = 0;
+    if (cvMat.elemSize() == 1 || cvMat.elemSize() == 4)
+    {
+        colorSpace = CGColorSpaceCreateDeviceGray();
+        BPP = 8;
+    }
+    else
+    {
+        colorSpace = CGColorSpaceCreateDeviceRGB();
+        BPC = 8;
+        BPP = 24;
+    }
+    CGDataProviderRef provider = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+    
+    CGImageRef imageRef = CGImageCreate(cvMat.cols,                                     // Width
+                                        cvMat.rows,                                     // Height
+                                        BPC,                                              // Bits per component
+                                        /*BPC * cvMat.elemSize()*/BPP,                           // Bits per pixel
+                                        cvMat.step[0],                                  // Bytes per row
+                                        colorSpace,                                     // Colorspace
+                                        kCGImageAlphaNone | kCGBitmapByteOrderDefault,  // Bitmap info flags
+                                        provider,                                       // CGDataProviderRef
+                                        NULL,                                           // Decode
+                                        false,                                          // Should interpolate
+                                        kCGRenderingIntentDefault);                     // Intent
+    return imageRef;
+}
 @end

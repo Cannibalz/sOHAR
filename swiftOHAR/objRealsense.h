@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <AppKit/AppKit.h>
 @interface objCRealsense : NSObject
+
 -(void)initRealsense;
 -(void)stop;
 -(NSString *)getPoseInformation;
@@ -17,6 +18,7 @@
 -(NSImage *)nsDetectedColorImage;
 -(NSImage *)nsC2DImage;
 -(NSImage *)nsD2CImage;
+-(CGImageRef)cgColorImage;
 -(void)printHelloWorld;
 -(void)waitForNextFrame;
 
