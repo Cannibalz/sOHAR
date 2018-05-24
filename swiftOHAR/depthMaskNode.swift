@@ -31,6 +31,14 @@ struct applyDepthWindow {
             return Y
         }
     }
+    func cMinY()->Int
+    {
+        return 480-self.maxX
+    }
+    func cMaxY()->Int
+    {
+        return 480-self.minY
+    }
 }
 class DepthMask2D : SCNNode
 {

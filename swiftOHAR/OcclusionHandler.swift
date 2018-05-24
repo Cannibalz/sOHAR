@@ -64,16 +64,6 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         for node in (augmentedScene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
         {
             let nodeBoundingSize = calNodeSize(node: node, view: augmentedView)
-            for var i in nodeBoundingSize.minX..<nodeBoundingSize.maxX
-            {
-                for var j in nodeBoundingSize.minY..<nodeBoundingSize.maxY
-                {
-                    //                        let point = SCNVector3(i,j,0)
-                    //                        let unpp = view.unprojectPoint(point)
-                    
-                    //print("\(unpp) in (\(i),\(j))")
-                }
-            }
             measureRangeArray.append(applyDepthWindow(minX: nodeBoundingSize.minX, minY: nodeBoundingSize.minY, maxX: nodeBoundingSize.maxX, maxY: nodeBoundingSize.maxY, needsConvert: true))
         }
         if measureRangeArray.count > 0
@@ -201,22 +191,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             var rawData = [UInt8](repeating: 0, count: 4*needsWidth*needsHeight)
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
-            let youCantSeeMe = NSColor(calibratedRed: 0, green: 0, blue: 0, alpha: 0)
-            context.setFillColor(youCantSeeMe.cgColor)
-            context.fill(CGRect(x: 0, y: 0, width: needsWidth, height: needsHeight))
-            let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm , width: viewWidth, height: viewheight, mipmapped: false)
-            textureDescriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
-            //let textureA = device.makeTexture(descriptor: textureDescriptor)
             let region = MTLRegionMake2D(area.minX, area.getY(Y: area.maxY), needsWidth, needsHeight)
-//            for i in stride(from: 0, to: rawData.count, by: 4)
-//            {
-//
-//                rawData[i] = UInt8(arc4random_uniform(255))
-//                rawData[i+1] = UInt8(arc4random_uniform(255))
-//                rawData[i+2] = UInt8(arc4random_uniform(255))
-//                rawData[i+3] = 255
-//
-//            }
             for var i in area.minX..<area.maxX
             {
                 for var j in area.getY(Y: area.maxY)..<area.getY(Y: area.minY)
@@ -242,7 +217,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                         rawData[offsetForRawData] = UInt8((rawColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
                         rawData[offsetForRawData+1] = UInt8((rawColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
                         rawData[offsetForRawData+2] = UInt8((rawColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-                        rawData[offsetForRawData+3] = 100
+                        rawData[offsetForRawData+3] = UInt8(255/2.2)
                     }
                 }
             }

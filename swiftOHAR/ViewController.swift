@@ -158,6 +158,7 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         {
             var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
             var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+            
             occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!)
             //print(imageRef)
             
@@ -169,7 +170,6 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         //replacedView.backgroundColo
         if let layer = scnARView.layer as? CAMetalLayer
         {
-            //var texture = layer.currentSceneDrawable?.texture
             //print(texture)
             //print(texture?.pixelFormat.rawValue)
         }
