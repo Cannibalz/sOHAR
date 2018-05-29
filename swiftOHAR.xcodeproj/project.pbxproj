@@ -45,6 +45,7 @@
 		AAF737F82032D6E9001B09E3 /* CalculateTime.swift in Sources */ = {isa = PBXBuildFile; fileRef = AAF737F72032D6E9001B09E3 /* CalculateTime.swift */; };
 		AF0CF79820AECA3A008E148E /* OcclusionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0CF79720AECA3A008E148E /* OcclusionHandler.swift */; };
 		AF3B59A220AD748800C906CF /* CAMetalExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF3B59A120AD748800C906CF /* CAMetalExtension.swift */; };
+		AFB8C0FA20BD24E800F088B3 /* MetalPerformanceShaders.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4C4BF8EA1EF12E55004EFB93 /* MetalPerformanceShaders.framework */; };
 		BC217843D3D3658EF715E76C /* markerNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC2179AAF737ED74CD4232D9 /* markerNode.swift */; };
 /* End PBXBuildFile section */
 
@@ -184,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFB8C0FA20BD24E800F088B3 /* MetalPerformanceShaders.framework in Frameworks */,
 				AA61B02B20760FB200644E5B /* libaruco.3.0.dylib in Frameworks */,
 				AACBEBA62075EF9100D41BF7 /* libopencv_core.dylib in Frameworks */,
 				AACBEBA72075EF9100D41BF7 /* libopencv_aruco.dylib in Frameworks */,

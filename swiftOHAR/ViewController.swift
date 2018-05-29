@@ -62,17 +62,21 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
     let device = MTLCreateSystemDefaultDevice()
     var commandQueue: MTLCommandQueue!
     var replacedScene = SCNScene()
+    var offscreenView : SCNView!
+    var offscreenScene : SCNScene!
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
-        DM = DepthMask2D(scnView: self.scnARView, downSample: 2, aroundMarkerOnly: true)
+        //DM = DepthMask2D(scnView: self.scnARView, downSample: 2, aroundMarkerOnly: true)
         MS = markerSystem(scnView: scnARView)
+        offscreenView = SCNView()
+        offscreenScene = SCNScene()
+        offscreenView.scene = offscreenScene
         //scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
         scnARView.delegate = self
         scnARView.isPlaying = true
-        
         
         var cameraNode : SCNNode!
         cameraNode = SCNNode()
@@ -125,43 +129,22 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         rs.waitForNextFrame()
         var imageData = rs.nsD2CImage().tiffRepresentation
         var bitmapRep = NSBitmapImageRep.init(data: imageData!)
-        if doDepthMap && countt < 10 && DM.enable == true
-        {
-            //countt += 1
-            var imageData = rs.nsD2CImage().tiffRepresentation
-            var bitmapRep = NSBitmapImageRep.init(data: imageData!) //深度
-//            CalculateExecuteTime(title: "Set Depth Value", call: {
-//                DM.setDepthValue(bitmapImageRep: bitmapRep!, view: scnARView,idDictionary: MS.idDictionary)
-//            })
-//            DM.refresh()
-            
-        }
-        rs.nsDetectedColorImage()
-//        if cbMarkerDetection.state == NSOnState
-//        {
-//            MS.scnScene.background.contents = rs.nsDetectedColorImage()
-//        }
-//        else
-//        {
-//            MS.scnScene.background.contents = NSColor.black
-//        }
         scnARView.scene?.background.contents = rs.nsDetectedColorImage()
-        
-        
-        
         //mergeView.scene?.background.contents = NSColor.black
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
-        
-        if let nsImage = rs.nsDetectedColorImage()
+        if MS.childNodes.count > 0
         {
-            var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
-            var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-            
-            occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!)
-            //print(imageRef)
-            
+            if let nsImage = rs.nsDetectedColorImage()
+            {
+                var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
+                var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+                occlusionHandler.getFrame()
+                occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!)
+                //print(imageRef)
+                
+            }
         }
         
         //previousXY = [projectPoint.x,projectPoint.y] //2D的xy
@@ -173,7 +156,6 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
             //print(texture)
             //print(texture?.pixelFormat.rawValue)
         }
-        occlusionHandler.getFrame()
         //CalculateExecuteTime(title: "All render time", call: {
             renderImg()
         //})

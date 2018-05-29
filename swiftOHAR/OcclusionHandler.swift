@@ -68,10 +68,12 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         }
         if measureRangeArray.count > 0
         {
-            replaceTexture(texture: colorTexture, areas: measureRangeArray,rawDepthImage:rawDepthImage,rawColorImage:rawColorImage)
+            CalculateExecuteTime(title: "replaceTexture", call: {
+                replaceTexture(texture: colorTexture, areas: measureRangeArray,rawDepthImage:rawDepthImage,rawColorImage:rawColorImage)
+            })
         }
     }
-    func getFrame()
+    func getFrame() //copy buffer
     {
         let viewPort : CGRect = CGRect(x: 0, y: 0, width: viewWidth, height: viewheight)
         let renderPassDescriptor = MTLRenderPassDescriptor()
@@ -91,12 +93,13 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         
         let blitCommandEncoder: MTLBlitCommandEncoder = commandBuffer.makeBlitCommandEncoder()
         blitCommandEncoder.copy(from: renderPassDescriptor.depthAttachment.texture!, sourceSlice: 0, sourceLevel: 0, sourceOrigin: MTLOriginMake(0, 0, 0), sourceSize: MTLSizeMake(viewWidth, viewheight, 1), to: depthImageBuffer, destinationOffset: 0, destinationBytesPerRow: 4*viewWidth, destinationBytesPerImage: 4*viewWidth*viewheight)
+        
         blitCommandEncoder.endEncoding()
         
         commandBuffer.addCompletedHandler({(buffer) -> Void in
+            
             let rawPointer: UnsafeMutableRawPointer = UnsafeMutableRawPointer(mutating: self.depthImageBuffer.contents())
             let typedPointer: UnsafeMutablePointer<Float> = rawPointer.assumingMemoryBound(to: Float.self)
-            //self.currentMap = Array(UnsafeBufferPointer(start: typedPointer, count: Int(241)*Int(240)))
             self.depthValueArray = Array(UnsafeBufferPointer(start: typedPointer, count: self.viewWidth*self.viewheight))
         })
         commandBuffer.commit()
@@ -192,35 +195,35 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
             let region = MTLRegionMake2D(area.minX, area.getY(Y: area.maxY), needsWidth, needsHeight)
-            for var i in area.minX..<area.maxX
-            {
-                for var j in area.getY(Y: area.maxY)..<area.getY(Y: area.minY)
-                {
-                    let offset = j*viewWidth+i
-                    let yReverse = area.getY(Y: area.maxY)
-                    let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
-                    //print("offset:\(offsetForRawData)")
-                    
-                    if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
-                    {
-                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])")
-                        
-                            rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-                            rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-                            rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-                            rawData[offsetForRawData+3] = 255
-                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])\n--------------")
-                        
-                    }
-                    else
-                    {
-                        rawData[offsetForRawData] = UInt8((rawColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-                        rawData[offsetForRawData+1] = UInt8((rawColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-                        rawData[offsetForRawData+2] = UInt8((rawColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-                        rawData[offsetForRawData+3] = UInt8(255/2.2)
-                    }
-                }
-            }
+//            for var i in area.minX..<area.maxX
+//            {
+//                for var j in area.getY(Y: area.maxY)..<area.getY(Y: area.minY)
+//                {
+//                    let offset = j*viewWidth+i
+//                    let yReverse = area.getY(Y: area.maxY)
+//                    let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
+//                    //print("offset:\(offsetForRawData)")
+//                    
+//                    if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
+//                    {
+//                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])")
+//                        
+//                            rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
+//                            rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
+//                            rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+//                            rawData[offsetForRawData+3] = 255
+//                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])\n--------------")
+//                        
+//                    }
+//                    else
+//                    {
+//                        rawData[offsetForRawData] = UInt8((rawColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
+//                        rawData[offsetForRawData+1] = UInt8((rawColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
+//                        rawData[offsetForRawData+2] = UInt8((rawColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+//                        rawData[offsetForRawData+3] = UInt8(255/2.2)
+//                    }
+//                }
+//            }
             texture.replace(region: region, mipmapLevel: 0, withBytes: &rawData, bytesPerRow: 4*needsWidth)
         }
         self.replacedTexture = texture
