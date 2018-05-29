@@ -69,15 +69,16 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         rs.initRealsense()
         //DM = DepthMask2D(scnView: self.scnARView, downSample: 2, aroundMarkerOnly: true)
         MS = markerSystem(scnView: scnARView)
-        offscreenView = SCNView()
-        offscreenScene = SCNScene()
-        offscreenView.scene = offscreenScene
-        //scnARView.scene?.rootNode.addChildNode(DM)
+//        offscreenView = SCNView(frame: NSRect(x: 0, y: 0, width: 640, height: 480))
+//        offscreenScene = SCNScene()
+//        offscreenView.scene = offscreenScene
+//        MS = markerSystem(offscreenView: offscreenView, offscreenScene: offscreenScene)
+//        offscreenScene.rootNode.addChildNode(MS)
+        scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
         scnARView.delegate = self
-        scnARView.isPlaying = true
-        
+        //scnARView.isPlaying = true
         var cameraNode : SCNNode!
         cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -130,22 +131,23 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         var imageData = rs.nsD2CImage().tiffRepresentation
         var bitmapRep = NSBitmapImageRep.init(data: imageData!)
         scnARView.scene?.background.contents = rs.nsDetectedColorImage()
+        //offscreenScene.background.contents = rs.nsDetectedColorImage()
+        //print(offscreenScene.rootNode.childNodes.count)
         //mergeView.scene?.background.contents = NSColor.black
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
         MS.setMarkers(byJsonString: markerPoseJsonString!)
-        if MS.childNodes.count > 0
+        
+        if let nsImage = rs.nsDetectedColorImage()
         {
-            if let nsImage = rs.nsDetectedColorImage()
-            {
-                var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
-                var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-                occlusionHandler.getFrame()
-                occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!)
-                //print(imageRef)
-                
-            }
+            var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
+            var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+            occlusionHandler.getFrame()
+            occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!)
+            //print(imageRef)
+            
         }
+        
         
         //previousXY = [projectPoint.x,projectPoint.y] //2D的xy
     }

@@ -689,7 +689,7 @@
                                 <rect key="frame" x="320" y="240" width="320" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </customView>
-                            <sceneView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-kb-aXZ">
+                            <sceneView hidden="YES" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GMA-kb-aXZ">
                                 <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </sceneView>
@@ -803,7 +803,7 @@
                                 </buttonCell>
                             </button>
                             <sceneView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XVW-eS-wss">
-                                <rect key="frame" x="670" y="241" width="320" height="240"/>
+                                <rect key="frame" x="0.0" y="0.0" width="640" height="480"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             </sceneView>
                         </subviews>

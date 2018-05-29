@@ -35,30 +35,10 @@ class markerSystem : SCNNode
         super.init()
         self.name = "markerObjectNode"
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
-        let plane = SCNPlane(width: 1, height: 1)
-        //let plane = SCNBox(width: 1, height: 1, length: 1, chamferRadius: 1)
-        if #available(OSX 10.13, *) {
-            //plane.firstMaterial?.colorBufferWriteMask = SCNColorMask(rawValue: 0)
-        } else {
-            // Fallback on earlier versions
-        }
-        plane.firstMaterial?.isDoubleSided = true
-        let planeNode = SCNNode(geometry: plane)
-        planeNode.renderingOrder = 10
-        planeNode.name = "bigPlane"
-        
-        //planeNode.position = view.unprojectPoint(SCNVector3(320,240,0.5))
-        //print(view.projectPoint(planeNode.position))
-        planeNode.physicsBody = SCNPhysicsBody(type: .static, shape: nil)
-//        planeNode.physicsBody?.categoryBitMask = CollisionTypes.realDepth.rawValue
-//        planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue
-        planeNode.physicsBody?.categoryBitMask = CollisionTypes.object.rawValue
-        planeNode.physicsBody?.collisionBitMask = CollisionTypes.object.rawValue|CollisionTypes.realDepth.rawValue
-        //self.addChildNode(planeNode)
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
         virtualModelDictionary[0] = ("Mickey_Mouse","MKY.jpg")
-        
+        print("inited")
     }
     convenience init(scnView:SCNView) {
         self.init()
@@ -67,7 +47,12 @@ class markerSystem : SCNNode
         self.view.showsStatistics = true
         
     }
-    
+    convenience init(offscreenView:SCNView,offscreenScene:SCNScene) {
+        self.init()
+        self.view = offscreenView
+        self.scnScene = offscreenScene
+        
+    }
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         //fatalError("init(coder:) has not been implemented")
@@ -170,8 +155,6 @@ class markerSystem : SCNNode
 
         let arrIDKey = idDictionary.keys
 //        print(arrIDKey)
-//        print(scnScene.rootNode.childNodes)
-
         for IDKey in arrIDKey
         {
             //print("IDKey:\(IDKey)")
