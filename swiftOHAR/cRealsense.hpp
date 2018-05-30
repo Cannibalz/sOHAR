@@ -26,6 +26,7 @@ public:
     vector<cv::Vec3d> Rvecs();
     vector<aruco::Marker> markers;
     string getPoseInformation();
+    void textureShow(cv::Mat);
     void init();
     void waitForNextFrame();
     void stop();

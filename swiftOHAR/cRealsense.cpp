@@ -224,3 +224,7 @@ void cRealsense::getEulerAngles(cv::Mat &rotCamerMatrix,cv::Vec3d &eulerAngles)
                               rotMatrixZ,
                               eulerAngles);
 }
+void cRealsense::textureShow(cv::Mat image)
+{
+    cv::imshow("fdsfsfsdf", image);
+}

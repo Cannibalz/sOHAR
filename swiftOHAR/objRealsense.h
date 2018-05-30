@@ -21,7 +21,7 @@
 -(CGImageRef)cgColorImage;
 -(void)printHelloWorld;
 -(void)waitForNextFrame;
-
+-(void)convertMTLTextureToMat:(id<MTLTexture>)Texture;
 @end
 
 
