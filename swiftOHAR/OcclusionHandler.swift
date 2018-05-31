@@ -193,7 +193,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         {
             let needsWidth:Int = area.maxX-area.minX
             let needsHeight:Int = area.maxY-area.minY
-            var rawData = [UInt8](repeating: 255, count: 4*needsWidth*needsHeight)
+            var rawData = [UInt8](repeating: 0, count: 4*needsWidth*needsHeight)
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
             var data = UnsafeMutableRawPointer.allocate(bytes: 4*needsWidth*needsHeight, alignedTo: 4)

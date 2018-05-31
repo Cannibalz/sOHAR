@@ -265,7 +265,7 @@ class markerSystem : SCNNode
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {
-        let eulerAngles = SCNVector3Make(rvec[0].toCGFloatRadius()+CGFloat(2*Double.pi/2) ,-rvec[1].toCGFloatRadius(), -rvec[2].toCGFloatRadius())
+        let eulerAngles = SCNVector3Make(rvec[0].toCGFloatRadius()+CGFloat(3*Double.pi/2) ,-rvec[1].toCGFloatRadius(), -rvec[2].toCGFloatRadius())
         return eulerAngles
     }
 }
