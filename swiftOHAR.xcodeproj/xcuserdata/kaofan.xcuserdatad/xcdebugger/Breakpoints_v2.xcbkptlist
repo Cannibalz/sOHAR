@@ -15,8 +15,8 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "132"
             endingLineNumber = "132"
-            landmarkName = "Double"
-            landmarkType = "21">
+            landmarkName = "renderImg()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
-            landmarkName = "renderImg()"
+            landmarkName = "viewDidDisappear()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -47,7 +47,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "114"
             endingLineNumber = "114"
-            landmarkName = "renderImg()"
+            landmarkName = "viewDidDisappear()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -414,7 +414,9 @@
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "173"
-            endingLineNumber = "173">
+            endingLineNumber = "173"
+            landmarkName = "pngWrite(to:options:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -637,7 +639,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "87"
             endingLineNumber = "87"
-            landmarkName = "fdsfdsfsd(_:)"
+            landmarkName = "viewDidLoad()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -648,12 +650,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/depthMaskNode.swift"
-            timestampString = "544608574.487221"
+            timestampString = "550046678.239643"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "264"
             endingLineNumber = "264"
-            landmarkName = "calNodeSize(node:view:)"
+            landmarkName = "randColor()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -664,13 +666,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/depthMaskNode.swift"
-            timestampString = "544608574.487273"
+            timestampString = "550046678.23972"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "268"
-            endingLineNumber = "268"
-            landmarkName = "calNodeSize(node:view:)"
-            landmarkType = "7">
+            endingLineNumber = "268">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -680,7 +680,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/depthMaskNode.swift"
-            timestampString = "544608574.487316"
+            timestampString = "550046678.239771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "256"
