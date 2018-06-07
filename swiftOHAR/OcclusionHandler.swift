@@ -103,7 +103,6 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             let rawPointer: UnsafeMutableRawPointer = UnsafeMutableRawPointer(mutating: self.depthImageBuffer.contents())
             let typedPointer: UnsafeMutablePointer<Float> = rawPointer.assumingMemoryBound(to: Float.self)
             self.depthValueArray = Array(UnsafeBufferPointer(start: typedPointer, count: self.viewWidth*self.viewheight))
-            
         })
         commandBuffer.commit()
     }
@@ -188,6 +187,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         let nsi = NSImage(cgImage: rawColorImage, size: NSSize(width: 640, height: 480))
         
         let rawColorRef = NSBitmapImageRep(cgImage: rawColorImage)
+        
         let augColorRef = NSBitmapImageRep(cgImage: (CGAugmentedImage)!)
         for area in areas
         {
