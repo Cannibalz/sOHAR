@@ -198,8 +198,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             var rawData = [UInt8](repeating: 255, count: 4*needsWidth*needsHeight)
             var regionImage = rawColorImage.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
             let test = NSImage(cgImage: regionImage!, size: NSSize(width: needsWidth, height: needsHeight))
-            //rawData = (regionImage?.pixelsValue())!
-            rawData = pixelValues(fromCGImage: regionImage)
+            rawData = (regionImage?.pixelsValue())!
             
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
@@ -222,16 +221,14 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                         rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
                         rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
                         rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-                        rawData[offsetForRawData+3] = 255
                     }
-                    else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+100/255)//rawdata & buffer的深度都有值
+                    else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
                     {
                             //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])")
 
                             rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
                             rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
                             rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-                            rawData[offsetForRawData+3] = 255
                             //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])\n--------------")
 
                     }
@@ -378,11 +375,9 @@ extension CGImage{
             
             let colorSpace = CGColorSpaceCreateDeviceRGB()
             var intensities = [UInt8](repeating: 0, count: totalBytes)
-            
-            let contextRef = CGContext(data: &intensities, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0)
+            let bitmapInfo : CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+            let contextRef = CGContext(data: &intensities, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
             contextRef?.draw(self, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)))
-            let cg = contextRef?.makeImage()
-            let ns = NSImage(cgImage: cg!, size: NSSize(width: width, height: height))
             pixelValues = intensities
         }
         return pixelValues!

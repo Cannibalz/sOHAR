@@ -129,6 +129,7 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
         var imageData = rs.nsD2CImage().tiffRepresentation
+    
         var bitmapRep = NSBitmapImageRep.init(data: imageData!)
         scnARView.scene?.background.contents = rs.nsDetectedColorImage()
         time = time + timestep
