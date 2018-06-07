@@ -143,16 +143,18 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         if let imageRef = imageRef {
             width = imageRef.width
             height = imageRef.height
+            var ns = NSImage(cgImage: imageRef, size: NSSize(width: width, height: height))
             let bitsPerComponent = imageRef.bitsPerComponent
-            let bytesPerRow = imageRef.bytesPerRow
+            //let bytesPerRow = imageRef.bytesPerRow
+            let bytesPerRow = width*4
             let totalBytes = height * bytesPerRow
             
-            let colorSpace = CGColorSpaceCreateDeviceGray()
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
             var intensities = [UInt8](repeating: 0, count: totalBytes)
-            
-            let contextRef = CGContext(data: &intensities, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0)
+            let bitmapInfo : CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+            let contextRef = CGContext.init(data: &intensities, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
+            print(contextRef?.width)
             contextRef?.draw(imageRef, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)))
-            
             pixelValues = intensities
         }
         print(pixelValues![1442])
@@ -193,7 +195,12 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         {
             let needsWidth:Int = area.maxX-area.minX
             let needsHeight:Int = area.maxY-area.minY
-            var rawData = [UInt8](repeating: 0, count: 4*needsWidth*needsHeight)
+            var rawData = [UInt8](repeating: 255, count: 4*needsWidth*needsHeight)
+            var regionImage = rawColorImage.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
+            let test = NSImage(cgImage: regionImage!, size: NSSize(width: needsWidth, height: needsHeight))
+            //rawData = (regionImage?.pixelsValue())!
+            rawData = pixelValues(fromCGImage: regionImage)
+            
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
             var data = UnsafeMutableRawPointer.allocate(bytes: 4*needsWidth*needsHeight, alignedTo: 4)
@@ -206,28 +213,28 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             {
                 for var j in area.getY(Y: area.maxY)..<area.getY(Y: area.minY)
                 {
-//                    let offset = j*viewWidth+i
-//                    let yReverse = area.getY(Y: area.maxY)
-//                    let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
-//                    //print("offset:\(offsetForRawData)")
-//                    if rawDepthImage.colorAt(x:i,y:j)?.whiteComponent == 0
-//                    {
-//                        rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-//                        rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-//                        rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-//                        rawData[offsetForRawData+3] = 255
-//                    }
-//                    else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
-//                    {
-//                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])")
-//
-//                            rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-//                            rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-//                            rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-//                            rawData[offsetForRawData+3] = 255
-//                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])\n--------------")
-//
-//                    }
+                    let offset = j*viewWidth+i
+                    let yReverse = area.getY(Y: area.maxY)
+                    let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
+                    //print("offset:\(offsetForRawData)")
+                    if rawDepthImage.colorAt(x:i,y:j)?.whiteComponent == 0
+                    {
+                        rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
+                        rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
+                        rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+                        rawData[offsetForRawData+3] = 255
+                    }
+                    else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+100/255)//rawdata & buffer的深度都有值
+                    {
+                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])")
+
+                            rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
+                            rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
+                            rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+                            rawData[offsetForRawData+3] = 255
+                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])\n--------------")
+
+                    }
 //                    else
 //                    {
 //                        rawData[offsetForRawData] = UInt8((rawColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
@@ -356,6 +363,28 @@ extension CGImage{
         free(srcBuffer.data)
         free(destBuffer.data)
         return (dstImage?.takeRetainedValue())!
-        
+    }
+    func pixelsValue()->Array<UInt8>
+    {
+        var width = 0
+        var height = 0
+        var pixelValues: [UInt8]?
+        if self.width > 0 {
+            width = self.width
+            height = self.height
+            let bitsPerComponent = self.bitsPerComponent
+            let bytesPerRow = width*4
+            let totalBytes = height * bytesPerRow
+            
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            var intensities = [UInt8](repeating: 0, count: totalBytes)
+            
+            let contextRef = CGContext(data: &intensities, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: 0)
+            contextRef?.draw(self, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)))
+            let cg = contextRef?.makeImage()
+            let ns = NSImage(cgImage: cg!, size: NSSize(width: width, height: height))
+            pixelValues = intensities
+        }
+        return pixelValues!
     }
 }
