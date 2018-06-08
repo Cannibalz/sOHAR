@@ -186,28 +186,26 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
     {
         //rawColorData = pixelValues(fromCGImage: rawColorImage)
         let CGAugmentedImage = texture.toImage()
-        let nsi = NSImage(cgImage: rawColorImage, size: NSSize(width: 640, height: 480))
-        
         let rawColorRef = NSBitmapImageRep(cgImage: rawColorImage)
-        
         let augColorRef = NSBitmapImageRep(cgImage: (CGAugmentedImage)!)
         for area in areas
         {
             let needsWidth:Int = area.maxX-area.minX
             let needsHeight:Int = area.maxY-area.minY
-            var rawData = [UInt8](repeating: 255, count: 4*needsWidth*needsHeight)
-            var regionImage = rawColorImage.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
-            let test = NSImage(cgImage: regionImage!, size: NSSize(width: needsWidth, height: needsHeight))
-            rawData = (regionImage?.pixelsValue())!
             
+            var augRegionImage = CGAugmentedImage?.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
+            var cgContextAugRegion = augRegionImage?.pixelsValue()
+            var rawData = [UInt8](repeating: 255, count: 4*needsWidth*needsHeight)
+            var rawRegionImage = rawColorImage.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
+            rawData = (rawRegionImage?.pixelsValue())!
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
-            var data = UnsafeMutableRawPointer.allocate(bytes: 4*needsWidth*needsHeight, alignedTo: 4)
-            defer{
-                data.deallocate(bytes: 4*needsWidth*needsHeight, alignedTo: 4)
-            }
+//            var data = UnsafeMutableRawPointer.allocate(bytes: 4*needsWidth*needsHeight, alignedTo: 4)
+//            defer{
+//                data.deallocate(bytes: 4*needsWidth*needsHeight, alignedTo: 4)
+//            }
             let region = MTLRegionMake2D(area.minX, area.getY(Y: area.maxY), needsWidth, needsHeight)
-            texture.getBytes(data, bytesPerRow: 4*needsWidth, from: region, mipmapLevel: 0)
+//            texture.getBytes(data, bytesPerRow: 4*needsWidth, from: region, mipmapLevel: 0)
             for var i in area.minX..<area.maxX
             {
                 for var j in area.getY(Y: area.maxY)..<area.getY(Y: area.minY)
@@ -218,17 +216,18 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     //print("offset:\(offsetForRawData)")
                     if rawDepthImage.colorAt(x:i,y:j)?.whiteComponent == 0
                     {
-                        rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-                        rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-                        rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+                        rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]//UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
+                        rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]//UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
+                        rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]//UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+                        
                     }
                     else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
                     {
                             //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])")
 
-                            rawData[offsetForRawData] = UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-                            rawData[offsetForRawData+1] = UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-                            rawData[offsetForRawData+2] = UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+                        rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]//UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
+                        rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]//UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
+                        rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]//UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
                             //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])\n--------------")
 
                     }
