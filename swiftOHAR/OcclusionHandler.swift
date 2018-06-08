@@ -200,10 +200,6 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             rawData = (rawRegionImage?.pixelsValue())!
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
-//            var data = UnsafeMutableRawPointer.allocate(bytes: 4*needsWidth*needsHeight, alignedTo: 4)
-//            defer{
-//                data.deallocate(bytes: 4*needsWidth*needsHeight, alignedTo: 4)
-//            }
             let region = MTLRegionMake2D(area.minX, area.getY(Y: area.maxY), needsWidth, needsHeight)
 //            texture.getBytes(data, bytesPerRow: 4*needsWidth, from: region, mipmapLevel: 0)
             for var i in area.minX..<area.maxX
@@ -214,18 +210,21 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     let yReverse = area.getY(Y: area.maxY)
                     let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
                     //print("offset:\(offsetForRawData)")
+                    
                     if rawDepthImage.colorAt(x:i,y:j)?.whiteComponent == 0
                     {
-                        rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]//UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-                        rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]//UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-                        rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]//UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+                        //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
+                        rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
+                        rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
+                        rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
                         
                     }
                     else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
                     {
-                        rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]//UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-                        rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]//UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-                        rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]//UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
+                        //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
+                        rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
+                        rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
+                        rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
                     }
                 }
             }
