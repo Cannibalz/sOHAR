@@ -61,7 +61,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         bgNode.position = SCNVector3Make(0, 0, -4)
         mergeScene.rootNode.addChildNode(bgNode)
     }
-    func findComparingNeededArea(rawDepthImage:NSBitmapImageRep,rawColorImage:CGImage)
+    func findComparingNeededArea(rawDepthImage:NSBitmapImageRep,rawColorImage:CGImage,DepthData:CGImage)
     {
         var measureRangeArray = Array<applyDepthWindow>()
         for node in (augmentedScene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
@@ -72,7 +72,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         if measureRangeArray.count > 0
         {
             CalculateExecuteTime(title: "replaceTexture", call: {
-                replaceTexture(texture: colorTexture, areas: measureRangeArray,rawDepthImage:rawDepthImage,rawColorImage:rawColorImage)
+                replaceTexture(texture: colorTexture, areas: measureRangeArray,rawDepthImage:rawDepthImage,rawColorImage:rawColorImage,rawDepth:DepthData)
             })
         }
     }
@@ -182,22 +182,22 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         //self.mergeView.scene?.background.contents = replacedTexture.toImage()
         return replacedTexture
     }
-    func replaceTexture(texture:MTLTexture,areas:Array<applyDepthWindow>,rawDepthImage:NSBitmapImageRep,rawColorImage:CGImage)->MTLTexture
+    func replaceTexture(texture:MTLTexture,areas:Array<applyDepthWindow>,rawDepthImage:NSBitmapImageRep,rawColorImage:CGImage,rawDepth:CGImage)->MTLTexture
     {
         //rawColorData = pixelValues(fromCGImage: rawColorImage)
         let CGAugmentedImage = texture.toImage()
-        let rawColorRef = NSBitmapImageRep(cgImage: rawColorImage)
-        let augColorRef = NSBitmapImageRep(cgImage: (CGAugmentedImage)!)
         for area in areas
         {
             let needsWidth:Int = area.maxX-area.minX
             let needsHeight:Int = area.maxY-area.minY
-            
+            let needsCGrect = CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight)
             var augRegionImage = CGAugmentedImage?.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
             var cgContextAugRegion = augRegionImage?.pixelsValue()
             var rawData = [UInt8](repeating: 255, count: 4*needsWidth*needsHeight)
             var rawRegionImage = rawColorImage.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
             rawData = (rawRegionImage?.pixelsValue())!
+            let rawRegionDepth = rawDepth.cropping(to: needsCGrect)
+            let cgDepth = rawRegionDepth?.pixelsValue()
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
             let region = MTLRegionMake2D(area.minX, area.getY(Y: area.maxY), needsWidth, needsHeight)
@@ -211,7 +211,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
                     //print("offset:\(offsetForRawData)")
                     
-                    if rawDepthImage.colorAt(x:i,y:j)?.whiteComponent == 0
+                    if cgDepth![offsetForRawData] == 0
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
@@ -219,7 +219,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
                         
                     }
-                    else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
+                    else if depthValueArray[offset] != 1.0 && UInt8(depthValueArray[offset]*255) < (cgDepth![offsetForRawData]+45)//rawdata & buffer的深度都有值
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]

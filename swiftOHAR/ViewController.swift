@@ -128,7 +128,10 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
     {
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
-        var imageData = rs.nsD2CImage().tiffRepresentation
+        let nsDepthImage = rs.nsD2CImage()
+        var depthRect:CGRect = CGRect(x: 0, y: 0, width: nsDepthImage!.size.width, height: nsDepthImage!.size.height)
+        var cgDepthImage = nsDepthImage?.cgImage(forProposedRect: &depthRect, context: nil, hints: nil)
+        var imageData = nsDepthImage?.tiffRepresentation
     
         var bitmapRep = NSBitmapImageRep.init(data: imageData!)
         scnARView.scene?.background.contents = rs.nsDetectedColorImage()
@@ -142,7 +145,7 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
                 var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
                 var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
                 occlusionHandler.getFrame()
-                occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!)
+                occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!,DepthData:cgDepthImage!)
                 //print(imageRef)
                 
             }
