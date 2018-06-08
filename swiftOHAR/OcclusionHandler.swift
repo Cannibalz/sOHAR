@@ -185,7 +185,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
     func replaceTexture(texture:MTLTexture,areas:Array<applyDepthWindow>,rawColorImage:CGImage,rawDepth:CGImage)->MTLTexture
     {
         //rawColorData = pixelValues(fromCGImage: rawColorImage)
-        let CGAugmentedImage = texture.toImage()
+        let CGAugmentedImage = texture.toCGImage()
         for area in areas
         {
             let needsWidth:Int = area.maxX-area.minX
@@ -328,6 +328,50 @@ extension MTLTexture {
         let ciOutput = swapKernel?.apply(withExtent: (ciInput.extent), arguments: [ciInput as Any])
         let cgConverted = ctx.createCGImage(ciOutput!, from: ciInput.extent)
         return cgConverted
+    }
+    func toCGImage() -> CGImage?
+    {
+        let rowBytes = self.width * 4
+        let length = rowBytes * self.height
+        let bgraBytes = [UInt8](repeating: 0, count: length)
+        let region = MTLRegionMake2D(0, 0, self.width, self.height)
+        
+        self.getBytes(UnsafeMutableRawPointer(mutating: bgraBytes), bytesPerRow: rowBytes, from: region, mipmapLevel: 0)
+        
+        // use Accelerate framework to convert from BGRA to RGBA
+        var bgraBuffer = vImage_Buffer(data: UnsafeMutableRawPointer(mutating: bgraBytes),
+                                       height: vImagePixelCount(self.height), width: vImagePixelCount(self.width), rowBytes: rowBytes)
+        //        let rgbaBytes = [UInt8](repeating: 0, count: length)
+        //        var rgbaBuffer = vImage_Buffer(data: UnsafeMutableRawPointer(mutating: rgbaBytes),
+        //                                       height: vImagePixelCount(self.height), width: vImagePixelCount(self.width), rowBytes: rowBytes)
+        //        //let map: [UInt8] = [2, 1, 0, 3]
+        //        let map: [UInt8] = [0, 1, 2, 3]
+        //        vImagePermuteChannels_ARGB8888(&bgraBuffer, &rgbaBuffer, map, 0)
+        
+        // flipping image virtically
+        let flippedBytes = bgraBytes // share the buffer
+        //var flippedBuffer = vImage_Buffer(data: UnsafeMutableRawPointer(mutating: flippedBytes),
+        //                                height: vImagePixelCount(self.height), width: vImagePixelCount(self.width), rowBytes: rowBytes)
+        //vImageVerticalReflect_ARGB8888(&rgbaBuffer, &flippedBuffer, 0)
+        
+        // create CGImage with RGBA
+        let colorScape = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        guard let data = CFDataCreate(nil, flippedBytes, length) else { return nil }
+        guard let dataProvider = CGDataProvider(data: data) else { return nil }
+        let cgImage = CGImage(width: self.width, height: self.height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: rowBytes,
+                              space: colorScape, bitmapInfo: bitmapInfo, provider: dataProvider,
+                              decode: nil, shouldInterpolate: true, intent: .defaultIntent)
+        //        let ciInput = CIImage(cgImage: cgImage!)
+        //        let ctx = CIContext(options:nil)
+        //        let swapKernel = CIColorKernel( string:
+        //            "kernel vec4 swapRedAndGreenAmount(__sample s) {" +
+        //                "return s.bgra;" +
+        //            "}"
+        //        )
+        //        let ciOutput = swapKernel?.apply(withExtent: (ciInput.extent), arguments: [ciInput as Any])
+        //        let cgConverted = ctx.createCGImage(ciOutput!, from: ciInput.extent)
+        return cgImage
     }
 }
 extension CGImage{
