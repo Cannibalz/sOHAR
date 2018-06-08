@@ -61,7 +61,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         bgNode.position = SCNVector3Make(0, 0, -4)
         mergeScene.rootNode.addChildNode(bgNode)
     }
-    func findComparingNeededArea(rawDepthImage:NSBitmapImageRep,rawColorImage:CGImage,DepthData:CGImage)
+    func findComparingNeededArea(rawColorImage:CGImage,DepthData:CGImage)
     {
         var measureRangeArray = Array<applyDepthWindow>()
         for node in (augmentedScene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
