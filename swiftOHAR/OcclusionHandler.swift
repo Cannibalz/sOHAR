@@ -210,7 +210,8 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     let yReverse = area.getY(Y: area.maxY)
                     let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
                     //print("offset:\(offsetForRawData)")
-                    
+                    let test1 = UInt8(depthValueArray[offset]*255)
+                    let test2 = (cgDepth![offsetForRawData]+45)
                     if cgDepth![offsetForRawData] == 0
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
