@@ -223,21 +223,10 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     }
                     else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
                     {
-                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])")
-
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]//UInt8((augColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]//UInt8((augColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]//UInt8((augColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-                            //print("\(rawData[offsetForRawData]),\(rawData[offsetForRawData+1]),\(rawData[offsetForRawData+2]),\(rawData[offsetForRawData+3])\n--------------")
-
                     }
-//                    else
-//                    {
-//                        rawData[offsetForRawData] = UInt8((rawColorRef.colorAt(x: i, y: j)?.redComponent)!*255)
-//                        rawData[offsetForRawData+1] = UInt8((rawColorRef.colorAt(x: i, y: j)?.greenComponent)!*255)
-//                        rawData[offsetForRawData+2] = UInt8((rawColorRef.colorAt(x: i, y: j)?.blueComponent)!*255)
-//                        rawData[offsetForRawData+3] = UInt8(255)
-//                    }
                 }
             }
             texture.replace(region: region, mipmapLevel: 0, withBytes: &rawData, bytesPerRow: 4*needsWidth)
