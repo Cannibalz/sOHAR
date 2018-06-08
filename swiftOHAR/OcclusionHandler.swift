@@ -72,7 +72,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         if measureRangeArray.count > 0
         {
             CalculateExecuteTime(title: "replaceTexture", call: {
-                replaceTexture(texture: colorTexture, areas: measureRangeArray,rawDepthImage:rawDepthImage,rawColorImage:rawColorImage,rawDepth:DepthData)
+                replaceTexture(texture: colorTexture, areas: measureRangeArray,rawColorImage:rawColorImage,rawDepth:DepthData)
             })
         }
     }
@@ -182,7 +182,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         //self.mergeView.scene?.background.contents = replacedTexture.toImage()
         return replacedTexture
     }
-    func replaceTexture(texture:MTLTexture,areas:Array<applyDepthWindow>,rawDepthImage:NSBitmapImageRep,rawColorImage:CGImage,rawDepth:CGImage)->MTLTexture
+    func replaceTexture(texture:MTLTexture,areas:Array<applyDepthWindow>,rawColorImage:CGImage,rawDepth:CGImage)->MTLTexture
     {
         //rawColorData = pixelValues(fromCGImage: rawColorImage)
         let CGAugmentedImage = texture.toImage()
