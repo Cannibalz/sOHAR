@@ -128,9 +128,11 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
     {
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
-        var imageData = rs.nsD2CImage().tiffRepresentation
-    
-        var bitmapRep = NSBitmapImageRep.init(data: imageData!)
+        let depthImage = rs.nsD2CImage()
+        //var imageData = depthImage?.tiffRepresentation
+        var depthRect:CGRect = CGRect(x: 0, y: 0, width: depthImage!.size.width, height: depthImage!.size.height)
+        var cgDepthImage = rs.nsD2CImage()?.cgImage(forProposedRect: &depthRect, context: nil, hints: nil)
+        //var bitmapRep = NSBitmapImageRep.init(data: imageData!)
         scnARView.scene?.background.contents = rs.nsDetectedColorImage()
         time = time + timestep
         let markerPoseJsonString = rs.getPoseInformation()
@@ -142,7 +144,7 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
                 var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
                 var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
                 occlusionHandler.getFrame()
-                occlusionHandler.findComparingNeededArea(rawDepthImage:bitmapRep!,rawColorImage: imageRef!)
+                occlusionHandler.findComparingNeededArea(rawDepthImage:cgDepthImage!,rawColorImage: imageRef!)
                 //print(imageRef)
                 
             }

@@ -61,7 +61,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         bgNode.position = SCNVector3Make(0, 0, -4)
         mergeScene.rootNode.addChildNode(bgNode)
     }
-    func findComparingNeededArea(rawDepthImage:NSBitmapImageRep,rawColorImage:CGImage)
+    func findComparingNeededArea(rawDepthImage:CGImage,rawColorImage:CGImage)
     {
         var measureRangeArray = Array<applyDepthWindow>()
         for node in (augmentedScene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
@@ -182,22 +182,30 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         //self.mergeView.scene?.background.contents = replacedTexture.toImage()
         return replacedTexture
     }
-    func replaceTexture(texture:MTLTexture,areas:Array<applyDepthWindow>,rawDepthImage:NSBitmapImageRep,rawColorImage:CGImage)->MTLTexture
+    func replaceTexture(texture:MTLTexture,areas:Array<applyDepthWindow>,rawDepthImage:CGImage,rawColorImage:CGImage)->MTLTexture
     {
         //rawColorData = pixelValues(fromCGImage: rawColorImage)
-        let CGAugmentedImage = texture.toImage()
-        let rawColorRef = NSBitmapImageRep(cgImage: rawColorImage)
-        let augColorRef = NSBitmapImageRep(cgImage: (CGAugmentedImage)!)
+        let CGAugmentedImage = texture.toCGImage()
+        let nsAugmentedImage = NSImage(cgImage: CGAugmentedImage!, size: NSSize(width:640,height:480))
+        let textureDescriptor = MTLTextureDescriptor.texture2DDescriptor(pixelFormat: .rgba8Unorm , width: viewWidth, height: viewheight, mipmapped: false)
+        textureDescriptor.usage = MTLTextureUsage(rawValue: MTLTextureUsage.renderTarget.rawValue | MTLTextureUsage.shaderRead.rawValue)
         for area in areas
         {
             let needsWidth:Int = area.maxX-area.minX
             let needsHeight:Int = area.maxY-area.minY
+            let nsNeedsSize = NSSize(width: needsWidth, height: needsHeight)
+            let CGNeedSize = CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight)
             
-            var augRegionImage = CGAugmentedImage?.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
+            let augRegionImage = CGAugmentedImage?.cropping(to: CGNeedSize)
+            let nsAugRegionImage = NSImage(cgImage: augRegionImage!, size: nsNeedsSize)
             var cgContextAugRegion = augRegionImage?.pixelsValue()
             var rawData = [UInt8](repeating: 255, count: 4*needsWidth*needsHeight)
-            var rawRegionImage = rawColorImage.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
+            let rawRegionImage = rawColorImage.cropping(to: CGNeedSize)
+            let nsRawRegionImage = NSImage(cgImage: rawRegionImage!, size: nsNeedsSize)
             rawData = (rawRegionImage?.pixelsValue())!
+            let rawRegionDepth = rawDepthImage.cropping(to: CGNeedSize)
+            //let testNs = NSImage(cgImage: rawRegionDepth!, size: NSSize(width: needsWidth, height: needsHeight))
+            var rawDepthData = rawRegionDepth?.pixelsValue()
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
             let context = CGContext(data:&rawData,width:needsWidth,height:needsHeight,bitsPerComponent:Int(8),bytesPerRow:4*needsWidth,space:CGColorSpaceCreateDeviceRGB(),bitmapInfo:bitmapInfo)!
             let region = MTLRegionMake2D(area.minX, area.getY(Y: area.maxY), needsWidth, needsHeight)
@@ -211,20 +219,21 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
                     //print("offset:\(offsetForRawData)")
                     
-                    if rawDepthImage.colorAt(x:i,y:j)?.whiteComponent == 0
+                    //if rawDepthImage.colorAt(x:i,y:j)?.whiteComponent == 0
+                    if rawDepthData![offsetForRawData] == 0
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
-                        
                     }
-                    else if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float(rawDepthImage.colorAt(x:i,y:j)!.whiteComponent+45/255)//rawdata & buffer的深度都有值
+                    else //if depthValueArray[offset] != 1.0 && depthValueArray[offset] < Float((rawDepthData![offsetForRawData]+45)/255)//rawdata & buffer的深度都有值
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
+                    
                     }
                 }
             }
@@ -328,6 +337,50 @@ extension MTLTexture {
         let ciOutput = swapKernel?.apply(withExtent: (ciInput.extent), arguments: [ciInput as Any])
         let cgConverted = ctx.createCGImage(ciOutput!, from: ciInput.extent)
         return cgConverted
+    }
+    func toCGImage() -> CGImage?
+    {
+        let rowBytes = self.width * 4
+        let length = rowBytes * self.height
+        let bgraBytes = [UInt8](repeating: 0, count: length)
+        let region = MTLRegionMake2D(0, 0, self.width, self.height)
+        
+        self.getBytes(UnsafeMutableRawPointer(mutating: bgraBytes), bytesPerRow: rowBytes, from: region, mipmapLevel: 0)
+        
+        // use Accelerate framework to convert from BGRA to RGBA
+        var bgraBuffer = vImage_Buffer(data: UnsafeMutableRawPointer(mutating: bgraBytes),
+                                       height: vImagePixelCount(self.height), width: vImagePixelCount(self.width), rowBytes: rowBytes)
+//        let rgbaBytes = [UInt8](repeating: 0, count: length)
+//        var rgbaBuffer = vImage_Buffer(data: UnsafeMutableRawPointer(mutating: rgbaBytes),
+//                                       height: vImagePixelCount(self.height), width: vImagePixelCount(self.width), rowBytes: rowBytes)
+//        //let map: [UInt8] = [2, 1, 0, 3]
+//        let map: [UInt8] = [0, 1, 2, 3]
+//        vImagePermuteChannels_ARGB8888(&bgraBuffer, &rgbaBuffer, map, 0)
+        
+        // flipping image virtically
+        let flippedBytes = bgraBytes // share the buffer
+        //var flippedBuffer = vImage_Buffer(data: UnsafeMutableRawPointer(mutating: flippedBytes),
+          //                                height: vImagePixelCount(self.height), width: vImagePixelCount(self.width), rowBytes: rowBytes)
+        //vImageVerticalReflect_ARGB8888(&rgbaBuffer, &flippedBuffer, 0)
+        
+        // create CGImage with RGBA
+        let colorScape = CGColorSpaceCreateDeviceRGB()
+        let bitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
+        guard let data = CFDataCreate(nil, flippedBytes, length) else { return nil }
+        guard let dataProvider = CGDataProvider(data: data) else { return nil }
+        let cgImage = CGImage(width: self.width, height: self.height, bitsPerComponent: 8, bitsPerPixel: 32, bytesPerRow: rowBytes,
+                              space: colorScape, bitmapInfo: bitmapInfo, provider: dataProvider,
+                              decode: nil, shouldInterpolate: true, intent: .defaultIntent)
+//        let ciInput = CIImage(cgImage: cgImage!)
+//        let ctx = CIContext(options:nil)
+//        let swapKernel = CIColorKernel( string:
+//            "kernel vec4 swapRedAndGreenAmount(__sample s) {" +
+//                "return s.bgra;" +
+//            "}"
+//        )
+//        let ciOutput = swapKernel?.apply(withExtent: (ciInput.extent), arguments: [ciInput as Any])
+//        let cgConverted = ctx.createCGImage(ciOutput!, from: ciInput.extent)
+        return cgImage
     }
 }
 extension CGImage{
