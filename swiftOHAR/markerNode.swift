@@ -261,7 +261,7 @@ class markerSystem : SCNNode
         var position3D = view.unprojectPoint(position2D)
         position3D.y *= -1
         //position3D.z += 0.7
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.3),CGFloat(0.3),CGFloat(0.3))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(5),CGFloat(5),CGFloat(5))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {
