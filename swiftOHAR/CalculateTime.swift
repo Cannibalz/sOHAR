@@ -7,12 +7,13 @@
 //
 
 import Foundation
-func CalculateExecuteTime(title: String!, call: () -> Void) {
+func CalculateExecuteTime(title: String!, call: () -> Void)->Double{
     let startTime = CACurrentMediaTime()
     call()
     let endTime = CACurrentMediaTime()
-    if let title = title {
-        print("\(title): ")
-    }
-    print("Time - \(endTime - startTime)")
+//    if let title = title {
+//        print("\(title): ")
+//    }
+    //print("Time - \(endTime - startTime)")
+    return Double(endTime - startTime)
 }

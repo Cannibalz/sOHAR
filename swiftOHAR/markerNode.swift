@@ -261,11 +261,11 @@ class markerSystem : SCNNode
         var position3D = view.unprojectPoint(position2D)
         position3D.y *= -1
         //position3D.z += 0.7
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(5),CGFloat(5),CGFloat(5))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.5),CGFloat(0.5),CGFloat(0.5))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {
-        let eulerAngles = SCNVector3Make(rvec[0].toCGFloatRadius()+CGFloat(2*Double.pi/2) ,-rvec[1].toCGFloatRadius(), -rvec[2].toCGFloatRadius())
+        let eulerAngles = SCNVector3Make(rvec[0].toCGFloatRadius()+CGFloat(3*Double.pi/2) ,-rvec[1].toCGFloatRadius(), -rvec[2].toCGFloatRadius())
         return eulerAngles
     }
 }

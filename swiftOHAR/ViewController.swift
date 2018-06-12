@@ -55,8 +55,6 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
     var DM = DepthMask2D()
     var occlusionHandler = OcclusionHandler()
     var planePositionIn2D = SCNVector3(480,360,0.4)
-    var countt = 0
-    
     var ssCount = 12;
     
     let device = MTLCreateSystemDefaultDevice()
@@ -64,21 +62,36 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
     var replacedScene = SCNScene()
     var offscreenView : SCNView!
     var offscreenScene : SCNScene!
+    var depthRect:CGRect = CGRect(x: 0, y: 0, width: 640, height: 480)
+    var calRenderTime : Double = 0
+    var calMarkerTime : Double = 0
+    var putMarkerTime : Double = 0
+    
+    var calOcclusionTime : Double = 0
+    var calCopyFrameTime : Double = 0
+    var calCompareTime : Double = 0
+    var FirstotherTime : Double = 0
+    var lastotherTime : Double = 0
+    
+    var nsDepthImage = NSImage()
+    var fetchImageQueue = DispatchQueue(label:"fetchImage")
+    var calCOunt:Int = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         rs.initRealsense()
-        //DM = DepthMask2D(scnView: self.scnARView, downSample: 2, aroundMarkerOnly: true)
+        DM = DepthMask2D(scnView: self.scnARView, downSample: 2, aroundMarkerOnly: true)
         MS = markerSystem(scnView: scnARView)
 //        offscreenView = SCNView(frame: NSRect(x: 0, y: 0, width: 640, height: 480))
 //        offscreenScene = SCNScene()
 //        offscreenView.scene = offscreenScene
 //        MS = markerSystem(offscreenView: offscreenView, offscreenScene: offscreenScene)
 //        offscreenScene.rootNode.addChildNode(MS)
-        scnARView.scene?.rootNode.addChildNode(DM)
+//        scnARView.scene?.rootNode.addChildNode(DM)
         scnARView.scene?.rootNode.addChildNode(MS)
         scnARView.antialiasingMode = .multisampling4X
         scnARView.delegate = self
-        //scnARView.isPlaying = true
+//        scnARView.isPlaying = true
         var cameraNode : SCNNode!
         cameraNode = SCNNode()
         cameraNode.camera = SCNCamera()
@@ -92,13 +105,14 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         mergeView.antialiasingMode = .multisampling4X
         mergeView.showsStatistics = true
         //replacedView.scene?.rootNode.addChildNode(planeNode)
-        scnARView.preferredFramesPerSecond = 120
+        
         
 //        if let metalLayer = scnARView.layer as? CAMetalLayer
 //        {
 //            metalLayer.framebufferOnly = false
 //        }
         occlusionHandler = OcclusionHandler(augmentedView: self.scnARView,mergeScene:replacedScene)
+        
         //commandQueue = device?.makeCommandQueue()
     }
     override var representedObject: Any? {
@@ -126,36 +140,67 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
     }
     func renderImg()
     {
+        
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
-        let nsDepthImage = rs.nsD2CImage()
-        var depthRect:CGRect = CGRect(x: 0, y: 0, width: nsDepthImage!.size.width, height: nsDepthImage!.size.height)
-        var cgDepthImage = nsDepthImage?.cgImage(forProposedRect: &depthRect, context: nil, hints: nil)
-        var imageData = nsDepthImage?.tiffRepresentation
-        var bitmapRep = NSBitmapImageRep.init(data: imageData!)
-        scnARView.scene?.background.contents = rs.nsDetectedColorImage()
-        time = time + timestep
-        let markerPoseJsonString = rs.getPoseInformation()
-        MS.setMarkers(byJsonString: markerPoseJsonString!)
-        if doDepthMap
-        {
-            if let nsImage = rs.nsDetectedColorImage()
-            {
-                var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
-                var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-                occlusionHandler.getFrame()
-                occlusionHandler.findComparingNeededArea(rawColorImage: imageRef!,DepthData:cgDepthImage!)
-                //print(imageRef)
-                
-            }
+        //let startTime = CACurrentMediaTime()
+        fetchImageQueue.async {
+            self.nsDepthImage = self.rs.nsD2CImage()
         }
+        //let middleTime = CACurrentMediaTime()
+        if nsDepthImage.size.width == 640
+        {
+            let cgDepthImage = nsDepthImage.cgImage(forProposedRect: &depthRect, context: nil, hints: nil)
+            let imageData = nsDepthImage.tiffRepresentation
+            let bitmapRep = NSBitmapImageRep.init(data: imageData!)
+            
+            scnARView.scene?.background.contents = rs.nsDetectedColorImage()
+//            let endTime = CACurrentMediaTime()
+//            lastotherTime += Double(endTime-middleTime)
+//            FirstotherTime += Double(middleTime-startTime)
+            
+            //calMarkerTime += CalculateExecuteTime(title: "calMarkerTime", call: {
+                let markerPoseJsonString = rs.getPoseInformation()
+                //putMarkerTime += CalculateExecuteTime(title: "putMarker", call: {
+                    MS.setMarkers(byJsonString: markerPoseJsonString!)
+              //  })
+            //})
+            //calOcclusionTime += CalculateExecuteTime(title: "calOcclusion", call: {
+                if doDepthMap
+                {
+                    if let nsImage = rs.nsDetectedColorImage()
+                    {
+                        var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
+                        var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
+//                        calCopyFrameTime += CalculateExecuteTime(title: "COPY", call: {
+                            occlusionHandler.getFrame()
+//                        })
+//                        calCompareTime += CalculateExecuteTime(title: "copmare", call: {
+                            occlusionHandler.findComparingNeededArea(rawColorImage: imageRef!,DepthData:cgDepthImage!)
+//                        })
+                        //print(imageRef)
+                        
+                    }
+                }
+            //})
+        }
+        
         //previousXY = [projectPoint.x,projectPoint.y] //2D的xy
     }
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        //CalculateExecuteTime(title: "All render time", call: {
+        //calRenderTime += CalculateExecuteTime(title: "All render time", call: {
             renderImg()
         //})
-        
+//        calCOunt += 1
+//        if calCOunt == 10000
+//        {
+//            let doubleCount = Double(calCOunt)
+//            print("ALL render TIme : \(calRenderTime/doubleCount)")
+//            print("Marker process Time : \(calMarkerTime/doubleCount) \n \t putMarkerTime:\(putMarkerTime/doubleCount)")
+//            print("Occlusion process Time : \(calOcclusionTime/doubleCount) \n \t CopyBufferTime:\(calCopyFrameTime/doubleCount) \n \t CompareTime:\(calCompareTime/doubleCount)")
+//            print("FirstotherTime: \(FirstotherTime/doubleCount) \n \t lastotherTime: \(lastotherTime/doubleCount)")
+//            print("End")
+//        }
     }
 }
 extension Double

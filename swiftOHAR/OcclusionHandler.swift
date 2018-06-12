@@ -153,11 +153,11 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             var intensities = [UInt8](repeating: 0, count: totalBytes)
             let bitmapInfo : CGBitmapInfo = CGBitmapInfo(rawValue: CGImageAlphaInfo.premultipliedLast.rawValue)
             let contextRef = CGContext.init(data: &intensities, width: width, height: height, bitsPerComponent: bitsPerComponent, bytesPerRow: bytesPerRow, space: colorSpace, bitmapInfo: bitmapInfo.rawValue)
-            print(contextRef?.width)
+            //print(contextRef?.width)
             contextRef?.draw(imageRef, in: CGRect(x: 0.0, y: 0.0, width: CGFloat(width), height: CGFloat(height)))
             pixelValues = intensities
         }
-        print(pixelValues![1442])
+        //print(pixelValues![1442])
         return pixelValues!
     }
     func replaceTexture(texture:MTLTexture,needsWidth:Int,needsHeight:Int,startX:Int,startY:Int)->MTLTexture
@@ -210,9 +210,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     let yReverse = area.getY(Y: area.maxY)
                     let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
                     //print("offset:\(offsetForRawData)")
-                    let test1 = UInt8(depthValueArray[offset]*255)
-                    let test2 = (cgDepth![offsetForRawData]+45)
-                    if cgDepth![offsetForRawData] == 0
+                    if cgDepth![offsetForRawData] == 0 || cgDepth![offsetForRawData] >= 210
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
@@ -381,7 +379,7 @@ extension CGImage{
         var error = kvImageNoError
         var srcBuffer = vImage_Buffer()
         var destBuffer = vImage_Buffer()
-        print(self.colorSpace!)
+        //print(self.colorSpace!)
         var srcFormat = vImage_CGImageFormat(bitsPerComponent: UInt32(self.bitsPerComponent), bitsPerPixel: UInt32(self.bitsPerPixel), colorSpace:Unmanaged.passUnretained(self.colorSpace!), bitmapInfo: self.bitmapInfo, version: 0, decode: nil, renderingIntent: .defaultIntent)
         var dstFormat = vImage_CGImageFormat(bitsPerComponent: UInt32(self.bitsPerComponent), bitsPerPixel: UInt32(self.bitsPerPixel), colorSpace:Unmanaged.passUnretained(CGColorSpace(name: CGColorSpace.sRGB)!), bitmapInfo: self.bitmapInfo, version: 0, decode: nil, renderingIntent: .defaultIntent)
         let convertRef = vImageConverter_CreateWithCGImageFormat(&srcFormat, &dstFormat, nil, vImage_Flags(kvImageNoFlags), &error)
