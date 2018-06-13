@@ -143,11 +143,11 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
-        //let startTime = CACurrentMediaTime()
+        let startTime = CACurrentMediaTime()
         fetchImageQueue.async {
             self.nsDepthImage = self.rs.nsD2CImage()
         }
-        //let middleTime = CACurrentMediaTime()
+        let middleTime = CACurrentMediaTime()
         if nsDepthImage.size.width == 640
         {
             let cgDepthImage = nsDepthImage.cgImage(forProposedRect: &depthRect, context: nil, hints: nil)
@@ -155,52 +155,52 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
             let bitmapRep = NSBitmapImageRep.init(data: imageData!)
             
             scnARView.scene?.background.contents = rs.nsDetectedColorImage()
-//            let endTime = CACurrentMediaTime()
-//            lastotherTime += Double(endTime-middleTime)
-//            FirstotherTime += Double(middleTime-startTime)
+            let endTime = CACurrentMediaTime()
+            lastotherTime += Double(endTime-middleTime)
+            FirstotherTime += Double(middleTime-startTime)
             
-            //calMarkerTime += CalculateExecuteTime(title: "calMarkerTime", call: {
+            calMarkerTime += CalculateExecuteTime(title: "calMarkerTime", call: {
                 let markerPoseJsonString = rs.getPoseInformation()
-                //putMarkerTime += CalculateExecuteTime(title: "putMarker", call: {
+                putMarkerTime += CalculateExecuteTime(title: "putMarker", call: {
                     MS.setMarkers(byJsonString: markerPoseJsonString!)
-              //  })
-            //})
-            //calOcclusionTime += CalculateExecuteTime(title: "calOcclusion", call: {
+                })
+            })
+            calOcclusionTime += CalculateExecuteTime(title: "calOcclusion", call: {
                 if doDepthMap
                 {
                     if let nsImage = rs.nsDetectedColorImage()
                     {
                         var imageRect:CGRect = CGRect(x: 0, y: 0, width: nsImage.size.width, height: nsImage.size.height)
                         var imageRef = nsImage.cgImage(forProposedRect: &imageRect, context: nil, hints: nil)
-//                        calCopyFrameTime += CalculateExecuteTime(title: "COPY", call: {
+                        calCopyFrameTime += CalculateExecuteTime(title: "COPY", call: {
                             occlusionHandler.getFrame()
-//                        })
-//                        calCompareTime += CalculateExecuteTime(title: "copmare", call: {
+                        })
+                        calCompareTime += CalculateExecuteTime(title: "copmare", call: {
                             occlusionHandler.findComparingNeededArea(rawColorImage: imageRef!,DepthData:cgDepthImage!)
-//                        })
+                        })
                         //print(imageRef)
                         
                     }
                 }
-            //})
+            })
         }
         
         //previousXY = [projectPoint.x,projectPoint.y] //2D的xy
     }
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
-        //calRenderTime += CalculateExecuteTime(title: "All render time", call: {
+        calRenderTime += CalculateExecuteTime(title: "All render time", call: {
             renderImg()
-        //})
-//        calCOunt += 1
-//        if calCOunt == 10000
-//        {
-//            let doubleCount = Double(calCOunt)
-//            print("ALL render TIme : \(calRenderTime/doubleCount)")
-//            print("Marker process Time : \(calMarkerTime/doubleCount) \n \t putMarkerTime:\(putMarkerTime/doubleCount)")
-//            print("Occlusion process Time : \(calOcclusionTime/doubleCount) \n \t CopyBufferTime:\(calCopyFrameTime/doubleCount) \n \t CompareTime:\(calCompareTime/doubleCount)")
-//            print("FirstotherTime: \(FirstotherTime/doubleCount) \n \t lastotherTime: \(lastotherTime/doubleCount)")
-//            print("End")
-//        }
+        })
+        calCOunt += 1
+        if calCOunt == 10000
+        {
+            let doubleCount = Double(calCOunt)
+            print("ALL render TIme : \(calRenderTime/doubleCount)")
+            print("Marker process Time : \(calMarkerTime/doubleCount) \n \t putMarkerTime:\(putMarkerTime/doubleCount)")
+            print("Occlusion process Time : \(calOcclusionTime/doubleCount) \n \t CopyBufferTime:\(calCopyFrameTime/doubleCount) \n \t CompareTime:\(calCompareTime/doubleCount)")
+            print("totalTime:\((FirstotherTime+lastotherTime)/doubleCount) FirstotherTime: \(FirstotherTime/doubleCount) \n \t lastotherTime: \(lastotherTime/doubleCount)")
+            print("End")
+        }
     }
 }
 extension Double

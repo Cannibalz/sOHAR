@@ -67,7 +67,8 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         for node in (augmentedScene?.rootNode.childNode(withName: "markerObjectNode", recursively: true)?.childNodes)!
         {
             let nodeBoundingSize = calNodeSize(node: node, view: augmentedView)
-            measureRangeArray.append(applyDepthWindow(minX: nodeBoundingSize.minX, minY: nodeBoundingSize.minY, maxX: nodeBoundingSize.maxX, maxY: nodeBoundingSize.maxY, needsConvert: true))
+            //measureRangeArray.append(applyDepthWindow(minX: nodeBoundingSize.minX, minY: nodeBoundingSize.minY, maxX: nodeBoundingSize.maxX, maxY: nodeBoundingSize.maxY, needsConvert: true))
+            measureRangeArray.append(applyDepthWindow(minX: 0, minY: 0, maxX: 639, maxY: 479, needsConvert: true))
         }
         if measureRangeArray.count > 0
         {
