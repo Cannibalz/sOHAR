@@ -105,7 +105,9 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         mergeView.antialiasingMode = .multisampling4X
         mergeView.showsStatistics = true
         //replacedView.scene?.rootNode.addChildNode(planeNode)
-        
+        Timer.scheduledTimer(withTimeInterval: 0.033, repeats: true, block: {_ in 
+            self.depthView.image = self.nsDepthImage
+        })
         
 //        if let metalLayer = scnARView.layer as? CAMetalLayer
 //        {
@@ -140,7 +142,6 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
     }
     func renderImg()
     {
-        
         doDepthMap = !doDepthMap
         rs.waitForNextFrame()
         //let startTime = CACurrentMediaTime()
@@ -201,6 +202,10 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
 //            print("FirstotherTime: \(FirstotherTime/doubleCount) \n \t lastotherTime: \(lastotherTime/doubleCount)")
 //            print("End")
 //        }
+    }
+    func renderDepthView()
+    {
+        depthView.image = nsDepthImage
     }
 }
 extension Double

@@ -210,13 +210,18 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     let yReverse = area.getY(Y: area.maxY)
                     let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
                     //print("offset:\(offsetForRawData)")
-                    if cgDepth![offsetForRawData] == 0 || cgDepth![offsetForRawData] >= 210
+                    if cgDepth![offsetForRawData] == 0 //沒有深度值
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
-                        
+                    }
+                    else if cgDepth![offsetForRawData] >= 210 //深度值在255 屬於雜訊
+                    {
+                        rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
+                        rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
+                        rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
                     }
                     else if depthValueArray[offset] != 1.0 && UInt8(depthValueArray[offset]*255) < (cgDepth![offsetForRawData]+45)//rawdata & buffer的深度都有值
                     {
