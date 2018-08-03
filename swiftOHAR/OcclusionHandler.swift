@@ -195,7 +195,8 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
             var cgContextAugRegion = augRegionImage?.pixelsValue()
             var rawData = [UInt8](repeating: 255, count: 4*needsWidth*needsHeight)
             var rawRegionImage = rawColorImage.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
-            rawData = (rawRegionImage?.pixelsValue())!
+//            rawRegionImage = CGAugmentedImage?.cropping(to: CGRect(x: area.minX, y: area.getY(Y:area.maxY), width: needsWidth, height: needsHeight))
+            rawData = (rawRegionImage?.pixelsValue())! //顏色
             let rawRegionDepth = rawDepth.cropping(to: needsCGrect)
             let cgDepth = rawRegionDepth?.pixelsValue()
             let bitmapInfo=CGBitmapInfo.byteOrder32Big.rawValue | CGImageAlphaInfo.premultipliedLast.rawValue
@@ -213,12 +214,18 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     if cgDepth![offsetForRawData] == 0 //沒有深度值
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
+//                        rawData[offsetForRawData] = 255
+//                        rawData[offsetForRawData+1] = 0
+//                        rawData[offsetForRawData+2] = 0
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
                     }
                     else if cgDepth![offsetForRawData] >= 210 //深度值在255 屬於雜訊
                     {
+//                        rawData[offsetForRawData] = 0
+//                        rawData[offsetForRawData+1] = 255
+//                        rawData[offsetForRawData+2] = 0
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
@@ -226,6 +233,9 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     else if depthValueArray[offset] != 1.0 && UInt8(depthValueArray[offset]*255) < (cgDepth![offsetForRawData]+45)//rawdata & buffer的深度都有值
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
+//                        rawData[offsetForRawData] = 0
+//                        rawData[offsetForRawData+1] = 0
+//                        rawData[offsetForRawData+2] = 255
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
@@ -289,7 +299,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
         {
             maxY = 480
         }
-        return nodePos(minX : Int(minX), minY : Int(minY), maxX: Int(maxX), maxY: Int(maxY))
+        return nodePos(minX : Int(minX-30), minY : Int(minY-30), maxX: Int(maxX+30), maxY: Int(maxY+30))
     }
 }
 extension MTLTexture {

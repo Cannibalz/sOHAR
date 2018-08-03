@@ -119,9 +119,10 @@ cv::Mat cImageProcess::getDetectAndDrawMarkers(cv::Mat Image)
         cv::Mat oneRvecs(3,1,CV_64FC1);
         cv::Mat rotMat(4, 4, CV_64F);
         cv::Mat oneTvecs(3,1,CV_64FC1);
-        //cv::aruco::drawDetectedMarkers(arImage, corners, ids);
+//        cv::aruco::drawDetectedMarkers(arImage, corners, ids);
         float markerLength = 0.05;
         cv::aruco::estimatePoseSingleMarkers(corners, markerLength, cameraMatrix, distCoeffs, rvecs, tvecs);
+//        cv::aruco::drawDetectedMarkers(arImage, corners);
         for (int a = 0;a<3;a++)
         {
             oneRvecs.row(a).col(0) = rvecs[0][a];

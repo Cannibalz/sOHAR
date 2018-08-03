@@ -105,8 +105,9 @@ class ViewController: NSViewController,SCNSceneRendererDelegate {
         mergeView.antialiasingMode = .multisampling4X
         mergeView.showsStatistics = true
         //replacedView.scene?.rootNode.addChildNode(planeNode)
-        Timer.scheduledTimer(withTimeInterval: 0.033, repeats: true, block: {_ in 
+        Timer.scheduledTimer(withTimeInterval: 0.033, repeats: true, block: {_ in
             self.depthView.image = self.nsDepthImage
+            
         })
         
 //        if let metalLayer = scnARView.layer as? CAMetalLayer
