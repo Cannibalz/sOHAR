@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/ViewController.swift"
-            timestampString = "550651550.075222"
+            timestampString = "555836080.8719569"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "190"
-            endingLineNumber = "190"
+            startingLineNumber = "192"
+            endingLineNumber = "192"
             landmarkName = "renderer(_:updateAtTime:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.075691"
+            timestampString = "555837045.410941"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "183"
@@ -74,7 +74,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.075745"
+            timestampString = "555837045.411014"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "182"
@@ -90,7 +90,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.075791"
+            timestampString = "555837045.411067"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "72"
@@ -106,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.075834"
+            timestampString = "555837045.411118"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "79"
@@ -122,11 +122,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.075876"
+            timestampString = "555837045.411168"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "238"
-            endingLineNumber = "238"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
             landmarkName = "calNodeSize(node:view:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,7 +138,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.075918"
+            timestampString = "555837045.411216"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "156"
@@ -154,11 +154,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/ViewController.swift"
-            timestampString = "550651550.075958"
+            timestampString = "555836080.8739851"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "133"
-            endingLineNumber = "133"
+            startingLineNumber = "136"
+            endingLineNumber = "136"
             landmarkName = "fdsfdsfsd(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,7 +170,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.076275"
+            timestampString = "555837045.411294"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "63"
@@ -186,7 +186,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.076322"
+            timestampString = "555837045.411346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "194"
@@ -202,7 +202,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.076377"
+            timestampString = "555837045.411394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "193"
@@ -218,11 +218,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.076421"
+            timestampString = "555837045.411441"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "417"
-            endingLineNumber = "417">
+            startingLineNumber = "419"
+            endingLineNumber = "419">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -232,7 +232,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.076465"
+            timestampString = "555837045.411489"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "191"
@@ -248,11 +248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.076508"
+            timestampString = "555837045.411545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
+            startingLineNumber = "255"
+            endingLineNumber = "255"
             landmarkName = "calNodeSize(node:view:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -263,29 +263,77 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "swiftOHAR/OcclusionHandler.swift"
-            timestampString = "550651550.076551"
+            filePath = "swiftOHAR/ViewController.swift"
+            timestampString = "555836080.875909"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "234"
-            endingLineNumber = "234"
-            landmarkName = "replaceTexture(texture:areas:rawColorImage:rawDepth:)"
+            startingLineNumber = "204"
+            endingLineNumber = "204"
+            landmarkName = "renderer(_:updateAtTime:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "swiftOHAR/ViewController.swift"
-            timestampString = "550651550.076594"
+            timestampString = "555836080.875958"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "renderer(_:updateAtTime:)"
+            startingLineNumber = "158"
+            endingLineNumber = "158"
+            landmarkName = "renderImg()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "swiftOHAR/ViewController.swift"
+            timestampString = "555836080.876003"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "176"
+            endingLineNumber = "176"
+            landmarkName = "renderImg()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "swiftOHAR/ViewController.swift"
+            timestampString = "555836080.8760459"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "renderImg()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "swiftOHAR/OcclusionHandler.swift"
+            timestampString = "555837045.411629"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
+            landmarkName = "replaceTexture(texture:areas:rawColorImage:rawDepth:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

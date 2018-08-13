@@ -210,6 +210,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     let offset = j*viewWidth+i
                     let yReverse = area.getY(Y: area.maxY)
                     let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
+//                    print("DVA value: \(depthValueArray[offset])")
                     //print("offset:\(offsetForRawData)")
                     if cgDepth![offsetForRawData] == 0 || cgDepth![offsetForRawData] >= 210
                     {
@@ -219,9 +220,10 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
                         
                     }
-                    else if depthValueArray[offset] != 1.0 && UInt8(depthValueArray[offset]*255) < (cgDepth![offsetForRawData]+45)//rawdata & buffer的深度都有值
+                    else if depthValueArray[offset] != 1.0 && UInt16(depthValueArray[offset]*255) < UInt16(cgDepth![offsetForRawData]+45)//rawdata & buffer的深度都有值
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
+                        
                         rawData[offsetForRawData] = cgContextAugRegion![offsetForRawData]
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]

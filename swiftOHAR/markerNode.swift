@@ -36,7 +36,7 @@ class markerSystem : SCNNode
         self.name = "markerObjectNode"
         scnScene.rootNode.addChildNode(buildCameraNode(x: 0,y: 0,z: 5))
         virtualModelDictionary[228] = ("Mickey_Mouse","MKY.jpg")
-        virtualModelDictionary[10] = ("Mickey_Mouse","MKY.jpg")
+        virtualModelDictionary[10] = ("lowpolytree","MKY.jpg")
         virtualModelDictionary[0] = ("Mickey_Mouse","MKY.jpg")
         print("inited")
     }
@@ -261,7 +261,8 @@ class markerSystem : SCNNode
         var position3D = view.unprojectPoint(position2D)
         position3D.y *= -1
         //position3D.z += 0.7
-        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.5),CGFloat(0.5),CGFloat(0.5))]
+        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.3),CGFloat(0.3),CGFloat(0.3))]
+//        return ["position" :position3D,"scale":SCNVector3Make(CGFloat(0.01),CGFloat(0.01),CGFloat(0.01))]
     }
     func makeEularAngles(rvec : [Double]) -> SCNVector3
     {
