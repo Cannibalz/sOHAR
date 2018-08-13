@@ -230,7 +230,7 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                         rawData[offsetForRawData+1] = cgContextAugRegion![offsetForRawData+1]
                         rawData[offsetForRawData+2] = cgContextAugRegion![offsetForRawData+2]
                     }
-                    else if depthValueArray[offset] != 1.0 && UInt8(depthValueArray[offset]*255) < (cgDepth![offsetForRawData]+45)//rawdata & buffer的深度都有值
+                    else if depthValueArray[offset] != 1.0 && UInt16(depthValueArray[offset]*255) < UInt16(cgDepth![offsetForRawData]+45)//rawdata & buffer的深度都有值
                     {
                         //rawData.replaceSubrange(Range(offsetForRawData...offsetForRawData+2), with: cgContextAugRegion![offsetForRawData...offsetForRawData+2])
 //                        rawData[offsetForRawData] = 0
