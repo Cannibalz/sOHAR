@@ -210,6 +210,8 @@ class OcclusionHandler: NSObject,SCNSceneRendererDelegate {
                     let offset = j*viewWidth+i
                     let yReverse = area.getY(Y: area.maxY)
                     let offsetForRawData = ((j-yReverse)*needsWidth+(i-area.minX))*4
+//                    print("depthValueArray: \(UInt16(depthValueArray[offset]*255))")
+//                    print("cgDepth: \(UInt16(cgDepth![offsetForRawData]+45))")
                     //print("offset:\(offsetForRawData)")
                     if cgDepth![offsetForRawData] == 0 //沒有深度值
                     {
